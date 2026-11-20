@@ -1,0 +1,287 @@
+[
+  {
+    "id": 1,
+    "tier": "Easy",
+    "topic": "Symmetric vs Asymmetric Fundamentals",
+    "question": "In classical symmetric cryptography, both sender and receiver use a single shared key. What primary operational challenge does this model introduce in large-scale networks?",
+    "options": [
+      "Key distribution problem across untrusted communication channels",
+      "Inability to perform high-speed hardware block encryption",
+      "Vulnerability to Grover's quantum search algorithm only",
+      "Requirement for a public-key certificate authority hierarchy"
+    ],
+    "correct_index": 0,
+    "marks": 1,
+    "explanation": "Symmetric cryptography requires both parties to securely share the secret key beforehand, creating the classic N*(N-1)/2 key exchange and distribution problem in large networks."
+  },
+  {
+    "id": 2,
+    "tier": "Easy",
+    "topic": "Cryptographic Hash Functions (Movie Tie-In: Ultron Consciousness Checksum)",
+    "question": "When verifying the integrity of Ultron's neural network code, modifying a single bit in the input source produces an unpredictable, drastic change across the entire output digest. What is this property called?",
+    "options": [
+      "The Avalanche Effect",
+      "Pre-image Resistance",
+      "Homomorphic Expansion",
+      "Differential Cryptanalysis"
+    ],
+    "correct_index": 0,
+    "marks": 1,
+    "explanation": "The avalanche effect is a crucial property of cryptographic hashes and block ciphers where a small change in the input (e.g., flipping 1 bit) changes approximately half of the output bits."
+  },
+  {
+    "id": 3,
+    "tier": "Easy",
+    "topic": "Data Encryption Standard (DES) Architecture",
+    "question": "The legacy Data Encryption Standard (DES) processes data in 64-bit blocks. What is the actual effective key length used for encryption after parity bits are discarded?",
+    "options": [
+      "56 bits",
+      "64 bits",
+      "48 bits",
+      "128 bits"
+    ],
+    "correct_index": 0,
+    "marks": 1,
+    "explanation": "Although a DES key is represented as 64 bits, every 8th bit is used as an odd-parity check bit, leaving only 56 effective bits for cryptographic security."
+  },
+  {
+    "id": 4,
+    "tier": "Easy",
+    "topic": "Block vs Stream Ciphers",
+    "question": "Which category of symmetric ciphers encrypts continuous plaintext bit-by-bit or byte-by-byte using a pseudorandom keystream combined via the XOR operation?",
+    "options": [
+      "Stream Ciphers",
+      "Block Ciphers",
+      "Asymmetric Ciphers",
+      "Permutation Networks"
+    ],
+    "correct_index": 0,
+    "marks": 1,
+    "explanation": "Stream ciphers (e.g., RC4, ChaCha20) generate a continuous pseudorandom keystream and XOR it directly with plaintext digits, making them ideal for real-time streaming audio/video."
+  },
+  {
+    "id": 5,
+    "tier": "Easy",
+    "topic": "RSA Asymmetric Cryptography Basics",
+    "question": "The security of the Rivest-Shamir-Adleman (RSA) public-key cryptosystem fundamentally relies on the mathematical difficulty of which computational problem?",
+    "options": [
+      "Factoring large composite numbers into their two prime factors",
+      "Solving the discrete logarithm problem over finite fields",
+      "Finding shortest vectors in high-dimensional geometric lattices",
+      "Computing modular square roots without quadratic residue clues"
+    ],
+    "correct_index": 0,
+    "marks": 1,
+    "explanation": "RSA's one-way trapdoor function relies on the integer factorization problem: multiplying two large primes p and q is easy, but factoring n = p*q is computationally infeasible for large key sizes."
+  },
+  {
+    "id": 6,
+    "tier": "Medium",
+    "topic": "Advanced Encryption Standard (AES) Parameters",
+    "question": "The Advanced Encryption Standard (AES) operates on a fixed 128-bit block size. What are its standard key sizes and their corresponding number of transformation rounds?",
+    "options": [
+      "128-bit (10 rounds), 192-bit (12 rounds), 256-bit (14 rounds)",
+      "64-bit (8 rounds), 128-bit (10 rounds), 256-bit (12 rounds)",
+      "128-bit (12 rounds), 192-bit (14 rounds), 256-bit (16 rounds)",
+      "128-bit (16 rounds), 256-bit (32 rounds), 512-bit (64 rounds)"
+    ],
+    "correct_index": 0,
+    "marks": 1,
+    "explanation": "AES (Rijndael) specifies a fixed block size of 128 bits with key lengths of 128, 192, and 256 bits requiring 10, 12, and 14 rounds respectively."
+  },
+  {
+    "id": 7,
+    "tier": "Medium",
+    "topic": "Diffie-Hellman Key Exchange (Movie Tie-In: Oslo NEXUS Hub)",
+    "question": "When JARVIS negotiates an ephemeral session key with the Oslo NEXUS Internet Hub using Diffie-Hellman, what mathematical trapdoor prevents an eavesdropper from calculating the shared secret?",
+    "options": [
+      "The Discrete Logarithm Problem in multiplicative cyclic groups",
+      "The computational difficulty of integer polynomial division",
+      "The irreversibility of the Rijndael MixColumns matrix multiplication",
+      "The avalanche expansion of Merkle-Damg\u00e5rd iterative compression"
+    ],
+    "correct_index": 0,
+    "marks": 1,
+    "explanation": "Diffie-Hellman security is based on the difficulty of the Discrete Logarithm Problem: given g, p, and g^a mod p, it is computationally hard to deduce the private exponent a."
+  },
+  {
+    "id": 8,
+    "tier": "Medium",
+    "topic": "AES Internal Round Transformations",
+    "question": "During a standard round of AES encryption, which specific transformation provides non-linear byte substitution to thwart linear and differential cryptanalysis attacks?",
+    "options": [
+      "SubBytes (utilizing the multiplicative inverse in GF(2^8) and an affine map)",
+      "ShiftRows (cyclically shifting the rows of the state array to the left)",
+      "MixColumns (multiplying state columns by a fixed polynomial matrix)",
+      "AddRoundKey (bitwise XORing the state matrix with the expanded round subkey)"
+    ],
+    "correct_index": 0,
+    "marks": 1,
+    "explanation": "SubBytes is the sole non-linear transformation in AES, mapping each byte using an invertible S-box constructed from the multiplicative inverse over Galois Field GF(2^8) followed by an affine transformation."
+  },
+  {
+    "id": 9,
+    "tier": "Medium",
+    "topic": "Block Cipher Modes of Operation (ECB Vulnerability)",
+    "question": "Why is Electronic Codebook (ECB) mode strictly prohibited for encrypting structured messages, database records, and bitmap images in production systems?",
+    "options": [
+      "Identical plaintext blocks produce identical ciphertext blocks, preserving data patterns",
+      "It requires a 128-bit cryptographically secure non-repeating Initialization Vector (IV)",
+      "Bit errors in one ciphertext block propagate indefinitely across all subsequent blocks",
+      "It does not support parallelized multi-threaded hardware processing"
+    ],
+    "correct_index": 0,
+    "marks": 1,
+    "explanation": "ECB encrypts each block independently without an IV or chaining. Identical 16-byte plaintext blocks yield identical ciphertext blocks, visually revealing high-level patterns (the famous ECB Tux penguin leak)."
+  },
+  {
+    "id": 10,
+    "tier": "Medium",
+    "topic": "DES Feistel Network Architecture",
+    "question": "The DES algorithm is structured upon a Feistel Network. How does a Feistel structure process a 64-bit plaintext block during each iterative round?",
+    "options": [
+      "It splits the block into Left (L) and Right (R) 32-bit halves: L_i = R_{i-1} and R_i = L_{i-1} \u2295 F(R_{i-1}, K_i)",
+      "It multiplies all 64 bits simultaneously by a 4x4 matrix over a finite field GF(2^4)",
+      "It applies an asymmetric modular exponentiation using the public key and round counter",
+      "It compresses the 64-bit block into a 32-bit digest before appending a parity checksum"
+    ],
+    "correct_index": 0,
+    "marks": 1,
+    "explanation": "In a Feistel cipher, the block is divided into two 32-bit halves. The right half becomes the next round's left half, while the right half is updated by XORing the left half with the round function output F(R, K)."
+  },
+  {
+    "id": 11,
+    "tier": "Hard",
+    "topic": "RSA Mathematics & Key Derivation",
+    "question": "In an RSA key generation procedure, an analyst selects two prime numbers p = 61 and q = 53. What is the value of Euler's totient function \u03c6(n), which is required to calculate the private decryption exponent d?",
+    "options": [
+      "3120",
+      "3233",
+      "3116",
+      "3286"
+    ],
+    "correct_index": 0,
+    "marks": 1,
+    "explanation": "Euler's totient function for two distinct primes p and q is calculated as \u03c6(n) = (p - 1) * (q - 1). Here, \u03c6(n) = (61 - 1) * (53 - 1) = 60 * 52 = 3120."
+  },
+  {
+    "id": 12,
+    "tier": "Hard",
+    "topic": "Asymmetric Cryptanalysis (Movie Tie-In: Ultron Nuclear Protocol)",
+    "question": "Ultron attempts to tamper with digital launch commands signed using unpadded RSA with public exponent e = 3 sent across multiple nodes. What cryptographic attack exploits small public exponents when messages lack OAEP padding?",
+    "options": [
+      "Coppersmith's Low Public Exponent Attack / H\u00e5stad's Broadcast Attack",
+      "Bleichenbacher's Chosen-Ciphertext Padding Oracle Attack on PKCS#1 v1.5",
+      "Shor's Quantum Polynomial Factoring Algorithm",
+      "Meet-in-the-Middle Key Collision Cryptanalysis"
+    ],
+    "correct_index": 0,
+    "marks": 1,
+    "explanation": "When an unpadded RSA public exponent e is very small (e.g., e = 3) and the same message is encrypted to multiple recipients, H\u00e5stad's Broadcast Attack and Coppersmith's theorem allow recovering the plaintext using the Chinese Remainder Theorem."
+  },
+  {
+    "id": 13,
+    "tier": "Hard",
+    "topic": "Hash Collision Attacks & The Birthday Paradox",
+    "question": "According to the Birthday Paradox, finding any two arbitrary distinct messages m1 \u2260 m2 such that Hash(m1) = Hash(m2) for an n-bit cryptographic hash output requires approximately how many hash evaluations?",
+    "options": [
+      "2^(n/2) operations",
+      "2^n operations",
+      "2^(n - 1) operations",
+      "n^2 operations"
+    ],
+    "correct_index": 0,
+    "marks": 1,
+    "explanation": "Due to the mathematics of the birthday paradox, finding a collision (two arbitrary messages with identical hash) takes only O(2^(n/2)) evaluations, which is why a 128-bit hash (like MD5) offers only 64 bits of collision resistance."
+  },
+  {
+    "id": 14,
+    "tier": "Hard",
+    "topic": "Authenticated Encryption with Associated Data (AEAD)",
+    "question": "Which modern block cipher mode combines Counter (CTR) mode encryption with a Galois universal hash function to achieve both confidentiality and message integrity (AEAD) in high-throughput TLS 1.3 connections?",
+    "options": [
+      "Galois/Counter Mode (GCM)",
+      "Cipher Block Chaining with Message Authentication Code (CBC-MAC)",
+      "Output Feedback Mode (OFB)",
+      "Propagating Cipher Feedback Mode (PCBC)"
+    ],
+    "correct_index": 0,
+    "marks": 1,
+    "explanation": "AES-GCM (Galois/Counter Mode) provides Authenticated Encryption with Associated Data (AEAD) by combining CTR mode for encryption with GMAC for authentication, enabling high hardware throughput."
+  },
+  {
+    "id": 15,
+    "tier": "Hard",
+    "topic": "Elliptic Curve Cryptography (ECC) Advantages",
+    "question": "Why is Elliptic Curve Cryptography (ECC) widely adopted to replace legacy RSA in modern TLS certificates, cryptocurrency wallets, and mobile devices?",
+    "options": [
+      "It offers equivalent security levels with substantially smaller key sizes and lower compute latency",
+      "It is completely immune to quantum computers running Shor's algorithm",
+      "It does not require modular arithmetic or finite field operations during key generation",
+      "It allows symmetric multi-party hardware block streaming without an IV"
+    ],
+    "correct_index": 0,
+    "marks": 1,
+    "explanation": "A 256-bit ECC key provides equivalent cryptographic strength to a 3072-bit RSA key, drastically reducing memory usage, certificate transfer bandwidth, and processor power on mobile devices."
+  },
+  {
+    "id": 16,
+    "tier": "Spare",
+    "topic": "Triple DES (3DES) & Meet-in-the-Middle Attack",
+    "question": "[SPARE-01] Triple DES (3DES) executes an Encrypt-Decrypt-Encrypt (EDE) sequence using three 56-bit keys (168 bits total). Why is its effective cryptographic security bounded at only 112 bits?",
+    "options": [
+      "Vulnerability to Meet-in-the-Middle (MitM) space-time tradeoff attacks",
+      "Weak parity bits leaked during the intermediate DES decryption pass",
+      "The Feistel function S-box saturation limit under differential analysis",
+      "The Sweet32 birthday collision attack on 64-bit block ciphers"
+    ],
+    "correct_index": 0,
+    "marks": 1,
+    "explanation": "A Meet-in-the-Middle attack computes encryptions from one end and decryptions from the other, finding matching intermediate states in 2^112 operations, reducing 3DES effective strength from 168 to 112 bits."
+  },
+  {
+    "id": 17,
+    "tier": "Spare",
+    "topic": "Security Services (Movie Tie-In: Cradle Biometric Authorizations)",
+    "question": "[SPARE-02] Dr. Helen Cho's Regeneration Cradle requires a cryptographic proof that prevents the transmitting entity from falsely denying that they originated a signed medical synthesis payload. What security property is this?",
+    "options": [
+      "Non-Repudiation",
+      "Confidentiality",
+      "Availability",
+      "Forward Secrecy"
+    ],
+    "correct_index": 0,
+    "marks": 1,
+    "explanation": "Non-repudiation ensures that a sender cannot refute having sent a message or initiated a transaction, mathematically guaranteed through asymmetric private-key digital signatures."
+  },
+  {
+    "id": 18,
+    "tier": "Spare",
+    "topic": "Cipher Block Chaining (CBC) Initialization Vectors",
+    "question": "[SPARE-03] When implementing AES in Cipher Block Chaining (CBC) mode, what critical vulnerability is introduced if the Initialization Vector (IV) is predictable or repeated across multiple messages?",
+    "options": [
+      "Watermarking and Chosen-Plaintext Attacks (e.g., BEAST protocol attack)",
+      "Direct recovery of the 256-bit master symmetric encryption key",
+      "Permanent collapse of the Galois multiplication lookup table",
+      "Inversion of the SHA-256 HMAC integrity checksum"
+    ],
+    "correct_index": 0,
+    "marks": 1,
+    "explanation": "In CBC mode, if an attacker can predict the IV of the next message, they can construct a chosen plaintext that tests hypotheses about previous blocks, breaking IND-CPA security (as demonstrated in the BEAST attack)."
+  },
+  {
+    "id": 19,
+    "tier": "Spare",
+    "topic": "Perfect Forward Secrecy (PFS)",
+    "question": "[SPARE-04] Which cryptographic design principle ensures that an adversary who records encrypted network traffic today and subsequently steals the server's master private key years later STILL cannot decrypt that recorded traffic?",
+    "options": [
+      "Perfect Forward Secrecy (PFS) via Ephemeral Diffie-Hellman",
+      "Zero-Knowledge Range Proofs",
+      "Quantum Key Distribution (QKD)",
+      "Homomorphic Asymmetric Masking"
+    ],
+    "correct_index": 0,
+    "marks": 1,
+    "explanation": "Perfect Forward Secrecy (PFS) generates unique, disposable session keys for every communication session using ephemeral Diffie-Hellman (DHE/ECDHE). Compromising the server's long-term key does not reveal past session keys."
+  }
+]

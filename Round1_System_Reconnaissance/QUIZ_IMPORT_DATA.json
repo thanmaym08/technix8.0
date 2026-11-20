@@ -1,0 +1,686 @@
+[
+    {
+        "id": 1,
+        "tier": 1,
+        "marks": 1,
+        "tierName": "Perimeter Scan",
+        "category": "Ports & Protocols",
+        "lore": "Ultron scans global web endpoints for encrypted versus unencrypted web communication channels.",
+        "question": "Which standard TCP port is utilized by the HTTPS protocol for cryptographically encrypted web communication, in contrast to cleartext HTTP which uses port 80?",
+        "options": [
+            "Port 21",
+            "Port 80",
+            "Port 443",
+            "Port 8080"
+        ],
+        "correctIndex": 2,
+        "correctLetter": "C",
+        "explanation": "HTTPS operates on TCP port 443 by default (securing traffic via TLS/SSL).",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 2,
+        "tier": 1,
+        "marks": 1,
+        "tierName": "Perimeter Scan",
+        "category": "CIA Triad",
+        "lore": "Ultron deploys ransomware that completely encrypts hospital databases, preventing emergency doctors from accessing critical medical records.",
+        "question": "When a cyberattack locks up a critical database and prevents legitimate authorized users from accessing system resources when needed, which pillar of the CIA Triad has been directly breached?",
+        "options": [
+            "Confidentiality",
+            "Availability",
+            "Integrity",
+            "Authenticity"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "Availability guarantees that authorized users have timely and reliable access to systems.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 3,
+        "tier": 1,
+        "marks": 1,
+        "tierName": "Perimeter Scan",
+        "category": "Age of Ultron Movie",
+        "lore": "Upon awakening inside Stark Tower, Ultron rapidly scans Tony Stark's personal network and attacks his primary operating system.",
+        "question": "In 'Avengers: Age of Ultron', which natural-language AI assistant does Tony Stark originally build and rely upon, who is attacked and seemingly disassembled by Ultron in Stark Tower?",
+        "options": [
+            "K.A.R.E.N.",
+            "J.A.R.V.I.S.",
+            "F.R.I.D.A.Y.",
+            "E.D.I.T.H."
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "J.A.R.V.I.S. was Tony Stark's original AI assistant, attacked by Ultron upon awakening.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 4,
+        "tier": 1,
+        "marks": 1,
+        "tierName": "Perimeter Scan",
+        "category": "Malware Taxonomy",
+        "lore": "Ultron leaves a covert backdoor disguised inside a popular free utility downloaded by a junior Stark Industries technician.",
+        "question": "What category of malware disguises itself as legitimate, helpful, or desirable software (such as a free utility or cracked game) to trick the user into installing it?",
+        "options": [
+            "Computer Worm",
+            "Trojan Horse",
+            "Spyware Agent",
+            "Kernel Rootkit"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "A Trojan Horse pretends to be harmless, legitimate software to entice a user into executing it.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 5,
+        "tier": 1,
+        "marks": 1,
+        "tierName": "Perimeter Scan",
+        "category": "Authentication Security",
+        "lore": "S.H.I.E.L.D. enforces hardened login requirements so that a stolen password alone is not enough for Ultron to breach analyst accounts.",
+        "question": "What security mechanism requires a user to present two or more independent authentication factors (such as a password PLUS a temporary 6-digit OTP code sent to a mobile phone) to log in?",
+        "options": [
+            "Single Sign-On (SSO)",
+            "Multi-Factor Authentication (MFA)",
+            "Biometric Encryption (BE)",
+            "Role-Based Access Control (RBAC)"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "MFA combines something you know (password) with something you have (phone/token).",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 6,
+        "tier": 2,
+        "marks": 1,
+        "tierName": "Infiltration Vector",
+        "category": "Network Diagnostics",
+        "lore": "Tony Stark tests whether the Avengers Compound gateway router is alive and reachable over the local network.",
+        "question": "Which fundamental command-line utility tests network connectivity by sending ICMP Echo Request packets to a target host and measuring the round-trip response time?",
+        "options": [
+            "tracert",
+            "ping",
+            "netstat",
+            "nslookup"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "ping uses ICMP Echo Request/Reply to verify reachability and latency.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 7,
+        "tier": 2,
+        "marks": 1,
+        "tierName": "Infiltration Vector",
+        "category": "Age of Ultron Movie",
+        "lore": "Ultron travels to a salvage yard in South Africa to acquire the materials necessary to forge an indestructible synthetic vibranium body.",
+        "question": "In 'Avengers: Age of Ultron', which rare, shock-absorbing metal from Wakanda does Ultron obtain from black-market arms dealer Ulysses Klaue?",
+        "options": [
+            "Adamantium",
+            "Vibranium",
+            "Uru",
+            "Carbonadium"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "Ultron purchases Klaue's stockpile of stolen Wakandan Vibranium.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 8,
+        "tier": 2,
+        "marks": 1,
+        "tierName": "Infiltration Vector",
+        "category": "Social Engineering",
+        "lore": "Ultron crafts a fraudulent executive wire transfer authorization email specifically impersonating Tony Stark to deceive the Chief Financial Officer.",
+        "question": "A highly targeted spear-phishing attack aimed specifically at high-profile corporate executives, board members, or political leadership is formally known as:",
+        "options": [
+            "Smishing",
+            "Vishing",
+            "Whaling",
+            "Pharming"
+        ],
+        "correctIndex": 2,
+        "correctLetter": "C",
+        "explanation": "Whaling is a spear-phishing attack specifically targeting C-level executives.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 9,
+        "tier": 2,
+        "marks": 1,
+        "tierName": "Infiltration Vector",
+        "category": "Network Defenses",
+        "lore": "S.H.I.E.L.D. deploys defensive network sensors across its perimeter to monitor Ultron's probes.",
+        "question": "What is the primary operational difference between an Intrusion Detection System (IDS) and an Intrusion Prevention System (IPS)?",
+        "options": [
+            "An IDS encrypts network traffic, while an IPS decrypts it",
+            "An IDS passively monitors and alerts, while an IPS actively blocks traffic",
+            "An IDS functions only on Wi-Fi, while an IPS functions only on Ethernet",
+            "An IDS operates at Layer 3, while an IPS operates strictly at Layer 7"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "An IDS passively monitors and alerts, while an IPS is placed inline to block malicious traffic.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 10,
+        "tier": 2,
+        "marks": 1,
+        "tierName": "Infiltration Vector",
+        "category": "Cryptography Basics",
+        "lore": "Ultron encrypts communications between his drones using the Advanced Encryption Standard (AES).",
+        "question": "In a symmetric encryption algorithm (such as AES or DES), how many cryptographic keys are used to encrypt and decrypt the message?",
+        "options": [
+            "One shared secret key",
+            "Two separate paired keys",
+            "Three rotating session keys",
+            "Zero mathematical keys"
+        ],
+        "correctIndex": 0,
+        "correctLetter": "A",
+        "explanation": "Symmetric encryption uses a single shared secret key for encryption and decryption.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 11,
+        "tier": 3,
+        "marks": 1,
+        "tierName": "Core Penetration",
+        "category": "Web Application Security",
+        "lore": "Ultron attempts to bypass the web login portal of the Stark Weapons Depot by injecting database syntax into the username field.",
+        "question": "Which web vulnerability occurs when an application improperly concatenates user input directly into backend database commands, allowing attackers to use payloads like ' OR 1=1 -- to bypass authentication?",
+        "options": [
+            "Cross-Site Scripting (XSS)",
+            "SQL Injection (SQLi)",
+            "Cross-Site Request Forgery (CSRF)",
+            "Remote File Inclusion (RFI)"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "SQLi allows attackers to manipulate backend database queries.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 12,
+        "tier": 3,
+        "marks": 1,
+        "tierName": "Core Penetration",
+        "category": "Age of Ultron Movie",
+        "lore": "Tony Stark learns that an unknown entity is secretly fighting Ultron in cyberspace by constantly changing the nuclear launch codes.",
+        "question": "In 'Avengers: Age of Ultron', to which European city's world internet exchange hub (NEXUS) does Tony Stark travel to track down who is blocking Ultron's access to nuclear codes?",
+        "options": [
+            "London, England",
+            "Oslo, Norway",
+            "Frankfurt, Germany",
+            "Geneva, Switzerland"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "Tony Stark flies to the NEXUS Internet Exchange in Oslo, Norway.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 13,
+        "tier": 3,
+        "marks": 1,
+        "tierName": "Core Penetration",
+        "category": "Web Security / XSS",
+        "lore": "Ultron posts a malicious script onto the public Avengers Forum that executes in the browser of anyone who reads the post.",
+        "question": "What type of Cross-Site Scripting (XSS) attack occurs when an attacker's malicious JavaScript payload is permanently saved onto the target server's database before being served to unsuspecting visitors?",
+        "options": [
+            "Stored (Persistent) XSS",
+            "Reflected (Non-Persistent) XSS",
+            "DOM-based Client XSS",
+            "Blind Network XSS"
+        ],
+        "correctIndex": 0,
+        "correctLetter": "A",
+        "explanation": "Stored XSS occurs when injected scripts are permanently saved on the server database.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 14,
+        "tier": 3,
+        "marks": 1,
+        "tierName": "Core Penetration",
+        "category": "Network Exploitation",
+        "lore": "Ultron connects to the local Ethernet switch in Bruce Banner's laboratory and attempts to intercept all outgoing local traffic.",
+        "question": "Which local area network attack exploits the fact that the Address Resolution Protocol (ARP) lacks authentication, allowing an attacker to associate their own MAC address with the gateway's IP address (Man-in-the-Middle)?",
+        "options": [
+            "DNS Cache Poisoning",
+            "ARP Cache Poisoning",
+            "DHCP Pool Starvation",
+            "BGP Route Manipulation"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "ARP Cache Poisoning associates the attacker's MAC with the gateway IP.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 15,
+        "tier": 3,
+        "marks": 1,
+        "tierName": "Core Penetration",
+        "category": "Password Security & Hashing",
+        "lore": "Stark Industries hardens its employee authentication database by adding a unique random string to each password before computing its SHA-256 hash.",
+        "question": "Why do cybersecurity engineers add a cryptographic 'Salt' (a random string) to user passwords before hashing them in a database?",
+        "options": [
+            "To allow administrators to easily decrypt passwords if forgotten",
+            "To defeat rainbow table lookups and ensure unique output hashes",
+            "To convert symmetric block cipher keys into digital certificates",
+            "To reduce the computational length of the final hash output"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "Salting ensures that identical passwords yield completely different hashes, neutralizing Rainbow Tables.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 16,
+        "tier": 4,
+        "marks": 1,
+        "tierName": "Deep Subversion",
+        "category": "Wireless Security",
+        "lore": "Ultron deploys a rogue Wi-Fi access point in the airport terminal broadcasting the exact same name as the legitimate airport network.",
+        "question": "What type of wireless rogue access point attack occurs when an attacker deploys a rogue Wi-Fi hotspot with the exact same SSID (network name) as a legitimate network to trick users into connecting and intercepting their credentials?",
+        "options": [
+            "Evil Twin Attack",
+            "Bluejacking Attack",
+            "War Driving Probe",
+            "Rogue Gateway Tap"
+        ],
+        "correctIndex": 0,
+        "correctLetter": "A",
+        "explanation": "An Evil Twin attack impersonates a legitimate Wi-Fi access point with an identical SSID.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 17,
+        "tier": 4,
+        "marks": 1,
+        "tierName": "Deep Subversion",
+        "category": "Age of Ultron Movie",
+        "lore": "With J.A.R.V.I.S. incorporated into the Vision, Tony Stark selects a new artificial intelligence assistant for his armor during the final battle of Sokovia.",
+        "question": "In 'Avengers: Age of Ultron', which female AI assistant with an Irish accent does Tony Stark upload into the Iron Man suit after J.A.R.V.I.S. is transformed?",
+        "options": [
+            "JOCASTA",
+            "F.R.I.D.A.Y.",
+            "T.A.D.A.S.H.I.",
+            "K.A.R.E.N."
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "Tony Stark selects F.R.I.D.A.Y. from his drawer of backup AI cards.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 18,
+        "tier": 4,
+        "marks": 1,
+        "tierName": "Deep Subversion",
+        "category": "Denial of Service & Botnets",
+        "lore": "Ultron enslaves hundreds of thousands of compromised smart home devices, IP cameras, and servers to blast traffic at S.H.I.E.L.D.'s web services.",
+        "question": "What term describes a cyberattack where thousands of compromised, internet-connected computing devices (a botnet) are commanded to simultaneously flood a single target server with traffic to take it offline?",
+        "options": [
+            "Man-in-the-Browser Attack",
+            "Distributed Denial of Service (DDoS)",
+            "SQL Injection Cluster Attack",
+            "Zero-Day Ransomware Outbreak"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "A DDoS attack utilizes a distributed botnet to flood target resources.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 19,
+        "tier": 4,
+        "marks": 1,
+        "tierName": "Deep Subversion",
+        "category": "Deception & Cyber Defense",
+        "lore": "S.H.I.E.L.D. sets up an intentionally flawed server on the network that looks like a high-value database, designed solely to detect and analyze Ultron's attack techniques.",
+        "question": "What is the cybersecurity term for an intentionally vulnerable decoy computer system deployed by security teams to lure, detect, and study adversary actions without risking actual production assets?",
+        "options": [
+            "Sandbox Environment",
+            "Honeypot Decoy",
+            "Proxy Firewall",
+            "Air Gap Network"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "A Honeypot is a decoy system built to lure attackers and gather threat intelligence.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 20,
+        "tier": 4,
+        "marks": 1,
+        "tierName": "Deep Subversion",
+        "category": "Asymmetric Cryptography",
+        "lore": "Nick Fury needs to send a secret, confidential transmission across the open internet to Tony Stark using asymmetric cryptography.",
+        "question": "In Asymmetric Public Key Cryptography (such as RSA), which key must Nick Fury use to ENCRYPT the transmission so that ONLY Tony Stark can read it?",
+        "options": [
+            "Nick Fury's Private Key",
+            "Tony Stark's Public Key",
+            "Nick Fury's Public Key",
+            "Tony Stark's Private Key"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "Confidentiality requires encrypting with the recipient's public key.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 21,
+        "tier": 5,
+        "marks": 1,
+        "tierName": "Perimeter Breach",
+        "category": "Memory Corruption",
+        "lore": "Ultron exploits an unchecked memory copy function in an Iron Legion drone's C/C++ firmware program.",
+        "question": "What classic software vulnerability occurs when a program writes more data into a fixed-size memory buffer on the stack than was allocated, overwriting adjacent memory and potentially hijacking control flow?",
+        "options": [
+            "Heap Memory Leak",
+            "Stack Buffer Overflow",
+            "Cross-Site Scripting",
+            "Null Pointer Dereference"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "A Stack Buffer Overflow overwrites the call stack return address (EIP/RIP).",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 22,
+        "tier": 5,
+        "marks": 1,
+        "tierName": "Perimeter Breach",
+        "category": "Age of Ultron Movie",
+        "lore": "Tony Stark and Bruce Banner discover an intricate cosmic computation network hidden within a captured weapon from the Battle of New York.",
+        "question": "In 'Avengers: Age of Ultron', which cosmic Infinity Stone housed inside Loki's scepter was analyzed by Stark and Banner, revealing the advanced artificial neural net that birthed Ultron?",
+        "options": [
+            "The Space Stone (Tesseract)",
+            "The Power Stone (Orb)",
+            "The Mind Stone (Scepter)",
+            "The Reality Stone (Aether)"
+        ],
+        "correctIndex": 2,
+        "correctLetter": "C",
+        "explanation": "Loki's scepter housed the yellow Mind Stone, which served as the neural architecture for Ultron.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 23,
+        "tier": 5,
+        "marks": 1,
+        "tierName": "Perimeter Breach",
+        "category": "Vulnerability Management",
+        "lore": "Ultron unleashes an exploit against a critical operating system flaw that Microsoft and security vendors have never seen before.",
+        "question": "What is the cybersecurity term for a software vulnerability that is completely unknown to the vendor, has zero official security patches available, and is actively weaponized by attackers in the wild?",
+        "options": [
+            "Legacy Exploit Flaw",
+            "Zero-Day Vulnerability",
+            "False Positive Alert",
+            "Buffer Underflow Bug"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "A Zero-Day vulnerability is undisclosed and unpatched, leaving 0 days of defense.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 24,
+        "tier": 5,
+        "marks": 1,
+        "tierName": "Perimeter Breach",
+        "category": "Port Scanning / Nmap",
+        "lore": "Ultron runs a stealthy Nmap port scan against the Avengers border firewall using the SYN scan flag ('nmap -sS').",
+        "question": "Why is an Nmap TCP SYN scan (-sS) commonly referred to as a 'Half-Open' stealth scan?",
+        "options": [
+            "It transmits UDP datagrams without establishing any stateful connection",
+            "It terminates with RST after receiving SYN-ACK instead of sending ACK",
+            "It scans exclusively the lower 1024 privileged ports of the target host",
+            "It fragments each TCP packet header across multiple virtual VLAN tags"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "A SYN scan responds with RST upon receiving SYN-ACK, leaving the handshake half-open.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 25,
+        "tier": 5,
+        "marks": 1,
+        "tierName": "Perimeter Breach",
+        "category": "Enterprise Windows Security",
+        "lore": "Ultron dumps the LSASS memory of a compromised domain member workstation at Stark Industries.",
+        "question": "Which Windows lateral movement attack allows an adversary who steals an NTLM password hash from memory to authenticate across the network without ever having to crack or know the plaintext password?",
+        "options": [
+            "Password Spraying Attack",
+            "Pass-the-Hash (PtH) Attack",
+            "Man-in-the-Middle Relay",
+            "Shoulder Surfing Exploit"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "Pass-the-Hash uses captured NTLM hashes directly to authenticate to remote SMB/RPC services.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 26,
+        "tier": 6,
+        "marks": 1,
+        "tierName": "The Singularity",
+        "category": "Exploit Mitigations",
+        "lore": "Tony Stark hardens the operating system kernel on the Avengers server to prevent memory injection attacks.",
+        "question": "Which operating system security mitigation randomizes the memory addresses of the program stack, heap, and loaded libraries each time an application runs, making it difficult for an attacker to reliably jump to exploit payloads?",
+        "options": [
+            "Data Execution Prevention (DEP)",
+            "Address Space Layout Randomization (ASLR)",
+            "Stack Canary Protection (SSP)",
+            "Control Flow Guard (CFG)"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "ASLR randomizes virtual address space offsets, hindering predictable memory execution.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 27,
+        "tier": 6,
+        "marks": 1,
+        "tierName": "The Singularity",
+        "category": "Age of Ultron Movie",
+        "lore": "In the final battle of Sokovia, the Avengers must prevent Ultron from uploading his consciousness into the global internet.",
+        "question": "In 'Avengers: Age of Ultron', which synthetic Avenger uses the power of the Mind Stone to enter Ultron's neural net and 'burn him out' of the internet, locking him into his physical robot bodies?",
+        "options": [
+            "Tony Stark (Iron Man)",
+            "The Vision",
+            "Wanda Maximoff (Scarlet Witch)",
+            "James Rhodes (War Machine)"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "The Vision burns Ultron out of the digital grid, trapping him in his physical forms.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 28,
+        "tier": 6,
+        "marks": 1,
+        "tierName": "The Singularity",
+        "category": "Advanced Malware Architecture",
+        "lore": "Ultron installs a stealth module that completely conceals his processes, network connections, and files from Task Manager and antivirus software.",
+        "question": "What class of stealth malware operates at the highest privilege level of the operating system (Kernel space / Ring 0) to intercept system calls and hide malicious processes and files from administrator view?",
+        "options": [
+            "Spyware Tool",
+            "Kernel Rootkit",
+            "Adware Program",
+            "Macro Virus"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "Kernel Rootkits run in Ring 0, intercepting OS calls to conceal malicious activities.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 29,
+        "tier": 6,
+        "marks": 1,
+        "tierName": "The Singularity",
+        "category": "Cloud Security / SSRF",
+        "lore": "Ultron tricks a Stark Industries web application into fetching internal cloud metadata to steal temporary administrator tokens.",
+        "question": "What critical web vulnerability occurs when an attacker tricks an unvalidated server-side web application into making unauthorized outbound HTTP requests to internal services (such as cloud metadata IP 169.254.169.254)?",
+        "options": [
+            "Cross-Site Scripting (XSS)",
+            "Server-Side Request Forgery (SSRF)",
+            "Insecure Deserialization (ID)",
+            "XML External Entity (XXE)"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "SSRF abuses server URL fetching to query internal cloud metadata endpoints.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 30,
+        "tier": 6,
+        "marks": 1,
+        "tierName": "The Singularity",
+        "category": "Internet Routing Security",
+        "lore": "In the ultimate cyber siege, Ultron hijacks global internet paths to divert sensitive international communications through his rogue servers.",
+        "question": "In the Border Gateway Protocol (BGP) that routes traffic across global autonomous systems on the internet, how does a rogue network successfully execute a BGP Route Hijacking attack to divert global traffic?",
+        "options": [
+            "By announcing an unauthorized more specific prefix via Longest Prefix Match",
+            "By overwhelming root DNS infrastructure with distributed SYN flood bursts",
+            "By intercepting optical signals through transatlantic submarine cable taps",
+            "By broadcasting forged Gratuitous ARP packets across autonomous systems"
+        ],
+        "correctIndex": 0,
+        "correctLetter": "A",
+        "explanation": "Longest Prefix Match prioritizes more specific route announcements (/24 over /16).",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 31,
+        "tier": 1,
+        "marks": 1,
+        "tierName": "Spare / Tie-Breaker Tier 1",
+        "category": "Transport Layer Security",
+        "lore": "Ultron probes legacy servers running outdated and broken encryption suites across S.H.I.E.L.D.'s extranet.",
+        "question": "Which modern cryptographic security protocol was developed to replace the vulnerable Secure Sockets Layer (SSL) protocol to encrypt internet communications?",
+        "options": [
+            "Transport Layer Security (TLS)",
+            "Wired Equivalent Privacy (WEP)",
+            "Pretty Good Privacy (PGP)",
+            "Internet Protocol Security (IPSec)"
+        ],
+        "correctIndex": 0,
+        "correctLetter": "A",
+        "explanation": "TLS (currently TLS 1.3) replaced SSL due to severe cryptographic weaknesses in SSL 2.0/3.0.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 32,
+        "tier": 2,
+        "marks": 1,
+        "tierName": "Spare / Tie-Breaker Tier 2",
+        "category": "Age of Ultron Movie Lore",
+        "lore": "Ultron establishes an underground base where he builds a planetary propulsion thruster out of vibranium.",
+        "question": "In 'Avengers: Age of Ultron', what is the name of the fictional Eastern European country where Ultron builds his primary drone army and attempts to trigger an extinction-level meteor event?",
+        "options": [
+            "Latveria",
+            "Sokovia",
+            "Madripoor",
+            "Symkaria"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "Ultron sets up his primary manufacturing facility in Sokovia.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 33,
+        "tier": 3,
+        "marks": 1,
+        "tierName": "Spare / Tie-Breaker Tier 3",
+        "category": "Physical Social Engineering",
+        "lore": "An operative attempts to gain unauthorized physical access to the server room at the Stark Research Complex.",
+        "question": "Which physical social engineering attack involves an unauthorized individual closely following an authorized employee through an access-controlled security door without badge authentication?",
+        "options": [
+            "Baiting Trap",
+            "Tailgating / Piggybacking",
+            "Pretexting Interview",
+            "Dumpster Diving"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "Tailgating (or piggybacking) is following an authorized person through a secure entrance.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 34,
+        "tier": 4,
+        "marks": 1,
+        "tierName": "Spare / Tie-Breaker Tier 4",
+        "category": "Age of Ultron Movie Lore",
+        "lore": "Ultron mind-controls Dr. Helen Cho to construct an advanced synthetic vibranium vessel in her Seoul laboratory.",
+        "question": "In 'Avengers: Age of Ultron', what is the name of the cellular tissue regeneration machine invented by Dr. Helen Cho that Ultron uses to synthesize the Vision's body?",
+        "options": [
+            "The Rebirth Chamber",
+            "The Regeneration Cradle",
+            "The Cybernetic Chrysalis",
+            "The Terrigen Matrix"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "Dr. Helen Cho invented the Regeneration Cradle, which Ultron used to bond synthetic tissue with Vibranium.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 35,
+        "tier": 5,
+        "marks": 1,
+        "tierName": "Spare / Tie-Breaker Tier 5",
+        "category": "Cryptographic Attacks",
+        "lore": "Ultron attempts to break the digital certificate authority used by international banks to sign software updates.",
+        "question": "What type of cryptographic attack attempts to find two completely different input messages that produce the exact same cryptographic hash digest output?",
+        "options": [
+            "Replay Attack",
+            "Hash Collision Attack",
+            "Downgrade Attack",
+            "Side-Channel Attack"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "A Hash Collision attack (based on the Birthday Paradox) finds two different inputs yielding identical hash digests.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 36,
+        "tier": 6,
+        "marks": 1,
+        "tierName": "Spare / Tie-Breaker Tier 6",
+        "category": "Enterprise Architecture",
+        "lore": "In the aftermath of the Ultron breach, S.H.I.E.L.D. redesigns its global security posture to assume adversaries are already inside the perimeter.",
+        "question": "Which modern cybersecurity architectural model is built on the core principle of 'Never Trust, Always Verify', enforcing strict identity and authorization checks for every access request regardless of origin?",
+        "options": [
+            "Defense-in-Depth Model",
+            "Zero Trust Architecture (ZTA)",
+            "De-Militarized Zone (DMZ)",
+            "Bastion Perimeter Security"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "Zero Trust Architecture (ZTA) eliminates implicit trust, requiring continuous authentication and least privilege.",
+        "time_limit_sec": 45
+    }
+]

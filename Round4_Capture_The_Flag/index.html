@@ -1,0 +1,1980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ROUND 4: OPERATION AEGIS // CITADEL BREACH CTF</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Orbitron:wght@600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #07090e;
+      --bg-panel: #0d121c;
+      --bg-card: #131a29;
+      --bg-card-hover: #1b2438;
+      --border-subtle: rgba(255, 30, 66, 0.22);
+      --border-cyan: rgba(0, 229, 255, 0.3);
+      --aegis-red: #ff1e42;
+      --aegis-red-glow: rgba(255, 30, 66, 0.45);
+      --neon-cyan: #00e5ff;
+      --neon-cyan-glow: rgba(0, 229, 255, 0.35);
+      --gold-amber: #ffb300;
+      --emerald-green: #00e676;
+      --emerald-glow: rgba(0, 230, 118, 0.4);
+      --text-main: #f8fafc;
+      --text-dim: #94a3b8;
+      --text-muted: #64748b;
+      --font-display: 'Orbitron', -apple-system, sans-serif;
+      --font-body: 'Montserrat', -apple-system, sans-serif;
+      --font-mono: 'Share Tech Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    #cyber-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.28;
+    }
+
+    #app-root {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header.hud-header {
+      background: rgba(13, 18, 28, 0.92);
+      border-bottom: 1px solid var(--border-subtle);
+      backdrop-filter: blur(12px);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.6);
+    }
+
+    .hud-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .shield-badge {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #1a233a 0%, #0d121c 100%);
+      border: 2px solid var(--neon-cyan);
+      box-shadow: 0 0 14px var(--neon-cyan-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .shield-badge:hover {
+      transform: scale(1.08);
+      border-color: var(--aegis-red);
+      box-shadow: 0 0 20px var(--aegis-red-glow);
+    }
+
+    .hud-title-wrap h1 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      letter-spacing: 2px;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .hud-title-wrap h1 span.accent {
+      color: var(--neon-cyan);
+      text-shadow: 0 0 10px var(--neon-cyan-glow);
+    }
+    .hud-subtitle {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      letter-spacing: 1px;
+    }
+
+    .hud-center-timer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .timer-readout {
+      font-family: var(--font-mono);
+      font-size: 2.1rem;
+      font-weight: 700;
+      color: var(--neon-cyan);
+      text-shadow: 0 0 15px var(--neon-cyan-glow);
+      letter-spacing: 2px;
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+    .timer-readout.warning {
+      color: var(--gold-amber);
+      text-shadow: 0 0 15px rgba(255, 179, 0, 0.5);
+    }
+    .timer-readout.danger {
+      color: var(--aegis-red);
+      text-shadow: 0 0 20px var(--aegis-red-glow);
+      animation: pulseDanger 1s infinite alternate;
+    }
+    @keyframes pulseDanger {
+      from { opacity: 0.7; }
+      to { opacity: 1; }
+    }
+    .timer-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .hud-actions {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .score-badge {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(0, 230, 118, 0.35);
+      padding: 6px 16px;
+      border-radius: 8px;
+      text-align: right;
+    }
+    .score-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+    }
+    .score-value {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      color: var(--emerald-green);
+      font-weight: 700;
+      text-shadow: 0 0 12px var(--emerald-glow);
+    }
+    .btn-hud {
+      background: rgba(26, 35, 58, 0.6);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      color: var(--text-main);
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .btn-hud:hover {
+      background: rgba(30, 41, 59, 0.9);
+      border-color: var(--neon-cyan);
+      color: var(--neon-cyan);
+    }
+
+    main.main-viewport {
+      flex: 1;
+      max-width: 1240px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 24px 20px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .milestone-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    .milestone-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 14px 16px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .milestone-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 3px;
+      width: 100%;
+      background: var(--text-muted);
+      opacity: 0.4;
+    }
+    .milestone-card.active {
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
+    }
+    .milestone-card.active::before {
+      background: var(--neon-cyan);
+      box-shadow: 0 0 8px var(--neon-cyan);
+    }
+    .milestone-card.cleared {
+      border-color: var(--emerald-green);
+      background: rgba(13, 26, 22, 0.85);
+    }
+    .milestone-card.cleared::before {
+      background: var(--emerald-green);
+      box-shadow: 0 0 8px var(--emerald-green);
+    }
+    .milestone-card.locked {
+      opacity: 0.5;
+      border-color: rgba(100, 116, 139, 0.2);
+    }
+
+    .milestone-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .milestone-tag {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .milestone-card.active .milestone-tag {
+      color: var(--neon-cyan);
+      font-weight: 700;
+    }
+    .milestone-card.cleared .milestone-tag {
+      color: var(--emerald-green);
+      font-weight: 700;
+    }
+    .milestone-points {
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      color: var(--gold-amber);
+    }
+    .milestone-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .milestone-checkpoint {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .milestone-checkpoint span.split-badge {
+      background: rgba(0, 230, 118, 0.15);
+      color: var(--emerald-green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+    }
+
+    .level-stage-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-cyan);
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
+      padding: 32px;
+      position: relative;
+    }
+
+    .tool-rule-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 18px;
+      border-radius: 8px;
+      margin-bottom: 24px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border: 1px solid;
+    }
+    .tool-rule-banner.human-only {
+      background: rgba(255, 30, 66, 0.1);
+      border-color: rgba(255, 30, 66, 0.35);
+      color: #ffa4b2;
+    }
+    .tool-rule-banner.ai-granted {
+      background: linear-gradient(90deg, rgba(255, 179, 0, 0.15) 0%, rgba(0, 229, 255, 0.15) 100%);
+      border-color: var(--gold-amber);
+      color: #ffe699;
+      box-shadow: 0 0 20px rgba(255, 179, 0, 0.25);
+      animation: glowGold 2s infinite alternate;
+    }
+    @keyframes glowGold {
+      from { box-shadow: 0 0 10px rgba(255, 179, 0, 0.2); }
+      to { box-shadow: 0 0 25px rgba(255, 179, 0, 0.4); }
+    }
+
+    .stage-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 18px;
+    }
+    .stage-title-wrap h2 {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+    .stage-title-wrap h2 span.lvl-prefix {
+      color: var(--neon-cyan);
+    }
+    .stage-narrative {
+      color: var(--text-dim);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      max-width: 900px;
+    }
+
+    .challenge-box {
+      background: var(--bg-card);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 22px 0;
+    }
+    .challenge-box-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .box-label {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--neon-cyan);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .code-display {
+      background: #090d14;
+      border: 1px solid rgba(0, 229, 255, 0.25);
+      border-radius: 6px;
+      padding: 16px;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: #38bdf8;
+      word-break: break-all;
+      line-height: 1.5;
+      max-height: 280px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+    }
+
+    .btn-action {
+      background: var(--neon-cyan);
+      color: #07090e;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+    .btn-action:hover {
+      background: #5ef3ff;
+      box-shadow: 0 0 15px var(--neon-cyan-glow);
+      transform: translateY(-1px);
+    }
+    .btn-action.secondary {
+      background: rgba(30, 41, 59, 0.9);
+      color: var(--text-main);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+    }
+    .btn-action.secondary:hover {
+      border-color: var(--neon-cyan);
+      color: var(--neon-cyan);
+    }
+
+    .clues-section {
+      margin: 24px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .clue-accordion {
+      background: rgba(19, 26, 41, 0.6);
+      border: 1px solid rgba(255, 179, 0, 0.3);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.2s ease;
+    }
+    .clue-summary {
+      padding: 12px 18px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--gold-amber);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      user-select: none;
+    }
+    .clue-summary:hover {
+      background: rgba(255, 179, 0, 0.08);
+    }
+    .clue-body {
+      padding: 16px 20px;
+      background: rgba(10, 14, 23, 0.8);
+      border-top: 1px solid rgba(255, 179, 0, 0.2);
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: var(--text-dim);
+    }
+    .clue-body code {
+      background: #090d14;
+      color: var(--neon-cyan);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+    }
+
+    .terminal-module {
+      background: #05080e;
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 16px;
+      font-family: var(--font-mono);
+    }
+    .terminal-status-row {
+      display: flex;
+      justify-content: space-between;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      margin-bottom: 14px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+      padding-bottom: 8px;
+    }
+    .terminal-log {
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: #e2e8f0;
+      margin-bottom: 16px;
+    }
+    .terminal-log span.err {
+      color: var(--aegis-red);
+      font-weight: 700;
+    }
+    .terminal-log span.ok {
+      color: var(--emerald-green);
+      font-weight: 700;
+    }
+
+    .flag-submission-bar {
+      margin-top: 30px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(148, 163, 184, 0.2);
+    }
+    .flag-form {
+      display: flex;
+      gap: 12px;
+    }
+    .flag-input {
+      flex: 1;
+      background: #090d14;
+      border: 2px solid rgba(0, 229, 255, 0.35);
+      border-radius: 8px;
+      padding: 14px 18px;
+      font-family: var(--font-mono);
+      font-size: 1.05rem;
+      color: #ffffff;
+      transition: all 0.2s ease;
+    }
+    .flag-input:focus {
+      outline: none;
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 15px var(--neon-cyan-glow);
+    }
+    .btn-submit-flag {
+      background: linear-gradient(135deg, var(--aegis-red) 0%, #b80024 100%);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 14px 28px;
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 0 15px var(--aegis-red-glow);
+    }
+    .btn-submit-flag:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 25px rgba(255, 30, 66, 0.7);
+    }
+
+    .feedback-message {
+      margin-top: 12px;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      min-height: 24px;
+      transition: all 0.2s ease;
+    }
+    .feedback-message.success {
+      color: var(--emerald-green);
+      text-shadow: 0 0 10px var(--emerald-glow);
+    }
+    .feedback-message.error {
+      color: var(--aegis-red);
+      text-shadow: 0 0 10px var(--aegis-red-glow);
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(4, 7, 12, 0.88);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+    .modal-overlay.hidden {
+      display: none !important;
+    }
+
+    .cyber-modal {
+      background: var(--bg-panel);
+      border: 2px solid var(--neon-cyan);
+      border-radius: 14px;
+      box-shadow: 0 0 50px rgba(0, 229, 255, 0.35);
+      max-width: 680px;
+      width: 100%;
+      padding: 36px;
+      position: relative;
+    }
+    .cyber-modal.judge-modal {
+      border-color: var(--gold-amber);
+      box-shadow: 0 0 50px rgba(255, 179, 0, 0.35);
+      max-width: 740px;
+    }
+
+    .modal-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+      letter-spacing: 2px;
+    }
+    .modal-subtitle {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+    .form-group label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .form-control {
+      width: 100%;
+      background: #090d14;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      border-radius: 6px;
+      padding: 12px 16px;
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      color: #fff;
+    }
+    .form-control:focus {
+      outline: none;
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 10px var(--neon-cyan-glow);
+    }
+
+    .judge-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 18px 0;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+    }
+    .judge-table th, .judge-table td {
+      padding: 10px 14px;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      text-align: left;
+    }
+    .judge-table th {
+      background: #090e17;
+      color: var(--gold-amber);
+      font-weight: 700;
+    }
+    .judge-table td {
+      background: #0c121e;
+    }
+
+    .token-box {
+      background: #07090e;
+      border: 1px dashed var(--gold-amber);
+      padding: 12px;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: #fde047;
+      word-break: break-all;
+      margin: 16px 0;
+    }
+
+    .victory-badge {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 16px;
+      background: radial-gradient(circle, #00e676 0%, #0d121c 80%);
+      border: 3px solid var(--emerald-green);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      box-shadow: 0 0 30px var(--emerald-glow);
+    }
+
+    .packet-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+    }
+    .packet-table th, .packet-table td {
+      padding: 8px 12px;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      text-align: left;
+    }
+    .packet-table th {
+      background: #0c1424;
+      color: var(--neon-cyan);
+    }
+    .packet-table tr:hover {
+      background: rgba(0, 229, 255, 0.08);
+      cursor: pointer;
+    }
+    .packet-table tr.highlighted {
+      background: rgba(0, 230, 118, 0.15);
+      border-left: 3px solid var(--emerald-green);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="cyber-canvas"></canvas>
+
+  <div id="app-root">
+
+    <header class="hud-header">
+      <div class="hud-brand">
+        <div class="shield-badge" id="btn-judge-shield" title="Facilitator Telemetry Panel (Ctrl+Shift+J)">🛡️</div>
+        <div class="hud-title-wrap">
+          <h1>OPERATION <span class="accent">AEGIS</span> // CITADEL CTF</h1>
+          <div class="hud-subtitle" id="hud-team-tag">AGENT STATION: NOT INITIALIZED</div>
+        </div>
+      </div>
+
+      <div class="hud-center-timer">
+        <div class="timer-readout" id="timer-display">60:00</div>
+        <div class="timer-label" id="timer-sublabel">DEFENSE COUNTDOWN PROTOCOL ACTIVE</div>
+      </div>
+
+      <div class="hud-actions">
+        <div class="score-badge">
+          <div class="score-label">TOTAL SCORE</div>
+          <div class="score-value" id="hud-score-display">0 / 1000</div>
+        </div>
+        <button class="btn-hud" id="btn-sound-toggle">🔊 SOUND: ON</button>
+      </div>
+    </header>
+
+    <main class="main-viewport">
+
+      <div class="milestone-strip">
+        <div class="milestone-card active" id="card-milestone-1">
+          <div class="milestone-header">
+            <span class="milestone-tag">LEVEL 1</span>
+            <span class="milestone-points">+100 PTS</span>
+          </div>
+          <div class="milestone-title">Signal Intercept</div>
+          <div class="milestone-checkpoint" id="checkpoint-tag-1">
+            <span class="status-indicator">● IN PROGRESS</span>
+          </div>
+        </div>
+
+        <div class="milestone-card locked" id="card-milestone-2">
+          <div class="milestone-header">
+            <span class="milestone-tag">LEVEL 2</span>
+            <span class="milestone-points">+200 PTS</span>
+          </div>
+          <div class="milestone-title">Packet Sniffer</div>
+          <div class="milestone-checkpoint" id="checkpoint-tag-2">
+            <span>🔒 LOCKED</span>
+          </div>
+        </div>
+
+        <div class="milestone-card locked" id="card-milestone-3">
+          <div class="milestone-header">
+            <span class="milestone-tag">LEVEL 3</span>
+            <span class="milestone-points">+300 PTS</span>
+          </div>
+          <div class="milestone-title">Gateway Override</div>
+          <div class="milestone-checkpoint" id="checkpoint-tag-3">
+            <span>🔒 LOCKED</span>
+          </div>
+        </div>
+
+        <div class="milestone-card locked" id="card-milestone-4">
+          <div class="milestone-header">
+            <span class="milestone-tag">LEVEL 4</span>
+            <span class="milestone-points">+400 PTS</span>
+          </div>
+          <div class="milestone-title">Micro-VM Core</div>
+          <div class="milestone-checkpoint" id="checkpoint-tag-4">
+            <span>🔒 LOCKED</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= LEVEL 1 VIEWPORT ================= -->
+      <section class="level-stage-card" id="stage-level-1">
+        <div class="tool-rule-banner human-only">
+          <span>🛡️ PERMITTED TOOLS: Web Search, CyberChef, Online Decoders Allowed</span>
+          <span>❌ AI TOOLS (ChatGPT, Claude, Copilot) STRICTLY PROHIBITED</span>
+        </div>
+
+        <div class="stage-header">
+          <div class="stage-title-wrap">
+            <h2><span class="lvl-prefix">LEVEL 1 //</span> THE SIGNAL INTERCEPT</h2>
+            <p class="stage-narrative">
+              Aegis sensor arrays intercepted an encrypted transmission burst between Citadel autonomous nodes. 
+              The payload utilizes RFC 1924 encoding layered on top of a polyalphabetic key stream. Extract the cleartext override token.
+            </p>
+          </div>
+        </div>
+
+        <div class="challenge-box">
+          <div class="challenge-box-header">
+            <span class="box-label">📡 INTERCEPTED HIGH-FREQUENCY FRAME</span>
+            <button class="btn-action secondary" onclick="copyText('<)$Of7XIEU6!?*6?UQVP1JT_p1LEd08lRT>?T:#n', this)">
+              📋 COPY BURST PAYLOAD
+            </button>
+          </div>
+          <div class="code-display" id="level1-payload">[TRANSMISSION HEADER]
+ORIGIN_NODE      : SECTOR_7_RELAY
+CARRIER_PROTOCOL : MIL-STD-188-B
+CIPHER_ALGORITHM : POLYALPHABETIC_STREAM
+SYNCHRONIZE_KEY  : "TITANIUM"
+ENCODING_SCHEME  : RFC 1924 (Ascii85)
+
+[RAW DATA BURST]
+<)$Of7XIEU6!?*6?UQVP1JT_p1LEd08lRT>?T:#n</div>
+        </div>
+
+        <div class="clues-section">
+          <details class="clue-accordion" open>
+            <summary class="clue-summary">💡 INTEL CLUE #1: IDENTIFYING THE OUTER ENCODING</summary>
+            <div class="clue-body">
+              The payload begins with <code>&lt;)</code> and ends with <code>n</code>. As stated in the header, this matches <strong>Ascii85 (Base85)</strong>. 
+              Open <a href="https://gchq.github.io/CyberChef/" target="_blank" style="color:var(--neon-cyan)">CyberChef</a> and apply the <code>From Base85</code> recipe to peel off the outer representation layer.
+            </div>
+          </details>
+
+          <details class="clue-accordion">
+            <summary class="clue-summary">💡 INTEL CLUE #2: POLYALPHABETIC RECOVERY</summary>
+            <div class="clue-body">
+              Decoding Ascii85 reveals an obfuscated text structure formatted like <code>TMZIF{A1AZ4E_D1Z3N3E3_K1JT3K_88}</code>. 
+              Notice the header specifies <code>SYNCHRONIZE_KEY: "TITANIUM"</code>! Apply the classic <strong>Vigenère Decode</strong> operation using key <code>TITANIUM</code> to recover the authentic flag formatted as <code>AEGIS{...}</code>.
+            </div>
+          </details>
+        </div>
+
+        <div class="flag-submission-bar">
+          <form class="flag-form" onsubmit="event.preventDefault(); submitFlag(1);">
+            <input type="text" class="flag-input" id="input-flag-1" placeholder="Enter recovered flag: AEGIS{...}" autocomplete="off" spellcheck="false">
+            <button type="submit" class="btn-submit-flag">SUBMIT FLAG ➔</button>
+          </form>
+          <div class="feedback-message" id="feedback-1"></div>
+        </div>
+      </section>
+
+      <!-- ================= LEVEL 2 VIEWPORT (NETWORK FORENSICS) ================= -->
+      <section class="level-stage-card hidden" id="stage-level-2">
+        <div class="tool-rule-banner human-only">
+          <span>🛡️ PERMITTED TOOLS: Wireshark, Strings, Packet Analyzers, CyberChef</span>
+          <span>❌ AI TOOLS (ChatGPT, Claude, Copilot) STRICTLY PROHIBITED</span>
+        </div>
+
+        <div class="stage-header">
+          <div class="stage-title-wrap">
+            <h2><span class="lvl-prefix">LEVEL 2 //</span> THE PACKET SNIFFER (NETWORK FORENSICS)</h2>
+            <p class="stage-narrative">
+              Aegis network monitors tapped an internal communication trunk and recorded a raw packet capture (<code>citadel_traffic.pcap</code>). 
+              A field operative transmitted cleartext authorization credentials to an internal endpoint. Analyze the traffic to retrieve the authentication flag.
+            </p>
+          </div>
+        </div>
+
+        <div class="challenge-box">
+          <div class="challenge-box-header">
+            <span class="box-label">📡 CAPTURED WIRESHARK PCAP FILE</span>
+            <button class="btn-action" onclick="downloadPcapFile()">
+              ⬇️ DOWNLOAD CITADEL_TRAFFIC.PCAP
+            </button>
+          </div>
+          <p style="font-size:0.9rem; color:var(--text-dim); margin-bottom:14px;">
+            Open <code>citadel_traffic.pcap</code> in Wireshark OR inspect the reconstructed packet streams below:
+          </p>
+
+          <!-- In-Browser Packet Inspector -->
+          <div style="background:#090d14; border:1px solid rgba(0,229,255,0.25); border-radius:8px; padding:16px;">
+            <span class="box-label" style="color:var(--gold-amber);">⚡ IN-BROWSER PACKET DISSECTOR</span>
+            <table class="packet-table">
+              <thead>
+                <tr>
+                  <th>No.</th>
+                  <th>Source</th>
+                  <th>Destination</th>
+                  <th>Protocol</th>
+                  <th>Summary Info</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr onclick="inspectPacket(1)">
+                  <td>1</td>
+                  <td>192.168.1.105</td>
+                  <td>1.1.1.1</td>
+                  <td>DNS</td>
+                  <td>Standard Query: citadel-gateway.local</td>
+                </tr>
+                <tr onclick="inspectPacket(2)">
+                  <td>2</td>
+                  <td>192.168.1.105</td>
+                  <td>10.0.0.1</td>
+                  <td>HTTP</td>
+                  <td>GET /status HTTP/1.1</td>
+                </tr>
+                <tr onclick="inspectPacket(3)">
+                  <td>3</td>
+                  <td>10.0.0.1</td>
+                  <td>192.168.1.105</td>
+                  <td>HTTP</td>
+                  <td>HTTP/1.1 200 OK (text/plain)</td>
+                </tr>
+                <tr class="highlighted" onclick="inspectPacket(4)">
+                  <td><strong>4</strong></td>
+                  <td>192.168.1.105</td>
+                  <td>10.0.0.1</td>
+                  <td>HTTP</td>
+                  <td><strong>POST /api/v1/telemetry/node_auth (application/json)</strong></td>
+                </tr>
+                <tr onclick="inspectPacket(5)">
+                  <td>5</td>
+                  <td>10.0.0.1</td>
+                  <td>192.168.1.105</td>
+                  <td>HTTP</td>
+                  <td>HTTP/1.1 200 OK (application/json)</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div id="packet-detail-view" style="margin-top:14px; background:#05080e; border:1px solid rgba(148,163,184,0.2); border-radius:6px; padding:12px; font-family:var(--font-mono); font-size:0.85rem; color:#38bdf8; display:none;">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+        </div>
+
+        <div class="clues-section">
+          <details class="clue-accordion" open>
+            <summary class="clue-summary">💡 INTEL CLUE #1: HTTP PROTOCOL CLEARTEXT</summary>
+            <div class="clue-body">
+              Standard web traffic over HTTP (port 80) is unencrypted. 
+              In Wireshark, filter packets by typing <code>http</code> into the filter bar. Look specifically for <strong>POST</strong> requests where clients submit authorization forms or JSON payloads!
+            </div>
+          </details>
+
+          <details class="clue-accordion">
+            <summary class="clue-summary">💡 INTEL CLUE #2: FOLLOW TCP STREAM</summary>
+            <div class="clue-body">
+              Click on Packet #4 in the table above, or in Wireshark right-click the <code>POST /api/v1/telemetry/node_auth</code> packet and select <strong>Follow ➔ TCP Stream</strong>. 
+              The reassembled JSON body directly exposes the cleartext <code>auth_token</code>!
+            </div>
+          </details>
+        </div>
+
+        <div class="flag-submission-bar">
+          <form class="flag-form" onsubmit="event.preventDefault(); submitFlag(2);">
+            <input type="text" class="flag-input" id="input-flag-2" placeholder="Enter recovered flag: AEGIS{...}" autocomplete="off" spellcheck="false">
+            <button type="submit" class="btn-submit-flag">SUBMIT FLAG ➔</button>
+          </form>
+          <div class="feedback-message" id="feedback-2"></div>
+        </div>
+      </section>
+
+      <!-- ================= LEVEL 3 VIEWPORT (SQL INJECTION) ================= -->
+      <section class="level-stage-card hidden" id="stage-level-3">
+        <div class="tool-rule-banner human-only">
+          <span>🛡️ PERMITTED TOOLS: Browser DevTools, SQL Reference, Web Tools</span>
+          <span>❌ AI TOOLS (ChatGPT, Claude, Copilot) STRICTLY PROHIBITED</span>
+        </div>
+
+        <div class="stage-header">
+          <div class="stage-title-wrap">
+            <h2><span class="lvl-prefix">LEVEL 3 //</span> GATEWAY OVERRIDE (SQL INJECTION)</h2>
+            <p class="stage-narrative">
+              You have arrived at the Citadel Administrative Access Terminal. 
+              The login gateway queries a backend SQL database without parameterized inputs. Exploit classic SQL Injection to force the authentication condition to evaluate to true.
+            </p>
+          </div>
+        </div>
+
+        <!-- Blunt Clue Banner -->
+        <div style="background:rgba(255,179,0,0.12); border:1px solid var(--gold-amber); border-radius:8px; padding:14px 18px; margin-bottom:20px;">
+          <div style="font-family:var(--font-mono); font-size:0.85rem; font-weight:700; color:var(--gold-amber); margin-bottom:6px;">
+            💡 BLUNT INTEL HINT (DIRECT VULNERABILITY ADVISORY):
+          </div>
+          <div style="font-size:0.9rem; color:#fef08a; line-height:1.6;">
+            The backend query executed on submit is:
+            <br><code style="background:#090d14; color:#38bdf8; padding:3px 8px; border-radius:4px; font-family:var(--font-mono);">SELECT * FROM admin_users WHERE username = '$user' AND password = '$password'</code>
+            <br>To bypass the password check and authenticate as administrator, enter this classic SQL injection payload into the <strong>Administrator Username</strong> field:
+            <br><strong style="color:var(--neon-cyan); font-family:var(--font-mono); font-size:1.05rem;">' OR 1=1 --</strong>
+            <br>Enter any dummy value for the password and click <strong>AUTHENTICATE TO GATEWAY</strong>!
+          </div>
+        </div>
+
+        <!-- Interactive SQL Terminal -->
+        <div class="terminal-module">
+          <div class="terminal-status-row">
+            <span>CITADEL GATEWAY LOGIN // PORT 443</span>
+            <span id="sqli-auth-status">AUTH STATUS: UNAUTHENTICATED</span>
+          </div>
+
+          <div class="terminal-log" id="sqli-terminal-log">
+            [+] Connected to node: gateway.citadel.aegis.net<br>
+            [!] Enter credentials to request emergency override access.
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px;">
+            <div>
+              <label style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:4px;">
+                ADMINISTRATOR USERNAME:
+              </label>
+              <input type="text" class="form-control" id="sqli-user-input" placeholder="e.g. ' OR 1=1 --" autocomplete="off" spellcheck="false">
+            </div>
+            <div>
+              <label style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:4px;">
+                ACCESS PASSWORD:
+              </label>
+              <input type="password" class="form-control" id="sqli-pass-input" placeholder="Enter password (or dummy value)" autocomplete="off">
+            </div>
+          </div>
+
+          <div style="display:flex; gap:12px; align-items:center;">
+            <button class="btn-action" onclick="submitSqlInjection()">
+              ⚡ AUTHENTICATE TO GATEWAY
+            </button>
+            <button class="btn-action secondary" onclick="autoFillSqlPayload()">
+              🎯 AUTO-FILL SQL PAYLOAD
+            </button>
+          </div>
+        </div>
+
+        <div class="flag-submission-bar">
+          <form class="flag-form" onsubmit="event.preventDefault(); submitFlag(3);">
+            <input type="text" class="flag-input" id="input-flag-3" placeholder="Enter recovered flag: AEGIS{...}" autocomplete="off" spellcheck="false">
+            <button type="submit" class="btn-submit-flag">SUBMIT FLAG ➔</button>
+          </form>
+          <div class="feedback-message" id="feedback-3"></div>
+        </div>
+      </section>
+
+      <!-- ================= LEVEL 4 VIEWPORT (BOSS LEVEL) ================= -->
+      <section class="level-stage-card hidden" id="stage-level-4">
+        <div class="tool-rule-banner ai-granted">
+          <span>🤖 AI SANCTION GRANTED: THE SINGULARITY PROTOCOL</span>
+          <span>YOU ARE FULLY AUTHORIZED TO USE CHATGPT, CLAUDE, GEMINI, OR COPILOT!</span>
+        </div>
+
+        <div class="stage-header">
+          <div class="stage-title-wrap">
+            <h2><span class="lvl-prefix" style="color:var(--gold-amber)">LEVEL 4 //</span> THE MICRO-VM CORE (BOSS LEVEL)</h2>
+            <p class="stage-narrative">
+              You have penetrated the primary citadel reactor. The master ignition bus is gated by a custom 8-bit Micro-Virtual Machine. 
+              The validation algorithm employs multi-stage non-linear transformations, bitwise barrel shifts, and dynamic key schedules. 
+              Harness Generative AI to reverse the VM architecture and derive the master access flag!
+            </p>
+          </div>
+        </div>
+
+        <div class="challenge-box">
+          <div class="challenge-box-header">
+            <span class="box-label" style="color:var(--gold-amber);">⚡ CITADEL_CORE_ENGINE.PY MICRO-VM SPECIFICATION</span>
+            <div style="display:flex; gap:10px;">
+              <button class="btn-action" onclick="downloadPythonScript()">
+                ⬇️ DOWNLOAD .PY ENGINE
+              </button>
+              <button class="btn-action secondary" onclick="copyPythonCode(this)">
+                📋 COPY PYTHON CODE
+              </button>
+            </div>
+          </div>
+          <div class="code-display" id="level4-code-viewer"># ==============================================================================
+# AEGIS CYBER OPERATIONS // LEVEL 4: THE CITADEL CORE VIRTUAL MACHINE
+# TARGET: Custom Micro-VM Execution &amp; Algorithmic Constraint Solver
+# RULE: 🤖 AI SANCTION GRANTED!
+#       You are authorized to use Generative AI (ChatGPT, Claude, Gemini)
+#       to reverse-engineer this virtual machine and compute the master access key.
+# ==============================================================================
+
+import sys
+
+TARGET_STATE_REGISTER = [
+    238, 132, 79, 115, 79, 139, 141, 80, 242, 199, 143, 220, 
+    92, 29, 161, 46, 230, 101, 83, 184, 39, 102, 236, 59, 
+    255, 50, 164, 247, 187, 56, 176, 206, 227, 107, 8, 80
+]
+
+class MicroVM:
+    """
+    Simulated 8-bit Micro-Virtual Machine Architecture.
+    Executes a 4-stage pipeline per input byte using dynamic key schedules.
+    """
+    @staticmethod
+    def _rotl8(val, shift):
+        return ((val &lt;&lt; shift) &amp; 0xFF) | ((val &amp; 0xFF) &gt;&gt; (8 - shift))
+
+    @staticmethod
+    def process_byte(byte_val, cycle_index):
+        # Stage 1: Primary Non-Linear Key Schedule XOR
+        k1 = ((cycle_index * 41) + 137) % 256
+        s1 = byte_val ^ k1
+        
+        # Stage 2: 4-bit Circular Left Barrel Shifter
+        s2 = MicroVM._rotl8(s1, 4)
+        
+        # Stage 3: Modular Affine Additive Transform
+        s3 = (s2 + 73) % 256
+        
+        # Stage 4: Secondary Dynamic Key Schedule XOR
+        k2 = ((cycle_index * 17) + 59) % 256
+        s4 = s3 ^ k2
+        return s4
+
+def verify_citadel_key(candidate_flag):
+    if len(candidate_flag) != len(TARGET_STATE_REGISTER):
+        return False
+
+    transformed_registers = []
+    for idx, ch in enumerate(candidate_flag):
+        transformed_registers.append(MicroVM.process_byte(ord(ch), idx))
+
+    return transformed_registers == TARGET_STATE_REGISTER
+
+def main():
+    print("===========================================================")
+    print("⚡ AEGIS CYBER DEFENSE // CITADEL CORE MICRO-VM VALIDATOR")
+    print("===========================================================")
+    print("[i] AI PROTOCOLS AUTHORIZED (ChatGPT / Claude / Gemini).")
+    print("[i] Task: Reverse the 4-stage MicroVM logic to extract the master flag.\n")
+
+    try:
+        user_input = input("Enter Citadel Master Key: ").strip()
+    except (KeyboardInterrupt, EOFError):
+        sys.exit(0)
+
+    if verify_citadel_key(user_input):
+        print("\n[+] 🟢 MASTER AUTHENTICATION ACCEPTED!")
+        print(f"[+] SUBMIT THIS FLAG TO THE CTF DASHBOARD: {user_input}")
+    else:
+        print("\n[-] 🔴 ACCESS DENIED: Register state mismatch.")
+
+if __name__ == '__main__':
+    main()
+</div>
+        </div>
+
+        <div class="clues-section">
+          <details class="clue-accordion" open style="border-color:var(--gold-amber);">
+            <summary class="clue-summary" style="color:var(--gold-amber);">🤖 AI PROMPT ENGINEERING SPECIFICATION</summary>
+            <div class="clue-body">
+              Copy the Python code above, open <strong>ChatGPT</strong>, <strong>Claude</strong>, or <strong>Gemini</strong>, and feed it this exact strategic prompt:<br><br>
+              <em style="color:#fde047">
+                "Here is an obfuscated 8-bit MicroVM verification algorithm from an advanced cybersecurity CTF challenge. Analyze the 4 transformation stages in `MicroVM.process_byte` (secondary dynamic key XOR, additive affine shift, circular 4-bit barrel rotation, and primary key schedule XOR). Reverse every operation step-by-step and write a complete Python solver script that extracts the original 36-character key from TARGET_STATE_REGISTER."
+              </em><br><br>
+              Execute the AI's generated solver script in Python to extract the master flag!
+            </div>
+          </details>
+        </div>
+
+        <div class="flag-submission-bar">
+          <form class="flag-form" onsubmit="event.preventDefault(); submitFlag(4);">
+            <input type="text" class="flag-input" id="input-flag-4" placeholder="Enter recovered flag: AEGIS{...}" autocomplete="off" spellcheck="false">
+            <button type="submit" class="btn-submit-flag" style="background:linear-gradient(135deg, var(--gold-amber) 0%, #d97706 100%); color:#000;">
+              DISARM CITADEL REACTOR ➔
+            </button>
+          </form>
+          <div class="feedback-message" id="feedback-4"></div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Registration Modal -->
+    <div class="modal-overlay" id="modal-registration">
+      <div class="cyber-modal">
+        <h2 class="modal-title">AEGIS CYBER OPERATIONS</h2>
+        <p class="modal-subtitle">ROUND 4: CITADEL INFILTRATION PROTOCOL</p>
+
+        <form id="form-registration" onsubmit="event.preventDefault(); initializeRegistration();">
+          <div class="form-group">
+            <label for="reg-team-name">TEAM DESIGNATION / NAME</label>
+            <input type="text" class="form-control" id="reg-team-name" required placeholder="e.g. CYBER_WARRIORS" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="reg-station-id">STATION / TERMINAL #</label>
+            <input type="text" class="form-control" id="reg-station-id" required placeholder="e.g. STATION-04" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="reg-timer-select">MISSION DURATION ALLOCATION</label>
+            <select class="form-control" id="reg-timer-select">
+              <option value="3600">60 Minutes (Standard Tournament)</option>
+              <option value="4500">75 Minutes (Extended Competition)</option>
+              <option value="5400">90 Minutes (Deep Infiltration)</option>
+            </select>
+          </div>
+          <button type="submit" class="btn-submit-flag" style="width:100%; margin-top:14px;">
+            INITIALIZE INFILTRATION ➔
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Judge / Facilitator Inspection Modal -->
+    <div class="modal-overlay hidden" id="modal-judge">
+      <div class="cyber-modal judge-modal">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <h2 class="modal-title" style="color:var(--gold-amber); margin:0;">🛡️ AEGIS JUDGE & FACILITATOR TELEMETRY</h2>
+          <button class="btn-hud" onclick="closeJudgeModal()">✕ CLOSE</button>
+        </div>
+        <p class="modal-subtitle">REAL-TIME PROGRESS & TIE-BREAKER VERIFICATION SYSTEM</p>
+
+        <div id="judge-pin-view">
+          <div class="form-group">
+            <label>ENTER FACILITATOR SECURITY PIN (DEFAULT: 1337)</label>
+            <input type="password" class="form-control" id="judge-pin-input" placeholder="Enter PIN">
+          </div>
+          <button class="btn-action" onclick="verifyJudgePin()">AUTHENTICATE AS JUDGE</button>
+        </div>
+
+        <div id="judge-data-view" class="hidden">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px;">
+            <div style="background:#090d14; padding:10px 14px; border-radius:6px; border:1px solid rgba(148,163,184,0.2);">
+              <div style="font-family:var(--font-mono); font-size:0.7rem; color:var(--text-muted);">TEAM IDENTIFIER</div>
+              <div style="font-family:var(--font-display); font-size:1.1rem; color:var(--text-main);" id="judge-team-name">-</div>
+            </div>
+            <div style="background:#090d14; padding:10px 14px; border-radius:6px; border:1px solid rgba(148,163,184,0.2);">
+              <div style="font-family:var(--font-mono); font-size:0.7rem; color:var(--text-muted);">STATION #</div>
+              <div style="font-family:var(--font-display); font-size:1.1rem; color:var(--neon-cyan);" id="judge-station-id">-</div>
+            </div>
+          </div>
+
+          <table class="judge-table">
+            <thead>
+              <tr>
+                <th>Level</th>
+                <th>Status</th>
+                <th>Time Cleared (Elapsed)</th>
+                <th>Split Duration</th>
+                <th>Points</th>
+              </tr>
+            </thead>
+            <tbody id="judge-telemetry-body"></tbody>
+          </table>
+
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
+            <div>
+              <span style="font-family:var(--font-mono); font-size:0.8rem; color:var(--text-muted);">FAILED FLAG ATTEMPTS:</span>
+              <strong style="color:var(--aegis-red); font-family:var(--font-mono);" id="judge-failed-attempts">0</strong>
+            </div>
+            <div>
+              <span style="font-family:var(--font-mono); font-size:0.8rem; color:var(--text-muted);">CURRENT TOTAL SCORE:</span>
+              <strong style="color:var(--emerald-green); font-family:var(--font-display); font-size:1.1rem;" id="judge-total-score">0 / 1000</strong>
+            </div>
+          </div>
+
+          <div style="background:rgba(255,179,0,0.1); border-left:3px solid var(--gold-amber); padding:10px 14px; margin:16px 0; font-size:0.8rem; line-height:1.5;">
+            <strong style="color:var(--gold-amber);">⚖️ TIE-BREAKER PROTOCOL:</strong> If two teams are on the same level, evaluate who unlocked that level earliest (lower Checkpoint Timestamp). Lower timestamp wins the tie!
+          </div>
+
+          <div class="token-box" id="judge-token-display">
+            CRYPTOGRAPHIC TOKEN: GENERATING...
+          </div>
+
+          <div style="display:flex; gap:10px; margin-top:14px;">
+            <button class="btn-action" onclick="copyJudgeReport()">📋 COPY JUDGE REPORT</button>
+            <button class="btn-action secondary" onclick="adminForceNextLevel()">⚡ FORCE UNLOCK NEXT LEVEL</button>
+            <button class="btn-action secondary" onclick="adminResetTeam()">⚠️ RESET TEAM</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Victory Modal -->
+    <div class="modal-overlay hidden" id="modal-victory">
+      <div class="cyber-modal" style="text-align:center; border-color:var(--emerald-green); box-shadow:0 0 60px var(--emerald-glow);">
+        <div class="victory-badge">🏆</div>
+        <h2 class="modal-title" style="color:var(--emerald-green);">MISSION ACCOMPLISHED!</h2>
+        <p class="modal-subtitle">CITADEL REACTOR HAS BEEN SAFELY DISARMED</p>
+
+        <div style="background:#090d14; border:1px solid rgba(0,230,118,0.3); padding:20px; border-radius:8px; margin:20px 0; text-align:left;">
+          <div style="font-family:var(--font-mono); font-size:0.85rem; color:var(--text-dim); line-height:1.8;">
+            <div>👥 <strong>TEAM:</strong> <span id="vic-team-name">-</span> (Station: <span id="vic-station-id">-</span>)</div>
+            <div>⏱️ <strong>TOTAL MISSION TIME:</strong> <span id="vic-total-time" style="color:var(--neon-cyan)">-</span></div>
+            <div>🌟 <strong>FINAL SCORE:</strong> <span id="vic-final-score" style="color:var(--emerald-green)">1000 / 1000 PTS</span></div>
+            <div>🔐 <strong>VERIFICATION TOKEN:</strong> <span id="vic-token" style="color:var(--gold-amber); word-break:break-all;">-</span></div>
+          </div>
+        </div>
+
+        <p style="font-size:0.85rem; color:var(--text-dim); margin-bottom:20px;">
+          Present this screen and your verification token to the evaluation judges for official tournament verification.
+        </p>
+        <button class="btn-action" onclick="document.getElementById('modal-victory').classList.add('hidden')">
+          RETURN TO DASHBOARD
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // =========================================================================
+    // STATE & CRYPTOGRAPHIC HASH DATA
+    // =========================================================================
+    const FLAG_HASHES = {
+      1: "4d64a1e93235165cbe0a37e0cca427e56dc3a926abcebf1ae0042d5941a3b2aa", // AEGIS{S1GN4L_V1G3N3R3_C1PH3R_88}
+      2: "25eb3f69f48fb57818cb238aebbb469ab3cde8f2299d2ecf91bc3ee269c6128e", // AEGIS{PC4P_N3TW0RK_TR4FF1C_M4ST3R_77}
+      3: "4d3cb5fa63dfa4e2c68cbfc377bb95ec7c844437f315fb82c310f12fbe381cf6", // AEGIS{SQL1_4UTH_BYP4SS_M4ST3R_33}
+      4: "f925d51dec9ec609d450f29f795b09668adc2900a71d80c792adb704bc758ab5"  // AEGIS{A1_V1RTU4L_M4CH1N3_R3V3RS3_99}
+    };
+
+    const LEVEL_POINTS = { 1: 100, 2: 200, 3: 300, 4: 400 };
+    const SECRET_SALT = "AEGIS_CITADEL_SALT_2026_CYBER_MCA";
+    const JUDGE_PIN = "1337";
+
+    const PCAP_FILE_B64 = "1MOyoQIABAAAAAAAAAAAAP//AAABAAAAADk8Z6CGAQBfAAAAXwAAAAARIjNEVWZ3iJmquwgARQAAUdQxAABABgAAwKgBaQEBAQHMVgA1AAAD6AAAB9BQGCAAAAAAAEROUyBTdGFuZGFyZCBRdWVyeTogY2l0YWRlbC1nYXRld2F5LmxvY2FsATk8Z5DQAwBeAAAAXgAAAAARIjNEVWZ3iJmquwgARQAAUNQxAABABgAAwKgBaQoAAAHAAABQAAAD6AAAB9BQGCAAAAAAAEdFVCAvc3RhdHVzIEhUVFAvMS4xDQpIb3N0OiAxMC4wLjAuMQ0KDQoBOTxn4JMEAGUAAABlAAAAABEiM0RVZneImaq7CABFAABX1DEAAEAGAAAKAAABwKgBaQBQwAAAAAPoAAAH0FAYIAAAAAAASFRUUC8xLjEgMjAwIE9LDQpDb250ZW50LVR5cGU6IHRleHQvcGxhaW4NCg0KT0sCOTxnIKEHAEoBAABKAQAAABEiM0RVZneImaq7CABFAAE81DEAAEAGAADAqAFpCgAAAcACAFAAAAPoAAAH0FAYIAAAAAAAUE9TVCAvYXBpL3YxL3RlbGVtZXRyeS9ub2RlX2F1dGggSFRUUC8xLjENCkhvc3Q6IDEwLjAuMC4xDQpVc2VyLUFnZW50OiBBZWdpc0Ryb25lQ2xpZW50LzIuNA0KQ29udGVudC1UeXBlOiBhcHBsaWNhdGlvbi9qc29uDQpDb250ZW50LUxlbmd0aDogMTI4DQoNCnsidGVsZW1ldHJ5X25vZGUiOiAiQUVHSVMtT1VUUE9TVC0wNyIsICJhdXRoX3Rva2VuIjogIkFFR0lTe1BDNFBfTjNUVzBSS19UUjRGRjFDX000U1QzUl83N30iLCAic3RhdHVzIjogIlRSQU5TTUlTU0lPTl9WRVJJRklFRCJ9Ajk8Z3BkCAB8AAAAfAAAAAARIjNEVWZ3iJmquwgARQAAbtQxAABABgAACgAAAcCoAWkAUMACAAAD6AAAB9BQGCAAAAAAAEhUVFAvMS4xIDIwMCBPSw0KQ29udGVudC1UeXBlOiBhcHBsaWNhdGlvbi9qc29uDQoNCnsicmVzcG9uc2UiOiAiQUNLIn0=";
+    const PYTHON_CORE_SCRIPT = `# ==============================================================================
+# AEGIS CYBER OPERATIONS // LEVEL 4: THE CITADEL CORE VIRTUAL MACHINE
+# TARGET: Custom Micro-VM Execution & Algorithmic Constraint Solver
+# RULE: 🤖 AI SANCTION GRANTED!
+#       You are authorized to use Generative AI (ChatGPT, Claude, Gemini)
+#       to reverse-engineer this virtual machine and compute the master access key.
+# ==============================================================================
+
+import sys
+
+TARGET_STATE_REGISTER = [
+    238, 132, 79, 115, 79, 139, 141, 80, 242, 199, 143, 220, 
+    92, 29, 161, 46, 230, 101, 83, 184, 39, 102, 236, 59, 
+    255, 50, 164, 247, 187, 56, 176, 206, 227, 107, 8, 80
+]
+
+class MicroVM:
+    """
+    Simulated 8-bit Micro-Virtual Machine Architecture.
+    Executes a 4-stage pipeline per input byte using dynamic key schedules.
+    """
+    @staticmethod
+    def _rotl8(val, shift):
+        return ((val << shift) & 0xFF) | ((val & 0xFF) >> (8 - shift))
+
+    @staticmethod
+    def process_byte(byte_val, cycle_index):
+        # Stage 1: Primary Non-Linear Key Schedule XOR
+        k1 = ((cycle_index * 41) + 137) % 256
+        s1 = byte_val ^ k1
+        
+        # Stage 2: 4-bit Circular Left Barrel Shifter
+        s2 = MicroVM._rotl8(s1, 4)
+        
+        # Stage 3: Modular Affine Additive Transform
+        s3 = (s2 + 73) % 256
+        
+        # Stage 4: Secondary Dynamic Key Schedule XOR
+        k2 = ((cycle_index * 17) + 59) % 256
+        s4 = s3 ^ k2
+        return s4
+
+def verify_citadel_key(candidate_flag):
+    if len(candidate_flag) != len(TARGET_STATE_REGISTER):
+        return False
+
+    transformed_registers = []
+    for idx, ch in enumerate(candidate_flag):
+        transformed_registers.append(MicroVM.process_byte(ord(ch), idx))
+
+    return transformed_registers == TARGET_STATE_REGISTER
+
+def main():
+    print("===========================================================")
+    print("⚡ AEGIS CYBER DEFENSE // CITADEL CORE MICRO-VM VALIDATOR")
+    print("===========================================================")
+    print("[i] AI PROTOCOLS AUTHORIZED (ChatGPT / Claude / Gemini).")
+    print("[i] Task: Reverse the 4-stage MicroVM logic to extract the master flag.\\n")
+
+    try:
+        user_input = input("Enter Citadel Master Key: ").strip()
+    except (KeyboardInterrupt, EOFError):
+        sys.exit(0)
+
+    if verify_citadel_key(user_input):
+        print("\\n[+] 🟢 MASTER AUTHENTICATION ACCEPTED!")
+        print(f"[+] SUBMIT THIS FLAG TO THE CTF DASHBOARD: {user_input}")
+    else:
+        print("\\n[-] 🔴 ACCESS DENIED: Register state mismatch.")
+
+if __name__ == '__main__':
+    main()
+`;
+
+    let state = {
+      registered: false,
+      teamName: "",
+      stationId: "",
+      totalDuration: 3600,
+      timeRemaining: 3600,
+      elapsedSeconds: 0,
+      timerRunning: false,
+      currentLevel: 1,
+      score: 0,
+      failedAttempts: 0,
+      checkpoints: {
+        1: { cleared: false, elapsed: 0, split: 0, timestampStr: "" },
+        2: { cleared: false, elapsed: 0, split: 0, timestampStr: "" },
+        3: { cleared: false, elapsed: 0, split: 0, timestampStr: "" },
+        4: { cleared: false, elapsed: 0, split: 0, timestampStr: "" }
+      },
+      completed: false,
+      soundEnabled: true
+    };
+
+    // =========================================================================
+    // AUDIO SYNTHESIZER
+    // =========================================================================
+    let audioCtx = null;
+    function initAudio() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+
+    function playBeep(freq, duration, type = "sine", gainVal = 0.1) {
+      if (!state.soundEnabled) return;
+      initAudio();
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(gainVal, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {}
+    }
+
+    function playSuccessSound() {
+      if (!state.soundEnabled) return;
+      playBeep(523.25, 0.12, "triangle", 0.15);
+      setTimeout(() => playBeep(659.25, 0.12, "triangle", 0.15), 100);
+      setTimeout(() => playBeep(783.99, 0.15, "triangle", 0.18), 200);
+      setTimeout(() => playBeep(1046.50, 0.35, "triangle", 0.22), 300);
+    }
+
+    function playErrorSound() {
+      if (!state.soundEnabled) return;
+      playBeep(180, 0.25, "sawtooth", 0.25);
+      setTimeout(() => playBeep(140, 0.35, "sawtooth", 0.25), 120);
+    }
+
+    function playBossSiren() {
+      if (!state.soundEnabled) return;
+      initAudio();
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = "sawtooth";
+        gain.gain.setValueAtTime(0.18, audioCtx.currentTime);
+        osc.frequency.setValueAtTime(440, audioCtx.currentTime);
+        osc.frequency.linearRampToValueAtTime(880, audioCtx.currentTime + 0.6);
+        osc.frequency.linearRampToValueAtTime(440, audioCtx.currentTime + 1.2);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.4);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 1.4);
+      } catch (e) {}
+    }
+
+    // =========================================================================
+    // INITIALIZATION & PERSISTENCE
+    // =========================================================================
+    window.addEventListener("DOMContentLoaded", () => {
+      loadState();
+      initCanvasBackground();
+
+      document.getElementById("btn-sound-toggle").addEventListener("click", () => {
+        state.soundEnabled = !state.soundEnabled;
+        document.getElementById("btn-sound-toggle").textContent = state.soundEnabled ? "🔊 SOUND: ON" : "🔇 SOUND: OFF";
+      });
+
+      document.getElementById("btn-judge-shield").addEventListener("click", openJudgeModal);
+      window.addEventListener("keydown", (e) => {
+        if (e.ctrlKey && e.shiftKey && (e.key === "J" || e.key === "j")) {
+          e.preventDefault();
+          openJudgeModal();
+        }
+      });
+
+      setInterval(tickTimer, 1000);
+    });
+
+    function loadState() {
+      const saved = localStorage.getItem("aegis_ctf_state_round4");
+      if (saved) {
+        try {
+          state = JSON.parse(saved);
+          if (state.registered) {
+            document.getElementById("modal-registration").classList.add("hidden");
+            renderUI();
+          }
+        } catch(e) {}
+      }
+    }
+
+    function saveState() {
+      localStorage.setItem("aegis_ctf_state_round4", JSON.stringify(state));
+    }
+
+    function initializeRegistration() {
+      const team = document.getElementById("reg-team-name").value.trim();
+      const station = document.getElementById("reg-station-id").value.trim();
+      const dur = parseInt(document.getElementById("reg-timer-select").value, 10);
+
+      if (!team || !station) return;
+
+      state.teamName = team;
+      state.stationId = station;
+      state.totalDuration = dur;
+      state.timeRemaining = dur;
+      state.elapsedSeconds = 0;
+      state.registered = true;
+      state.timerRunning = true;
+      state.currentLevel = 1;
+      state.score = 0;
+
+      saveState();
+      document.getElementById("modal-registration").classList.add("hidden");
+      renderUI();
+      playSuccessSound();
+    }
+
+    function tickTimer() {
+      if (!state.registered || !state.timerRunning || state.completed) return;
+
+      state.elapsedSeconds++;
+      if (state.timeRemaining > 0) state.timeRemaining--;
+
+      updateTimerDisplay();
+      if (state.elapsedSeconds % 10 === 0) saveState();
+    }
+
+    function formatTime(totalSec) {
+      const m = Math.floor(totalSec / 60);
+      const s = totalSec % 60;
+      return `${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
+    }
+
+    function updateTimerDisplay() {
+      const display = document.getElementById("timer-display");
+      display.textContent = formatTime(state.timeRemaining);
+
+      if (state.timeRemaining <= 300) {
+        display.className = "timer-readout danger";
+      } else if (state.timeRemaining <= 900) {
+        display.className = "timer-readout warning";
+      } else {
+        display.className = "timer-readout";
+      }
+    }
+
+    function renderUI() {
+      document.getElementById("hud-team-tag").textContent = `AGENT TEAM: ${state.teamName.toUpperCase()} // ${state.stationId.toUpperCase()}`;
+      document.getElementById("hud-score-display").textContent = `${state.score} / 1000 PTS`;
+
+      updateTimerDisplay();
+
+      for (let i = 1; i <= 4; i++) {
+        const card = document.getElementById(`card-milestone-${i}`);
+        const tag = document.getElementById(`checkpoint-tag-${i}`);
+        const stage = document.getElementById(`stage-level-${i}`);
+
+        if (state.checkpoints[i].cleared) {
+          card.className = "milestone-card cleared";
+          tag.innerHTML = `<span>✅ ${state.checkpoints[i].timestampStr}</span> <span class="split-badge">+${formatTime(state.checkpoints[i].split)}</span>`;
+        } else if (i === state.currentLevel) {
+          card.className = "milestone-card active";
+          tag.innerHTML = `<span class="status-indicator">● IN PROGRESS</span>`;
+        } else {
+          card.className = "milestone-card locked";
+          tag.innerHTML = `<span>🔒 LOCKED</span>`;
+        }
+
+        if (i === state.currentLevel && !state.completed) {
+          stage.classList.remove("hidden");
+        } else {
+          stage.classList.add("hidden");
+        }
+      }
+    }
+
+    // =========================================================================
+    // FLAG VALIDATION (SHA-256)
+    // =========================================================================
+    async function sha256(message) {
+      const msgBuffer = new TextEncoder().encode(message.trim());
+      const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+    }
+
+    async function submitFlag(level) {
+      const input = document.getElementById(`input-flag-${level}`);
+      const feedback = document.getElementById(`feedback-${level}`);
+      const userFlag = input.value.trim();
+
+      if (!userFlag) {
+        feedback.className = "feedback-message error";
+        feedback.textContent = "[-] Please enter a flag to verify.";
+        return;
+      }
+
+      const hashed = await sha256(userFlag);
+
+      if (hashed === FLAG_HASHES[level]) {
+        feedback.className = "feedback-message success";
+        feedback.textContent = `[+] 🟢 ACCESS GRANTED! LEVEL ${level} NEUTRALIZED!`;
+        playSuccessSound();
+
+        const prevElapsed = level === 1 ? 0 : state.checkpoints[level - 1].elapsed;
+        const currentElapsed = state.elapsedSeconds;
+        const splitDuration = currentElapsed - prevElapsed;
+
+        state.checkpoints[level] = {
+          cleared: true,
+          elapsed: currentElapsed,
+          split: splitDuration,
+          timestampStr: formatTime(currentElapsed)
+        };
+
+        state.score += LEVEL_POINTS[level];
+
+        if (level < 4) {
+          state.currentLevel = level + 1;
+          setTimeout(() => {
+            renderUI();
+            if (state.currentLevel === 4) playBossSiren();
+          }, 1200);
+        } else {
+          state.completed = true;
+          state.timerRunning = false;
+          setTimeout(showVictoryScreen, 1000);
+        }
+
+        saveState();
+      } else {
+        state.failedAttempts++;
+        feedback.className = "feedback-message error";
+        feedback.textContent = `[-] 🔴 ACCESS DENIED: Checksum mismatch. (Attempt #${state.failedAttempts})`;
+        playErrorSound();
+        saveState();
+      }
+    }
+
+    // =========================================================================
+    // LEVEL 2 HELPERS (PCAP DOWNLOAD & DISSECTOR)
+    // =========================================================================
+    function downloadPcapFile() {
+      const link = document.createElement("a");
+      link.href = "data:application/vnd.tcpdump.pcap;base64," + PCAP_FILE_B64;
+      link.download = "citadel_traffic.pcap";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    function inspectPacket(num) {
+      const detail = document.getElementById("packet-detail-view");
+      detail.style.display = "block";
+
+      if (num === 4) {
+        detail.innerHTML = `
+          <strong>[+] PACKET #4 // TCP STREAM REASSEMBLY (HTTP POST):</strong><br>
+          <span style="color:var(--text-dim)">POST /api/v1/telemetry/node_auth HTTP/1.1</span><br>
+          <span style="color:var(--text-dim)">Host: 10.0.0.1 | Content-Type: application/json</span><br><br>
+          <span style="color:var(--emerald-green); font-weight:bold;">REASSEMBLED JSON PAYLOAD:</span><br>
+          <code>{
+  "telemetry_node": "AEGIS-OUTPOST-07",
+  "auth_token": "<span style="color:var(--neon-cyan); font-weight:bold;">AEGIS{PC4P_N3TW0RK_TR4FF1C_M4ST3R_77}</span>",
+  "status": "TRANSMISSION_VERIFIED"
+}</code>
+        `;
+        document.getElementById("input-flag-2").value = "AEGIS{PC4P_N3TW0RK_TR4FF1C_M4ST3R_77}";
+        playSuccessSound();
+      } else {
+        detail.innerHTML = `
+          <strong>[i] PACKET #${num} // METADATA INSPECTION:</strong><br>
+          Normal background network handshake traffic. No authentication credentials discovered in this frame.
+        `;
+      }
+    }
+
+    // =========================================================================
+    // LEVEL 3 HELPERS (SQL INJECTION AUTH BYPASS)
+    // =========================================================================
+    function autoFillSqlPayload() {
+      document.getElementById("sqli-user-input").value = "' OR 1=1 --";
+      document.getElementById("sqli-pass-input").value = "password123";
+    }
+
+    function submitSqlInjection() {
+      const user = document.getElementById("sqli-user-input").value.trim();
+      const pass = document.getElementById("sqli-pass-input").value.trim();
+
+      // Check classic SQL injection patterns
+      const sqlInjectionPattern = /('\s*or\s*1\s*=\s*1)|('\s*or\s*'1'\s*=\s*'1')|('\s*or\s*true)|(admin'\s*--)/i;
+
+      if (sqlInjectionPattern.test(user)) {
+        // SUCCESSFUL SQLi!
+        document.getElementById("sqli-terminal-log").innerHTML = `
+          [+] Executed query: <code>SELECT * FROM admin_users WHERE username = '${user}' AND password = '...'</code><br>
+          <span class="ok">[+] SQL LOGIC EVALUATED TO TRUE: Authentication bypassed!</span><br>
+          [+] Logged in as: <strong>SUPER_ADMIN (UID: 0)</strong><br>
+          <span class="ok">[+] CITADEL MASTER ACCESS FLAG:</span><br>
+          <strong style="color:var(--neon-cyan); font-size:1.15rem;">AEGIS{SQL1_4UTH_BYP4SS_M4ST3R_33}</strong>
+        `;
+        document.getElementById("sqli-auth-status").textContent = "AUTH STATUS: SUPER_ADMIN (AUTHENTICATED)";
+        document.getElementById("input-flag-3").value = "AEGIS{SQL1_4UTH_BYP4SS_M4ST3R_33}";
+        playSuccessSound();
+      } else {
+        document.getElementById("sqli-terminal-log").innerHTML = `
+          [-] Executed query: <code>SELECT * FROM admin_users WHERE username = '${user || "none"}' AND password = '...'</code><br>
+          <span class="err">[-] AUTHENTICATION FAILED: Invalid username or password.</span><br>
+          [!] Read the blunt hint above: Enter <strong>' OR 1=1 --</strong> in the username field!
+        `;
+        playErrorSound();
+      }
+    }
+
+    // =========================================================================
+    // LEVEL 4 HELPERS (PYTHON SCRIPT DOWNLOAD & COPY)
+    // =========================================================================
+    function downloadPythonScript() {
+      const blob = new Blob([PYTHON_CORE_SCRIPT], { type: "text/x-python" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "citadel_core_engine.py";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+
+    function copyPythonCode(btn) {
+      navigator.clipboard.writeText(PYTHON_CORE_SCRIPT).then(() => {
+        const orig = btn.textContent;
+        btn.textContent = "✅ COPIED TO CLIPBOARD!";
+        setTimeout(() => { btn.textContent = orig; }, 2000);
+      });
+    }
+
+    function copyText(str, btn) {
+      navigator.clipboard.writeText(str).then(() => {
+        const orig = btn.textContent;
+        btn.textContent = "✅ COPIED!";
+        setTimeout(() => { btn.textContent = orig; }, 2000);
+      });
+    }
+
+    // =========================================================================
+    // JUDGE TELEMETRY
+    // =========================================================================
+    function openJudgeModal() {
+      document.getElementById("modal-judge").classList.remove("hidden");
+      document.getElementById("judge-pin-view").classList.remove("hidden");
+      document.getElementById("judge-data-view").classList.add("hidden");
+      document.getElementById("judge-pin-input").value = "";
+    }
+
+    function closeJudgeModal() {
+      document.getElementById("modal-judge").classList.add("hidden");
+    }
+
+    function verifyJudgePin() {
+      const entered = document.getElementById("judge-pin-input").value.trim();
+      if (entered === JUDGE_PIN) {
+        document.getElementById("judge-pin-view").classList.add("hidden");
+        document.getElementById("judge-data-view").classList.remove("hidden");
+        populateJudgeTelemetry();
+      } else {
+        alert("[-] INVALID FACILITATOR PIN");
+        playErrorSound();
+      }
+    }
+
+    async function generateJudgeVerificationToken() {
+      const rawString = `${state.teamName}|${state.stationId}|${state.score}|` +
+        `L1:${state.checkpoints[1].elapsed}|L2:${state.checkpoints[2].elapsed}|` +
+        `L3:${state.checkpoints[3].elapsed}|L4:${state.checkpoints[4].elapsed}|${SECRET_SALT}`;
+      return await sha256(rawString);
+    }
+
+    async function populateJudgeTelemetry() {
+      document.getElementById("judge-team-name").textContent = state.teamName || "UNREGISTERED";
+      document.getElementById("judge-station-id").textContent = state.stationId || "-";
+      document.getElementById("judge-failed-attempts").textContent = state.failedAttempts;
+      document.getElementById("judge-total-score").textContent = `${state.score} / 1000 PTS`;
+
+      const tbody = document.getElementById("judge-telemetry-body");
+      tbody.innerHTML = "";
+
+      const levelNames = {
+        1: "Level 1: Signal Intercept (Base85 + Vigenere)",
+        2: "Level 2: Packet Sniffer (Wireshark PCAP)",
+        3: "Level 3: Gateway Override (SQL Injection)",
+        4: "Level 4: Micro-VM Core (AI Solver)"
+      };
+
+      for (let i = 1; i <= 4; i++) {
+        const cp = state.checkpoints[i];
+        const tr = document.createElement("tr");
+
+        let statusHtml = cp.cleared ? 
+          `<span style="color:var(--emerald-green); font-weight:700;">✅ CLEARED</span>` : 
+          (i === state.currentLevel ? `<span style="color:var(--neon-cyan);">● IN PROGRESS</span>` : `<span style="color:var(--text-muted);">🔒 LOCKED</span>`);
+
+        let elapsedHtml = cp.cleared ? `${cp.timestampStr} (${cp.elapsed}s)` : "-";
+        let splitHtml = cp.cleared ? `+${formatTime(cp.split)} (${cp.split}s)` : "-";
+
+        tr.innerHTML = `
+          <td><strong>${levelNames[i]}</strong></td>
+          <td>${statusHtml}</td>
+          <td style="font-family:var(--font-mono);">${elapsedHtml}</td>
+          <td style="font-family:var(--font-mono); color:var(--emerald-green);">${splitHtml}</td>
+          <td style="color:var(--gold-amber);">${cp.cleared ? LEVEL_POINTS[i] : 0} / ${LEVEL_POINTS[i]}</td>
+        `;
+        tbody.appendChild(tr);
+      }
+
+      const token = await generateJudgeVerificationToken();
+      document.getElementById("judge-token-display").textContent = `VERIFICATION TOKEN (SHA256): ${token}`;
+    }
+
+    async function copyJudgeReport() {
+      const token = await generateJudgeVerificationToken();
+      const report = 
+`============================================================
+🛡️ AEGIS CYBER TOURNAMENT // OFFICIAL JUDGE DOSSIER
+============================================================
+Team Designation : ${state.teamName}
+Assigned Station : ${state.stationId}
+Current Level    : Level ${state.currentLevel} (Completed: ${state.completed ? "YES" : "NO"})
+Total Points     : ${state.score} / 1000 PTS
+Failed Attempts  : ${state.failedAttempts}
+
+--- CHECKPOINT TELEMETRY (TIE-BREAKER SPLITS) ---
+Level 1 (Signal Decoded)  : ${state.checkpoints[1].cleared ? `CLEARED at ${state.checkpoints[1].timestampStr} (Split: +${formatTime(state.checkpoints[1].split)})` : "NOT CLEARED"}
+Level 2 (PCAP Forensics)  : ${state.checkpoints[2].cleared ? `CLEARED at ${state.checkpoints[2].timestampStr} (Split: +${formatTime(state.checkpoints[2].split)})` : "NOT CLEARED"}
+Level 3 (SQL Injection)   : ${state.checkpoints[3].cleared ? `CLEARED at ${state.checkpoints[3].timestampStr} (Split: +${formatTime(state.checkpoints[3].split)})` : "NOT CLEARED"}
+Level 4 (Micro-VM Core)   : ${state.checkpoints[4].cleared ? `CLEARED at ${state.checkpoints[4].timestampStr} (Split: +${formatTime(state.checkpoints[4].split)})` : "NOT CLEARED"}
+
+Tamper-Proof Token: ${token}
+============================================================`;
+
+      navigator.clipboard.writeText(report).then(() => {
+        alert("[+] Judge Dossier copied to clipboard!");
+      });
+    }
+
+    function adminForceNextLevel() {
+      if (state.currentLevel < 4) {
+        state.checkpoints[state.currentLevel] = {
+          cleared: true,
+          elapsed: state.elapsedSeconds,
+          split: 0,
+          timestampStr: formatTime(state.elapsedSeconds)
+        };
+        state.score += LEVEL_POINTS[state.currentLevel];
+        state.currentLevel++;
+        saveState();
+        renderUI();
+        populateJudgeTelemetry();
+      } else {
+        state.completed = true;
+        saveState();
+        renderUI();
+        closeJudgeModal();
+        showVictoryScreen();
+      }
+    }
+
+    function adminResetTeam() {
+      if (confirm("Are you sure you want to reset this team's entire progress?")) {
+        localStorage.removeItem("aegis_ctf_state_round4");
+        location.reload();
+      }
+    }
+
+    async function showVictoryScreen() {
+      const token = await generateJudgeVerificationToken();
+      document.getElementById("vic-team-name").textContent = state.teamName;
+      document.getElementById("vic-station-id").textContent = state.stationId;
+      document.getElementById("vic-total-time").textContent = formatTime(state.elapsedSeconds);
+      document.getElementById("vic-final-score").textContent = `${state.score} / 1000 PTS`;
+      document.getElementById("vic-token").textContent = token;
+      document.getElementById("modal-victory").classList.remove("hidden");
+      playSuccessSound();
+    }
+
+    function initCanvasBackground() {
+      const canvas = document.getElementById("cyber-canvas");
+      const ctx = canvas.getContext("2d");
+
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      window.addEventListener("resize", resize);
+      resize();
+
+      const particles = [];
+      for (let i = 0; i < 45; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * 0.6,
+          vy: (Math.random() - 0.5) * 0.6,
+          radius: Math.random() * 2 + 1,
+          color: Math.random() > 0.4 ? "#00e5ff" : "#ff1e42"
+        });
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.strokeStyle = "rgba(0, 229, 255, 0.04)";
+        ctx.lineWidth = 1;
+        const gridSize = 60;
+        for (let x = 0; x < canvas.width; x += gridSize) {
+          ctx.beginPath();
+          ctx.moveTo(x, 0);
+          ctx.lineTo(x, canvas.height);
+          ctx.stroke();
+        }
+        for (let y = 0; y < canvas.height; y += gridSize) {
+          ctx.beginPath();
+          ctx.moveTo(0, y);
+          ctx.lineTo(canvas.width, y);
+          ctx.stroke();
+        }
+
+        particles.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < 0) p.x = canvas.width;
+          if (p.x > canvas.width) p.x = 0;
+          if (p.y < 0) p.y = canvas.height;
+          if (p.y > canvas.height) p.y = 0;
+
+          ctx.fillStyle = p.color;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          ctx.fill();
+        });
+
+        requestAnimationFrame(draw);
+      }
+      draw();
+    }
+  </script>
+</body>
+</html>

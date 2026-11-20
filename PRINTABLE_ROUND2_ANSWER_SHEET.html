@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ULTRON: DIGITAL DOMINION — Round 2 Phishing Investigation Answer Sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 6mm 8mm;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body {
+    background-color: #f1f5f9;
+    color: #0f172a;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.25;
+    font-size: 11px;
+  }
+
+  .no-print-bar {
+    background: #090d16;
+    color: #ffffff;
+    padding: 12px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+    border-bottom: 2px solid #e11d48;
+  }
+
+  .no-print-bar .title {
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .no-print-bar .badge {
+    background: #e11d48;
+    color: #fff;
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .btn-group {
+    display: flex;
+    gap: 10px;
+  }
+
+  .btn {
+    background: #e11d48;
+    color: white;
+    border: none;
+    padding: 8px 18px;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+  }
+
+  .btn:hover {
+    background: #be123c;
+    transform: translateY(-1px);
+  }
+
+  .btn-outline {
+    background: transparent;
+    border: 1px solid #475569;
+    color: #e2e8f0;
+  }
+
+  .btn-outline:hover {
+    background: #1e293b;
+    border-color: #94a3b8;
+  }
+
+  /* Sheet container */
+  .sheet {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 15px auto;
+    background: #ffffff;
+    padding: 7mm 9mm 6mm 9mm;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .page-break {
+    page-break-after: always;
+    break-after: page;
+  }
+
+  /* Header with breathing room */
+  .header-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-bottom: 2px solid #0f172a;
+    padding-bottom: 8px;
+    margin-bottom: 6px;
+  }
+
+  .header-left .sub-meta {
+    font-size: 8px;
+    font-weight: 700;
+    color: #475569;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .header-left h1 {
+    font-size: 17px;
+    font-weight: 900;
+    color: #0f172a;
+    letter-spacing: -0.3px;
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+
+  .header-left .doc-title {
+    font-size: 11px;
+    font-weight: 800;
+    color: #e11d48;
+    margin-bottom: 3px;
+  }
+
+  .header-left .doc-title span {
+    color: #334155;
+    font-weight: 700;
+  }
+
+  .header-left .tagline {
+    font-size: 7.5px;
+    color: #64748b;
+    font-style: italic;
+  }
+
+  .header-right {
+    text-align: right;
+    vertical-align: middle;
+  }
+
+  .header-badge {
+    background: #0f172a;
+    color: #ffffff;
+    display: inline-block;
+    padding: 8px 14px;
+    border-radius: 5px;
+    text-align: center;
+    border: 1px solid #1e293b;
+  }
+
+  .header-badge .hb-title {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+  }
+
+  .header-badge .hb-meta {
+    font-size: 7.5px;
+    color: #fda4af;
+    margin-top: 3px;
+    font-weight: 700;
+  }
+
+  .header-badge .hb-size {
+    font-size: 7px;
+    color: #cbd5e1;
+    margin-top: 1px;
+  }
+
+  /* Team ID Strip */
+  .team-strip {
+    width: 100%;
+    border-collapse: collapse;
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    margin-bottom: 6px;
+    font-size: 7.5px;
+  }
+
+  .team-strip td {
+    padding: 4px 6px;
+    vertical-align: middle;
+  }
+
+  .team-strip strong {
+    color: #475569;
+  }
+
+  .team-strip .line {
+    border-bottom: 1px solid #0f172a;
+    display: inline-block;
+    width: 100%;
+    height: 12px;
+  }
+
+  .team-strip .box {
+    border: 1px solid #0f172a;
+    padding: 2px 8px;
+    background: #fff;
+    font-weight: 700;
+    display: inline-block;
+  }
+
+  /* Instructions */
+  .inst-strip {
+    background: #fff1f2;
+    border-left: 3px solid #e11d48;
+    padding: 4px 8px;
+    font-size: 7.2px;
+    color: #0f172a;
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+
+  /* Section Title Bar */
+  .sec-bar {
+    background: #0f172a;
+    color: #ffffff;
+    padding: 3px 8px;
+    font-size: 8px;
+    font-weight: 800;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 4px;
+    border-radius: 3px 3px 0 0;
+  }
+
+  .sec-bar .pts {
+    color: #fda4af;
+    font-size: 7.5px;
+  }
+
+  /* Table styling */
+  .investigation-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 7px;
+    margin-bottom: 6px;
+    border: 1px solid #94a3b8;
+  }
+
+  .investigation-table th {
+    background: #e2e8f0;
+    color: #334155;
+    font-weight: 800;
+    padding: 3px 4px;
+    text-align: left;
+    border: 0.5px solid #cbd5e1;
+    font-size: 6.8px;
+  }
+
+  .investigation-table td {
+    padding: 3px 4px;
+    border: 0.5px solid #cbd5e1;
+    vertical-align: middle;
+  }
+
+  .investigation-table tr:nth-child(even) {
+    background: #f8fafc;
+  }
+
+  .email-id {
+    font-family: 'Fira Code', monospace;
+    font-weight: 800;
+    font-size: 8.5px;
+    color: #0f172a;
+    text-align: center;
+  }
+
+  .verdict-box {
+    font-size: 7px;
+    text-align: center;
+    background: #ffffff;
+    border: 1px solid #0f172a;
+    padding: 3px;
+  }
+
+  .verdict-box .prompt {
+    font-size: 6px;
+    color: #94a3b8;
+    margin-bottom: 1px;
+  }
+
+  .write-line {
+    border-bottom: 0.75px solid #cbd5e1;
+    height: 13px;
+    display: block;
+    width: 100%;
+  }
+
+  .score-cell {
+    font-weight: 800;
+    color: #64748b;
+    text-align: center;
+    font-size: 7.5px;
+  }
+
+  /* Notes box */
+  .notes-box {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    padding: 6px 10px;
+    margin-bottom: 6px;
+    font-size: 7px;
+    color: #475569;
+    border-radius: 4px;
+  }
+
+  /* Scorecard */
+  .scorecard-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1.5px solid #0f172a;
+    margin-bottom: 5px;
+  }
+
+  .scorecard-table td {
+    padding: 4px 8px;
+    vertical-align: middle;
+  }
+
+  .score-breakdown {
+    background: #f8fafc;
+    font-size: 7.5px;
+    color: #0f172a;
+  }
+
+  .score-total {
+    background: #0f172a;
+    color: #ffffff;
+    text-align: center;
+    width: 130px;
+  }
+
+  .score-total .lbl {
+    font-size: 6.5px;
+    color: #94a3b8;
+  }
+
+  .score-total .val {
+    font-size: 12px;
+    font-weight: 900;
+    color: #38bdf8;
+  }
+
+  /* Footer */
+  .footer-table {
+    width: 100%;
+    border-top: 1px solid #94a3b8;
+    padding-top: 4px;
+    margin-top: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 6.8px;
+    color: #475569;
+  }
+
+  @media print {
+    body {
+      background: white !important;
+    }
+    .no-print-bar {
+      display: none !important;
+    }
+    .sheet {
+      width: 100% !important;
+      min-height: auto !important;
+      margin: 0 !important;
+      padding: 5mm 6mm !important;
+      box-shadow: none !important;
+    }
+    .page-break {
+      page-break-after: always !important;
+      break-after: page !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="no-print-bar">
+  <div class="title">
+    <span>🛡️ ULTRON: DIGITAL DOMINION — Round 2 Phishing Investigation Answer Sheet</span>
+    <span class="badge">A4 Portrait • 30 Marks (1M / Question)</span>
+  </div>
+  <div class="btn-group">
+    <a href="ULTRON_ROUND2_INVESTIGATION_ANSWER_SHEET.pdf" download class="btn">
+      <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+      Download 2-Page Dossier PDF (Duplex)
+    </a>
+    <a href="ULTRON_ROUND2_QUIZ_ANSWER_SHEET.pdf" download class="btn btn-outline">
+      <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+      Download 1-Page Rapid PDF
+    </a>
+    <button onclick="window.print()" class="btn btn-outline">
+      <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+      Print Dossier
+    </button>
+  </div>
+</div>
+
+<!-- PAGE 1: FRONT (SECTIONS A & B • 20 MARKS) -->
+<div class="sheet page-break">
+  <div>
+    <!-- Top Header -->
+    <table class="header-table">
+      <tr>
+        <td class="header-left">
+          <div class="sub-meta">Round 2: The Social Engineering Breach &nbsp;•&nbsp; <strong>Technical Events // Technix 8.0</strong></div>
+          <h1>ULTRON: DIGITAL DOMINION</h1>
+          <div class="doc-title">Phishing Investigation & Incident Response Worksheet <span>&nbsp;|&nbsp; Page 1 of 2 (Front)</span></div>
+          <div class="tagline">"Trace the Threat. Crack the Code. Defeat Ultron. Save the Digital Universe!"</div>
+        </td>
+        <td class="header-right">
+          <div class="header-badge">
+            <div class="hb-title">ROUND 2: PHISHING</div>
+            <div class="hb-meta">30 Emails • 30 Marks</div>
+            <div class="hb-size">1 Mark per Question</div>
+          </div>
+        </td>
+      </tr>
+    </table>
+
+    <!-- Team Strip -->
+    <table class="team-strip">
+      <tr>
+        <td width="70"><strong>TEAM NAME:</strong></td>
+        <td><span class="line"></span></td>
+        <td width="80"><strong>TEAM LEADER:</strong></td>
+        <td><span class="line"></span></td>
+        <td width="55"><strong>DESK #:</strong></td>
+        <td width="40"><span class="box">&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
+        <td width="45"><strong>TIME:</strong></td>
+        <td width="80"><span class="line"></span></td>
+      </tr>
+    </table>
+
+    <!-- Instructions -->
+    <div class="inst-strip">
+      <strong>Investigation Protocol:</strong> Open the Authentic Gmail replica (<code>index.html</code>) and inspect RFC 5322 headers via <strong>'Show original'</strong>. Write <strong>Legit</strong> or <strong>Phish</strong> in the boxed Verdict column and state your technical evidence. <strong>Each question carries 1 Mark</strong> (Total: 30 Marks).
+    </div>
+
+    <!-- Section A: Easy (Emails 01-10) -->
+    <div class="sec-bar">
+      <span>SECTION A — EASY: TEXTBOOK HEADER FORENSICS (EMAILS 01 – 10)</span>
+      <span class="pts">10 MARKS (1 Mark / Email)</span>
+    </div>
+    <table class="investigation-table">
+      <tr>
+        <th width="42" style="text-align:center;">EMAIL #</th>
+        <th width="115" style="text-align:center;">VERDICT (Legit or Phish)</th>
+        <th>TECHNICAL EVIDENCE & FORENSIC JUSTIFICATION</th>
+        <th width="50" style="text-align:center;">SCORE</th>
+      </tr>
+
+      <tr>
+        <td class="email-id">E-01</td>
+        <td>
+          <div class="verdict-box">
+            <div class="prompt">Write: <strong>Legit</strong> / <strong>Phish</strong></div>
+            <span class="write-line"></span>
+          </div>
+        </td>
+        <td><span class="write-line"></span></td>
+        <td class="score-cell">___ / 1M</td>
+      </tr>
+
+      <tr>
+        <td class="email-id">E-02</td>
+        <td>
+          <div class="verdict-box">
+            <div class="prompt">Write: <strong>Legit</strong> / <strong>Phish</strong></div>
+            <span class="write-line"></span>
+          </div>
+        </td>
+        <td><span class="write-line"></span></td>
+        <td class="score-cell">___ / 1M</td>
+      </tr>
+
+      <tr>
+        <td class="email-id">E-03</td>
+        <td>
+          <div class="verdict-box">
+            <div class="prompt">Write: <strong>Legit</strong> / <strong>Phish</strong></div>
+            <span class="write-line"></span>
+          </div>
+        </td>
+        <td><span class="write-line"></span></td>
+        <td class="score-cell">___ / 1M</td>
+      </tr>
+
+      <tr>
+        <td class="email-id">E-04</td>
+        <td>
+          <div class="verdict-box">
+            <div class="prompt">Write: <strong>Legit</strong> / <strong>Phish</strong></div>
+            <span class="write-line"></span>
+          </div>
+        </td>
+        <td><span class="write-line"></span></td>
+        <td class="score-cell">___ / 1M</td>
+      </tr>
+
+      <tr>
+        <td class="email-id">E-05</td>
+        <td>
+          <div class="verdict-box">
+            <div class="prompt">Write: <strong>Legit</strong> / <strong>Phish</strong></div>
+            <span class="write-line"></span>
+          </div>
+        </td>
+        <td><span class="write-line"></span></td>
+        <td class="score-cell">___ / 1M</td>
+      </tr>
+
+      <tr>
+        <td class="email-id">E-06</td>
+        <td>
+          <div class="verdict-box">
+            <div class="prompt">Write: <strong>Legit</strong> / <strong>Phish</strong></div>
+            <span class="write-line"></span>
+          </div>
+        </td>
+        <td><span class="write-line"></span></td>
+        <td class="score-cell">___ / 1M</td>
+      </tr>
+
+      <tr>
+        <td class="email-id">E-07</td>
+        <td>
+          <div class="verdict-box">
+            <div class="prompt">Write: <strong>Legit</strong> / <strong>Phish</strong></div>
+            <span class="write-line"></span>
+          </div>
+        </td>
+        <td><span class="write-line"></span></td>
+        <td class="score-cell">___ / 1M</td>
+      </tr>
+
+      <tr>
+        <td class="email-id">E-08</td>
+        <td>
+          <div class="verdict-box">
+            <div class="prompt">Write: <strong>Legit</strong> / <strong>Phish</strong></div>
+            <span class="write-line"></span>
+          </div>
+        </td>
+        <td><span class="write-line"></span></td>
+        <td class="score-cell">___ / 1M</td>
+      </tr>
+
+      <tr>
+        <td class="email-id">E-09</td>
+        <td>
+          <div class="verdict-box">
+            <div class="prompt">Write: <strong>Legit</strong> / <strong>Phish</strong></div>
+            <span class="write-line"></span>
+          </div>
+        </td>
+        <td><span class="write-line"></span></td>
+        <td class="score-cell">___ / 1M</td>
+      </tr>
+
+      <tr>
+        <td class="email-id">E-10</td>
+        <td>
+          <div class="verdict-box">
+            <div class="prompt">Write: <strong>Legit</strong> / <strong>Phish</strong></div>
+            <span class="write-line"></span>
+          </div>
+        </td>
+        <td><span class="write-line"></span></td>
+        <td class="score-cell">___ / 1M</td>
+      </tr>
+
+    </table>
+
+    <!-- Section B: Medium (Emails 11-20) -->
+    <div class="sec-bar">
+      <span>SECTION B — MEDIUM: TECHNICAL VECTORS & OSINT (EMAILS 11 – 20)</span>
+      <span class="pts">10 MARKS (1 Mark / Email)</span>
+    </div>
+    <table class="investigation-table">
+      <tr>
+        <th width="42" style="text-align:center;">EMAIL #</th>
+        <th width="115" style="text-align:center;">VERDICT (Legit or Phish)</th>
+        <th>TECHNICAL EVIDENCE & FORENSIC JUSTIFICATION</th>
+        <th width="50" style="text-align:center;">SCORE</th>
+      </tr>
+
+      <tr>
+        <td class="email-id">E-11</td>
+        <td>
+          <div class="verdict-box">
+            <div class="prompt">Write: <strong>Legit</strong> / <strong>Phish</strong></div>
+            <span class="write-line"></span>
+          </div>
+        </td>
+        <td><span class="write-line"></span></td>
+        <td class="score-cell">___ / 1M</td>
+      </tr>
+
+      <tr>
+        <td class="email-id">E-12</td>
+        <td>
+          <div class="verdict-box">
+            <div class="prompt">Write: <strong>Legit</strong> / <strong>Phish</strong></div>
+            <span class="write-line"></span>
+          </div>
+        </td>
+        <td><span class="write-line"></span></td>
+        <td class="score-cell">___ / 1M</td>
+      </tr>
+
+      <tr>
+        <td class="email-id">E-13</td>
+        <td>
+          <div class="verdict-box">
+            <div class="prompt">Write: <strong>Legit</strong> / <strong>Phish</strong></div>
+            <span class="write-line"></span>
+          </div>
+        </td>
+        <td><span class="write-line"></span></td>
+        <td class="score-cell">___ / 1M</td>
+      </tr>
+
+      <tr>
+        <td class="email-id">E-14</td>
+        <td>
+          <div class="verdict-box">
+            <div class="prompt">Write: <strong>Legit</strong> / <strong>Phish</strong></div>
+            <span class="write-line"></span>
+          </div>
+        </td>
+        <td><span class="write-line"></span></td>
+        <td class="score-cell">___ / 1M</td>
+      </tr>
+
+      <tr>
+        <td class="email-id">E-15</td>
+        <td>
+          <div class="verdict-box">
+            <div class="prompt">Write: <strong>Legit</strong> / <strong>Phish</strong></div>
+            <span class="write-line"></span>
+          </div>
+        </td>
+        <td><span class="write-line"></span></td>
+        <td class="score-cell">___ / 1M</td>
+      </tr>
+
+      <tr>
+        <td class="email-id">E-16</td>
+        <td>
+          <div class="verdict-box">
+            <div class="prompt">Write: <strong>Legit</strong> / <strong>Phish</strong></div>
+            <span class="write-line"></span>
+          </div>
+        </td>
+        <td><span class="write-line"></span></td>
+        <td class="score-cell">___ / 1M</td>
+      </tr>
+
+      <tr>
+        <td class="email-id">E-17</td>
+        <td>
+          <div class="verdict-box">
+            <div class="prompt">Write: <strong>Legit</strong> / <strong>Phish</strong></div>
+            <span class="write-line"></span>
+          </div>
+        </td>
+        <td><span class="write-line"></span></td>
+        <td class="score-cell">___ / 1M</td>
+      </tr>
+
+      <tr>
+        <td class="email-id">E-18</td>
+        <td>
+          <div class="verdict-box">
+            <div class="prompt">Write: <strong>Legit</strong> / <strong>Phish</strong></div>
+            <span class="write-line"></span>
+          </div>
+        </td>
+        <td><span class="write-line"></span></td>
+        <td class="score-cell">___ / 1M</td>
+      </tr>
+
+      <tr>
+        <td class="email-id">E-19</td>
+        <td>
+          <div class="verdict-box">
+            <div class="prompt">Write: <strong>Legit</strong> / <strong>Phish</strong></div>
+            <span class="write-line"></span>
+          </div>
+        </td>
+        <td><span class="write-line"></span></td>
+        <td class="score-cell">___ / 1M</td>
+      </tr>
+
+      <tr>
+        <td class="email-id">E-20</td>
+        <td>
+          <div class="verdict-box">
+            <div class="prompt">Write: <strong>Legit</strong> / <strong>Phish</strong></div>
+            <span class="write-line"></span>
+          </div>
+        </td>
+        <td><span class="write-line"></span></td>
+        <td class="score-cell">___ / 1M</td>
+      </tr>
+
+    </table>
+  </div>
+
+  <!-- Page 1 Footer -->
+  <div class="footer-table">
+    <div>ULTRON: DIGITAL DOMINION • Round 2 Investigation Dossier (Page 1 of 2: Sections A & B • 20 Marks)</div>
+    <div style="font-style:italic; color:#e11d48; font-weight:700;">Please turn over for Section C (Emails 21–30) & Scorecard →</div>
+  </div>
+</div>
+
+<!-- PAGE 2: BACK (SECTION C • 10 MARKS + SCORECARD) -->
+<div class="sheet">
+  <div>
+    <!-- Top Strip Header -->
+    <table class="header-table">
+      <tr>
+        <td class="header-left">
+          <div class="sub-meta">Technical Events // Cybersecurity Challenge &nbsp;•&nbsp; <strong>TECHNIX 8.0</strong></div>
+          <h1 style="font-size:14px;">ULTRON: DIGITAL DOMINION // THREAT HUNTING INVESTIGATION</h1>
+          <div class="doc-title" style="font-size:10px;">Section C: Advanced Evasion & Forensics (Emails 21–30) <span>&nbsp;|&nbsp; Page 2 of 2 (Back)</span></div>
+        </td>
+        <td class="header-right">
+          <div class="header-badge" style="padding:6px 12px;">
+            <div class="hb-title">PAGE 2 OF 2</div>
+            <div class="hb-meta">Sec C • 10 Marks</div>
+          </div>
+        </td>
+      </tr>
+    </table>
+
+    <!-- Section C: Hard (Emails 21-30) -->
+    <div class="sec-bar">
+      <span>SECTION C — HARD: ADVANCED EVASION, IDENTITY & FORENSICS (EMAILS 21 – 30)</span>
+      <span class="pts">10 MARKS (1 Mark / Email)</span>
+    </div>
+    <table class="investigation-table">
+      <tr>
+        <th width="42" style="text-align:center;">EMAIL #</th>
+        <th width="115" style="text-align:center;">VERDICT (Legit or Phish)</th>
+        <th>TECHNICAL EVIDENCE & FORENSIC JUSTIFICATION</th>
+        <th width="50" style="text-align:center;">SCORE</th>
+      </tr>
+
+      <tr>
+        <td class="email-id">E-21</td>
+        <td>
+          <div class="verdict-box">
+            <div class="prompt">Write: <strong>Legit</strong> / <strong>Phish</strong></div>
+            <span class="write-line"></span>
+          </div>
+        </td>
+        <td><span class="write-line"></span></td>
+        <td class="score-cell">___ / 1M</td>
+      </tr>
+
+      <tr>
+        <td class="email-id">E-22</td>
+        <td>
+          <div class="verdict-box">
+            <div class="prompt">Write: <strong>Legit</strong> / <strong>Phish</strong></div>
+            <span class="write-line"></span>
+          </div>
+        </td>
+        <td><span class="write-line"></span></td>
+        <td class="score-cell">___ / 1M</td>
+      </tr>
+
+      <tr>
+        <td class="email-id">E-23</td>
+        <td>
+          <div class="verdict-box">
+            <div class="prompt">Write: <strong>Legit</strong> / <strong>Phish</strong></div>
+            <span class="write-line"></span>
+          </div>
+        </td>
+        <td><span class="write-line"></span></td>
+        <td class="score-cell">___ / 1M</td>
+      </tr>
+
+      <tr>
+        <td class="email-id">E-24</td>
+        <td>
+          <div class="verdict-box">
+            <div class="prompt">Write: <strong>Legit</strong> / <strong>Phish</strong></div>
+            <span class="write-line"></span>
+          </div>
+        </td>
+        <td><span class="write-line"></span></td>
+        <td class="score-cell">___ / 1M</td>
+      </tr>
+
+      <tr>
+        <td class="email-id">E-25</td>
+        <td>
+          <div class="verdict-box">
+            <div class="prompt">Write: <strong>Legit</strong> / <strong>Phish</strong></div>
+            <span class="write-line"></span>
+          </div>
+        </td>
+        <td><span class="write-line"></span></td>
+        <td class="score-cell">___ / 1M</td>
+      </tr>
+
+      <tr>
+        <td class="email-id">E-26</td>
+        <td>
+          <div class="verdict-box">
+            <div class="prompt">Write: <strong>Legit</strong> / <strong>Phish</strong></div>
+            <span class="write-line"></span>
+          </div>
+        </td>
+        <td><span class="write-line"></span></td>
+        <td class="score-cell">___ / 1M</td>
+      </tr>
+
+      <tr>
+        <td class="email-id">E-27</td>
+        <td>
+          <div class="verdict-box">
+            <div class="prompt">Write: <strong>Legit</strong> / <strong>Phish</strong></div>
+            <span class="write-line"></span>
+          </div>
+        </td>
+        <td><span class="write-line"></span></td>
+        <td class="score-cell">___ / 1M</td>
+      </tr>
+
+      <tr>
+        <td class="email-id">E-28</td>
+        <td>
+          <div class="verdict-box">
+            <div class="prompt">Write: <strong>Legit</strong> / <strong>Phish</strong></div>
+            <span class="write-line"></span>
+          </div>
+        </td>
+        <td><span class="write-line"></span></td>
+        <td class="score-cell">___ / 1M</td>
+      </tr>
+
+      <tr>
+        <td class="email-id">E-29</td>
+        <td>
+          <div class="verdict-box">
+            <div class="prompt">Write: <strong>Legit</strong> / <strong>Phish</strong></div>
+            <span class="write-line"></span>
+          </div>
+        </td>
+        <td><span class="write-line"></span></td>
+        <td class="score-cell">___ / 1M</td>
+      </tr>
+
+      <tr>
+        <td class="email-id">E-30</td>
+        <td>
+          <div class="verdict-box">
+            <div class="prompt">Write: <strong>Legit</strong> / <strong>Phish</strong></div>
+            <span class="write-line"></span>
+          </div>
+        </td>
+        <td><span class="write-line"></span></td>
+        <td class="score-cell">___ / 1M</td>
+      </tr>
+
+    </table>
+
+    <!-- Incident Workspace Notes (Clean Working Room) -->
+    <div class="sec-bar" style="background:#475569;">
+      <span>📝 INCIDENT RESPONSE WORKSPACE / THREAT HUNTING NOTES (OPTIONAL WORKING SPACE)</span>
+      <span class="pts" style="color:#cbd5e1;">Rough Working / Domain Mapping</span>
+    </div>
+    <div class="notes-box">
+      <div style="font-size:6.5px; color:#64748b; margin-bottom:4px;">Use this space to sketch domain timelines, note suspicious IP ASNs, or map attack indicators:</div>
+      <span class="write-line" style="margin-bottom:6px;"></span>
+      <span class="write-line" style="margin-bottom:6px;"></span>
+      <span class="write-line"></span>
+    </div>
+
+    <!-- Evaluator Scorecard Table (1M per Q = 30 Marks) -->
+    <table class="scorecard-table">
+      <tr>
+        <td class="score-breakdown">
+          <strong>OFFICIAL EVALUATOR SCORECARD — ROUND 2 (1 MARK PER QUESTION)</strong><br/>
+          Sec A: Easy (E-01 – E-10): &nbsp;<strong>____ / 10 Marks</strong> &nbsp;|&nbsp; 
+          Sec B: Medium (E-11 – E-20): &nbsp;<strong>____ / 10 Marks</strong><br/>
+          Sec C: Hard (E-21 – E-30): &nbsp;<strong>____ / 10 Marks</strong> &nbsp;|&nbsp; 
+          <i>Tiebreaker: Earliest verified finish time</i>
+        </td>
+        <td class="score-total">
+          <div class="lbl">TOTAL SCORE</div>
+          <div class="val">____ / 30</div>
+        </td>
+      </tr>
+    </table>
+
+    <!-- Sign-off -->
+    <table style="width:100%; font-size:7px; margin-bottom:4px;">
+      <tr>
+        <td width="120"><strong>EVALUATOR / JUDGE:</strong></td>
+        <td><span class="write-line"></span></td>
+        <td width="90" style="text-align:right;"><strong>JUDGE SIGN:</strong></td>
+        <td><span class="write-line"></span></td>
+        <td width="70" style="text-align:right;"><strong>STATUS:</strong></td>
+        <td width="80"><strong>[ &nbsp; ] VERIFIED</strong></td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Page 2 Footer -->
+  <div class="footer-table">
+    <div><strong>COORDINATORS:</strong> M THANMAY (9391120323) | NISHITHA B P (8073167665) | technix8.0team@gmail.com | @technix8.0</div>
+    <div>ULTRON: DIGITAL DOMINION • Round 2 Investigation Dossier (30 Questions • 30 Marks)</div>
+  </div>
+</div>
+
+</body>
+</html>

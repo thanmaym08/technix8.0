@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Official Competition Printables — Team Registration & Round 1 Answer Sheet (1 Mark Each)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 8mm 10mm;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body {
+    background-color: #f3f4f6;
+    color: #111827;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.3;
+    font-size: 12px;
+  }
+
+  /* Screen Action Bar */
+  .no-print-bar {
+    background: #0f172a;
+    color: #ffffff;
+    padding: 14px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  .no-print-bar h2 {
+    font-size: 15px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #38bdf8;
+  }
+
+  .print-btn {
+    background: #0284c7;
+    color: #ffffff;
+    border: none;
+    padding: 9px 22px;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.15s ease;
+  }
+
+  .print-btn:hover {
+    background: #0369a1;
+  }
+
+  /* A4 Page Container */
+  .a4-page {
+    width: 210mm;
+    min-height: 297mm;
+    height: 297mm;
+    margin: 15px auto;
+    background: #ffffff;
+    padding: 12mm 14mm;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    page-break-after: always;
+    break-after: page;
+    overflow: hidden;
+  }
+
+  @media print {
+    body {
+      background: none;
+      padding: 0;
+    }
+    .no-print-bar {
+      display: none !important;
+    }
+    .a4-page {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      min-height: 100vh;
+      box-shadow: none;
+      padding: 8mm 10mm;
+      page-break-after: always;
+      break-after: page;
+    }
+  }
+
+  /* Common Header Component */
+  .header-box {
+    border-bottom: 2px solid #0f172a;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .logo-title-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .shield-symbol {
+    width: 44px;
+    height: 44px;
+    background: #0f172a;
+    color: #38bdf8;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 900;
+    flex-shrink: 0;
+  }
+
+  .event-super {
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: #0284c7;
+    text-transform: uppercase;
+  }
+
+  .event-main-title {
+    font-size: 17px;
+    font-weight: 900;
+    color: #0f172a;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .event-sub {
+    font-size: 11px;
+    font-weight: 600;
+    color: #475569;
+  }
+
+  .doc-badge-box {
+    text-align: right;
+  }
+
+  .doc-badge {
+    display: inline-block;
+    background: #0f172a;
+    color: #ffffff;
+    font-family: 'Fira Code', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+  }
+
+  .doc-meta-text {
+    font-size: 10px;
+    color: #64748b;
+    margin-top: 3px;
+    font-weight: 500;
+  }
+
+  /* Form Section Boxes */
+  .section-title {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #0f172a;
+    background: #f1f5f9;
+    padding: 3px 8px;
+    border-left: 3px solid #0284c7;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* Field Rows */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .field-container {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .field-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: #334155;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .field-line {
+    border-bottom: 1.5px solid #0f172a;
+    height: 24px;
+    background: #fafafa;
+    border-radius: 2px 2px 0 0;
+  }
+
+  .field-box {
+    border: 1.5px solid #0f172a;
+    border-radius: 4px;
+    height: 30px;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    font-family: 'Fira Code', monospace;
+    font-weight: 600;
+    color: #64748b;
+  }
+
+  /* Roster Table with Ample Handwriting Space */
+  .roster-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+  }
+
+  .roster-table th {
+    background: #0f172a;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 6px 8px;
+    text-align: left;
+    border: 1px solid #0f172a;
+  }
+
+  .roster-table td {
+    border: 1.5px solid #94a3b8;
+    padding: 8px 8px;
+    vertical-align: middle;
+    height: 52px; /* Generous handwriting height */
+  }
+
+  .member-role-badge {
+    font-size: 10px;
+    font-weight: 800;
+    color: #0284c7;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .sub-hint {
+    font-size: 8.5px;
+    color: #94a3b8;
+    display: block;
+  }
+
+  /* Declarations & Verifications */
+  .declaration-box {
+    border: 1px solid #cbd5e1;
+    background: #f8fafc;
+    padding: 8px 10px;
+    border-radius: 4px;
+    font-size: 9.5px;
+    color: #475569;
+    line-height: 1.35;
+    margin-bottom: 10px;
+  }
+
+  .auth-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 5px;
+  }
+
+  .auth-box {
+    border: 1.5px dashed #94a3b8;
+    border-radius: 4px;
+    padding: 8px 10px;
+    background: #ffffff;
+  }
+
+  .auth-title {
+    font-size: 9.5px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #334155;
+    margin-bottom: 4px;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 2px;
+  }
+
+  /* Page Footer */
+  .page-footer {
+    border-top: 1px solid #cbd5e1;
+    padding-top: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 9px;
+    color: #64748b;
+  }
+
+  /* ========================================================
+     PAGE 2: ROUND 1 QUIZ ANSWER SHEET STYLES (1 MARK EACH)
+     ======================================================== */
+  .team-quick-bar {
+    background: #f8fafc;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin-bottom: 10px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1.5fr 1fr;
+    gap: 12px;
+  }
+
+  /* 3-Column Answer Grid for 30 Questions */
+  .quiz-3col-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .quiz-col {
+    border: 1.5px solid #0f172a;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .quiz-col-header {
+    background: #0f172a;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 800;
+    text-align: center;
+    padding: 4px 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .q-row {
+    display: grid;
+    grid-template-columns: 36px 42px 1fr 34px;
+    align-items: center;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 3px 6px;
+    height: 25px; /* Clean 10-row fitting */
+  }
+
+  .q-row:nth-child(even) {
+    background: #f8fafc;
+  }
+
+  .q-row:last-child {
+    border-bottom: none;
+  }
+
+  .q-num {
+    font-family: 'Fira Code', monospace;
+    font-weight: 800;
+    font-size: 11px;
+    color: #0f172a;
+  }
+
+  .q-tier-mark {
+    font-size: 9px;
+    font-weight: 700;
+    color: #0284c7;
+    background: #e0f2fe;
+    padding: 1px 4px;
+    border-radius: 3px;
+    text-align: center;
+  }
+
+  .q-opt-box {
+    margin: 0 auto;
+    width: 28px;
+    height: 20px;
+    border: 1.5px solid #0f172a;
+    border-radius: 3px;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fira Code', monospace;
+    font-weight: 900;
+    font-size: 12px;
+    color: #0f172a;
+  }
+
+  .q-eval-cell {
+    font-size: 8.5px;
+    color: #64748b;
+    text-align: right;
+    font-weight: 700;
+  }
+
+  /* Spare Questions Strip */
+  .spare-strip {
+    border: 1.5px solid #d97706;
+    background: #fffbeb;
+    border-radius: 4px;
+    padding: 6px 10px;
+    margin-bottom: 10px;
+  }
+
+  .spare-title {
+    font-size: 9.5px;
+    font-weight: 800;
+    color: #b45309;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .spare-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 6px;
+  }
+
+  .spare-item {
+    background: #ffffff;
+    border: 1px solid #f59e0b;
+    border-radius: 3px;
+    padding: 3px 4px;
+    text-align: center;
+  }
+
+  /* Score Summary Bar */
+  .scorecard-bar {
+    border: 2px solid #0f172a;
+    border-radius: 6px;
+    background: #f8fafc;
+    padding: 8px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .tier-breakdown {
+    display: flex;
+    gap: 8px;
+    font-size: 9.5px;
+    font-weight: 700;
+  }
+
+  .tier-chip {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    padding: 3px 8px;
+    border-radius: 4px;
+    text-align: center;
+  }
+
+  .grand-total-box {
+    background: #0f172a;
+    color: #ffffff;
+    padding: 6px 14px;
+    border-radius: 4px;
+    text-align: center;
+  }
+
+  .grand-total-val {
+    font-family: 'Fira Code', monospace;
+    font-size: 15px;
+    font-weight: 800;
+    color: #38bdf8;
+  }
+</style>
+</head>
+<body>
+
+<!-- Browser Screen Print Bar -->
+<div class="no-print-bar">
+  <h2>🛡️ S.H.I.E.L.D. Division // Official Tournament Intake & Round 1 Answer Sheets (1 Mark Each)</h2>
+  <button class="print-btn" onclick="window.print()">
+    🖨️ Print 2 Official Papers (A4 Ready)
+  </button>
+</div>
+
+<!-- ===================================================================
+     PAPER 1: OFFICIAL TEAM REGISTRATION & CREDENTIALS INTAKE DOSSIER
+     =================================================================== -->
+<div class="a4-page">
+  <div>
+    <!-- Header -->
+    <div class="header-box">
+      <div class="logo-title-group">
+        <div class="shield-symbol">🛡️</div>
+        <div>
+          <div class="event-super">CYBER EVENT 2026 // NATIONAL INTER-COLLEGIATE HACKATHON</div>
+          <div class="event-main-title">Team Registration & Credentials Dossier</div>
+          <div class="event-sub">Official Intake Record • Department of MCA / Cyber Security & Ethical Hacking</div>
+        </div>
+      </div>
+      <div class="doc-badge-box">
+        <div class="doc-badge">PAPER 1: INTAKE</div>
+        <div class="doc-meta-text">FORM-CR-2026-REG</div>
+      </div>
+    </div>
+
+    <!-- Section: Team & College Info -->
+    <div class="section-title">
+      <span>1. Institutional & Team Identification</span>
+      <span style="font-size: 9px; font-weight: normal; color: #475569;">* Mandatory for scoring & certificate issuance</span>
+    </div>
+
+    <div class="grid-2">
+      <div class="field-container">
+        <div class="field-label">Official Team Name / Call Sign:</div>
+        <div class="field-line"></div>
+      </div>
+      <div class="field-container">
+        <div class="field-label">Assigned Team Code / Desk #:</div>
+        <div class="field-box" style="justify-content: center; font-size: 13px;">TEAM - &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+      </div>
+    </div>
+
+    <div class="field-container" style="margin-bottom: 8px;">
+      <div class="field-label">College / University / Institution Full Name:</div>
+      <div class="field-line"></div>
+    </div>
+
+    <div class="grid-3" style="margin-bottom: 12px;">
+      <div class="field-container">
+        <div class="field-label">Department / Branch: (e.g. MCA, CSE, IT)</div>
+        <div class="field-line"></div>
+      </div>
+      <div class="field-container">
+        <div class="field-label">City & State:</div>
+        <div class="field-line"></div>
+      </div>
+      <div class="field-container">
+        <div class="field-label">Degree & Year/Sem:</div>
+        <div class="field-line"></div>
+      </div>
+    </div>
+
+    <!-- Section: Team Members Table (Generous Space) -->
+    <div class="section-title">
+      <span>2. Team Members Roster & Contact Details (Up to 4 Members)</span>
+      <span style="font-size: 9px; font-weight: normal; color: #475569;">* Please write clearly in BLOCK LETTERS</span>
+    </div>
+
+    <table class="roster-table">
+      <thead>
+        <tr>
+          <th style="width: 14%;">Designation</th>
+          <th style="width: 27%;">Full Name (Block Letters)</th>
+          <th style="width: 18%;">Register / USN #</th>
+          <th style="width: 24%;">Email Address</th>
+          <th style="width: 17%;">Mobile / WhatsApp #</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Member 1: Leader -->
+        <tr>
+          <td>
+            <span class="member-role-badge">Member 1</span>
+            <span style="font-size: 10px; font-weight: bold; color: #0f172a;">TEAM LEADER</span>
+            <span class="sub-hint">Primary Point of Contact</span>
+          </td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+
+        <!-- Member 2 -->
+        <tr>
+          <td>
+            <span class="member-role-badge">Member 2</span>
+            <span style="font-size: 10px; font-weight: bold; color: #334155;">ANALYST</span>
+            <span class="sub-hint">Core Specialist</span>
+          </td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+
+        <!-- Member 3 -->
+        <tr>
+          <td>
+            <span class="member-role-badge">Member 3</span>
+            <span style="font-size: 10px; font-weight: bold; color: #334155;">ENGINEER</span>
+            <span class="sub-hint">Security Analyst</span>
+          </td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+
+        <!-- Member 4 -->
+        <tr>
+          <td>
+            <span class="member-role-badge">Member 4</span>
+            <span style="font-size: 10px; font-weight: bold; color: #334155;">RESEARCHER</span>
+            <span class="sub-hint">Optional / Alternate</span>
+          </td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Section: Communication & Primary Coordinates -->
+    <div class="section-title">
+      <span>3. Competition Coordinates & Notifications</span>
+    </div>
+
+    <div class="grid-2" style="margin-bottom: 10px;">
+      <div class="field-container">
+        <div class="field-label">Official Team Contact Email (For Round Results & Certificates):</div>
+        <div class="field-line"></div>
+      </div>
+      <div class="field-container">
+        <div class="field-label">Primary Mobile / Emergency Phone:</div>
+        <div class="field-line"></div>
+      </div>
+    </div>
+
+    <!-- Code of Conduct & Declaration -->
+    <div class="declaration-box">
+      <strong>Tournament Honor Pledge:</strong> We, the registered participants, certify that all particulars supplied above are true and complete. We pledge to adhere strictly to the rules of engagement, maintain ethical cybersecurity standards, refrain from unauthorized external assistance, and accept the judging committee's rulings as final and binding.
+    </div>
+
+    <!-- Signatures Grid -->
+    <div class="auth-grid">
+      <div class="auth-box">
+        <div class="auth-title">Team Leader Declaration</div>
+        <div style="margin-top: 25px; border-bottom: 1.5px solid #0f172a; width: 85%;"></div>
+        <div style="font-size: 9px; color: #475569; margin-top: 3px;">Full Signature & Date: ____________________</div>
+      </div>
+      <div class="auth-box" style="background: #f8fafc;">
+        <div class="auth-title">Official Registration Desk Check-In (Judges Only)</div>
+        <div style="font-size: 9.5px; color: #334155; margin-top: 2px;">
+          Student IDs Verified: <strong>[ &nbsp;&nbsp; ] YES &nbsp;&nbsp; [ &nbsp;&nbsp; ] NO</strong> &nbsp;|&nbsp; Station PC Assigned: #______<br>
+          Desk Officer Signature: ______________________ &nbsp; Stamp:
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page Footer -->
+  <div class="page-footer">
+    <span>🛡️ S.H.I.E.L.D. Division // Cyber Event 2026 — Operation Ultron</span>
+    <span>Paper 1 of 2 • Team Registration Dossier</span>
+    <span>Confidential Student Intake Record</span>
+  </div>
+</div>
+
+
+<!-- ===================================================================
+     PAPER 2: OFFICIAL ROUND 1 QUIZ ANSWER RESPONSE SHEET (1 MARK EACH)
+     =================================================================== -->
+<div class="a4-page">
+  <div>
+    <!-- Header -->
+    <div class="header-box">
+      <div class="logo-title-group">
+        <div class="shield-symbol">⚡</div>
+        <div>
+          <div class="event-super">ROUND 1: SYSTEM RECONNAISSANCE // OPERATION ULTRON</div>
+          <div class="event-main-title">Official Quiz Answer Response Sheet</div>
+          <div class="event-sub">30 Live Screen Projected Questions • 45 Seconds Each • 1 Mark per Question • Total: 30 Marks</div>
+        </div>
+      </div>
+      <div class="doc-badge-box">
+        <div class="doc-badge" style="background: #0284c7;">PAPER 2: ANSWERS</div>
+        <div class="doc-meta-text">MAX SCORE: 30 MARKS</div>
+      </div>
+    </div>
+
+    <!-- Quick Team Identification Strip -->
+    <div class="team-quick-bar">
+      <div class="field-container">
+        <div class="field-label">Team Name:</div>
+        <div style="border-bottom: 1.5px solid #0f172a; height: 18px;"></div>
+      </div>
+      <div class="field-container">
+        <div class="field-label">Team Code / ID:</div>
+        <div style="border-bottom: 1.5px solid #0f172a; height: 18px; font-family: 'Fira Code', monospace; font-weight: bold;"></div>
+      </div>
+      <div class="field-container">
+        <div class="field-label">Team Leader Name:</div>
+        <div style="border-bottom: 1.5px solid #0f172a; height: 18px;"></div>
+      </div>
+      <div class="field-container">
+        <div class="field-label">Assigned Table #:</div>
+        <div style="border-bottom: 1.5px solid #0f172a; height: 18px; text-align: center;"></div>
+      </div>
+    </div>
+
+    <!-- Instructions Banner -->
+    <div style="font-size: 9.5px; color: #475569; background: #e0f2fe; border-left: 3px solid #0284c7; padding: 4px 8px; margin-bottom: 8px;">
+      <strong>Instructions:</strong> Record your selected option (<strong>A</strong>, <strong>B</strong>, <strong>C</strong>, or <strong>D</strong>) in the boxed cell for each question as projected on the stage countdown display. Each question carries exactly <strong>1 Mark</strong>.
+    </div>
+
+    <!-- 3-Column Answer Grid: 10 Questions per Column = 30 Total (1 Mark Each) -->
+    <div class="quiz-3col-wrapper">
+      
+      <!-- COLUMN 1: Q01 - Q10 (Tier 1 & Tier 2 • 1 Mark each) -->
+      <div class="quiz-col">
+        <div class="quiz-col-header">Section A: Questions 01 – 10 (10 Marks)</div>
+        
+        <div class="q-row">
+          <span class="q-num">Q 01</span>
+          <span class="q-tier-mark">T1 • 1M</span>
+          <div class="q-opt-box"></div>
+          <span class="q-eval-cell">__/1</span>
+        </div>
+        <div class="q-row">
+          <span class="q-num">Q 02</span>
+          <span class="q-tier-mark">T1 • 1M</span>
+          <div class="q-opt-box"></div>
+          <span class="q-eval-cell">__/1</span>
+        </div>
+        <div class="q-row">
+          <span class="q-num">Q 03</span>
+          <span class="q-tier-mark">T1 • 1M</span>
+          <div class="q-opt-box"></div>
+          <span class="q-eval-cell">__/1</span>
+        </div>
+        <div class="q-row">
+          <span class="q-num">Q 04</span>
+          <span class="q-tier-mark">T1 • 1M</span>
+          <div class="q-opt-box"></div>
+          <span class="q-eval-cell">__/1</span>
+        </div>
+        <div class="q-row">
+          <span class="q-num">Q 05</span>
+          <span class="q-tier-mark">T1 • 1M</span>
+          <div class="q-opt-box"></div>
+          <span class="q-eval-cell">__/1</span>
+        </div>
+        <div class="q-row">
+          <span class="q-num">Q 06</span>
+          <span class="q-tier-mark">T2 • 1M</span>
+          <div class="q-opt-box"></div>
+          <span class="q-eval-cell">__/1</span>
+        </div>
+        <div class="q-row">
+          <span class="q-num">Q 07</span>
+          <span class="q-tier-mark">T2 • 1M</span>
+          <div class="q-opt-box"></div>
+          <span class="q-eval-cell">__/1</span>
+        </div>
+        <div class="q-row">
+          <span class="q-num">Q 08</span>
+          <span class="q-tier-mark">T2 • 1M</span>
+          <div class="q-opt-box"></div>
+          <span class="q-eval-cell">__/1</span>
+        </div>
+        <div class="q-row">
+          <span class="q-num">Q 09</span>
+          <span class="q-tier-mark">T2 • 1M</span>
+          <div class="q-opt-box"></div>
+          <span class="q-eval-cell">__/1</span>
+        </div>
+        <div class="q-row">
+          <span class="q-num">Q 10</span>
+          <span class="q-tier-mark">T2 • 1M</span>
+          <div class="q-opt-box"></div>
+          <span class="q-eval-cell">__/1</span>
+        </div>
+      </div>
+
+      <!-- COLUMN 2: Q11 - Q20 (Tier 3 & Tier 4 • 1 Mark each) -->
+      <div class="quiz-col">
+        <div class="quiz-col-header" style="background: #1e293b;">Section B: Questions 11 – 20 (10 Marks)</div>
+        
+        <div class="q-row">
+          <span class="q-num">Q 11</span>
+          <span class="q-tier-mark">T3 • 1M</span>
+          <div class="q-opt-box"></div>
+          <span class="q-eval-cell">__/1</span>
+        </div>
+        <div class="q-row">
+          <span class="q-num">Q 12</span>
+          <span class="q-tier-mark">T3 • 1M</span>
+          <div class="q-opt-box"></div>
+          <span class="q-eval-cell">__/1</span>
+        </div>
+        <div class="q-row">
+          <span class="q-num">Q 13</span>
+          <span class="q-tier-mark">T3 • 1M</span>
+          <div class="q-opt-box"></div>
+          <span class="q-eval-cell">__/1</span>
+        </div>
+        <div class="q-row">
+          <span class="q-num">Q 14</span>
+          <span class="q-tier-mark">T3 • 1M</span>
+          <div class="q-opt-box"></div>
+          <span class="q-eval-cell">__/1</span>
+        </div>
+        <div class="q-row">
+          <span class="q-num">Q 15</span>
+          <span class="q-tier-mark">T3 • 1M</span>
+          <div class="q-opt-box"></div>
+          <span class="q-eval-cell">__/1</span>
+        </div>
+        <div class="q-row">
+          <span class="q-num">Q 16</span>
+          <span class="q-tier-mark">T4 • 1M</span>
+          <div class="q-opt-box"></div>
+          <span class="q-eval-cell">__/1</span>
+        </div>
+        <div class="q-row">
+          <span class="q-num">Q 17</span>
+          <span class="q-tier-mark">T4 • 1M</span>
+          <div class="q-opt-box"></div>
+          <span class="q-eval-cell">__/1</span>
+        </div>
+        <div class="q-row">
+          <span class="q-num">Q 18</span>
+          <span class="q-tier-mark">T4 • 1M</span>
+          <div class="q-opt-box"></div>
+          <span class="q-eval-cell">__/1</span>
+        </div>
+        <div class="q-row">
+          <span class="q-num">Q 19</span>
+          <span class="q-tier-mark">T4 • 1M</span>
+          <div class="q-opt-box"></div>
+          <span class="q-eval-cell">__/1</span>
+        </div>
+        <div class="q-row">
+          <span class="q-num">Q 20</span>
+          <span class="q-tier-mark">T4 • 1M</span>
+          <div class="q-opt-box"></div>
+          <span class="q-eval-cell">__/1</span>
+        </div>
+      </div>
+
+      <!-- COLUMN 3: Q21 - Q30 (Tier 5 & Tier 6 • 1 Mark each) -->
+      <div class="quiz-col">
+        <div class="quiz-col-header" style="background: #334155;">Section C: Questions 21 – 30 (10 Marks)</div>
+        
+        <div class="q-row">
+          <span class="q-num">Q 21</span>
+          <span class="q-tier-mark">T5 • 1M</span>
+          <div class="q-opt-box"></div>
+          <span class="q-eval-cell">__/1</span>
+        </div>
+        <div class="q-row">
+          <span class="q-num">Q 22</span>
+          <span class="q-tier-mark">T5 • 1M</span>
+          <div class="q-opt-box"></div>
+          <span class="q-eval-cell">__/1</span>
+        </div>
+        <div class="q-row">
+          <span class="q-num">Q 23</span>
+          <span class="q-tier-mark">T5 • 1M</span>
+          <div class="q-opt-box"></div>
+          <span class="q-eval-cell">__/1</span>
+        </div>
+        <div class="q-row">
+          <span class="q-num">Q 24</span>
+          <span class="q-tier-mark">T5 • 1M</span>
+          <div class="q-opt-box"></div>
+          <span class="q-eval-cell">__/1</span>
+        </div>
+        <div class="q-row">
+          <span class="q-num">Q 25</span>
+          <span class="q-tier-mark">T5 • 1M</span>
+          <div class="q-opt-box"></div>
+          <span class="q-eval-cell">__/1</span>
+        </div>
+        <div class="q-row">
+          <span class="q-num">Q 26</span>
+          <span class="q-tier-mark">T6 • 1M</span>
+          <div class="q-opt-box"></div>
+          <span class="q-eval-cell">__/1</span>
+        </div>
+        <div class="q-row">
+          <span class="q-num">Q 27</span>
+          <span class="q-tier-mark">T6 • 1M</span>
+          <div class="q-opt-box"></div>
+          <span class="q-eval-cell">__/1</span>
+        </div>
+        <div class="q-row">
+          <span class="q-num">Q 28</span>
+          <span class="q-tier-mark">T6 • 1M</span>
+          <div class="q-opt-box"></div>
+          <span class="q-eval-cell">__/1</span>
+        </div>
+        <div class="q-row">
+          <span class="q-num">Q 29</span>
+          <span class="q-tier-mark">T6 • 1M</span>
+          <div class="q-opt-box"></div>
+          <span class="q-eval-cell">__/1</span>
+        </div>
+        <div class="q-row">
+          <span class="q-num">Q 30</span>
+          <span class="q-tier-mark">T6 • 1M</span>
+          <div class="q-opt-box"></div>
+          <span class="q-eval-cell">__/1</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Tie-Breaker / Reserve Spares Strip (1 Mark Each) -->
+    <div class="spare-strip">
+      <div class="spare-title">
+        <span>🛡️ Tie-Breaker Reserve Spares (SP 31 – SP 36) — 1 Mark Each (Only If Activated by Moderator)</span>
+        <span>Max: 6 Marks</span>
+      </div>
+      <div class="spare-grid">
+        <div class="spare-item">
+          <div style="font-size: 8.5px; font-weight: 700; color: #78350f;">SP 31 (1M)</div>
+          <div class="q-opt-box" style="margin-top: 2px;"></div>
+        </div>
+        <div class="spare-item">
+          <div style="font-size: 8.5px; font-weight: 700; color: #78350f;">SP 32 (1M)</div>
+          <div class="q-opt-box" style="margin-top: 2px;"></div>
+        </div>
+        <div class="spare-item">
+          <div style="font-size: 8.5px; font-weight: 700; color: #78350f;">SP 33 (1M)</div>
+          <div class="q-opt-box" style="margin-top: 2px;"></div>
+        </div>
+        <div class="spare-item">
+          <div style="font-size: 8.5px; font-weight: 700; color: #78350f;">SP 34 (1M)</div>
+          <div class="q-opt-box" style="margin-top: 2px;"></div>
+        </div>
+        <div class="spare-item">
+          <div style="font-size: 8.5px; font-weight: 700; color: #78350f;">SP 35 (1M)</div>
+          <div class="q-opt-box" style="margin-top: 2px;"></div>
+        </div>
+        <div class="spare-item">
+          <div style="font-size: 8.5px; font-weight: 700; color: #78350f;">SP 36 (1M)</div>
+          <div class="q-opt-box" style="margin-top: 2px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Official Scorecard Summary Block (30 Marks Total) -->
+    <div class="scorecard-bar">
+      <div>
+        <div style="font-size: 10px; font-weight: 800; color: #0f172a; text-transform: uppercase; margin-bottom: 4px;">
+          Official Evaluator Score Breakdown (Sections A, B, C • 1 Mark per Question)
+        </div>
+        <div class="tier-breakdown">
+          <div class="tier-chip">Sec A (Q01–10): __ / 10</div>
+          <div class="tier-chip">Sec B (Q11–20): __ / 10</div>
+          <div class="tier-chip">Sec C (Q21–30): __ / 10</div>
+          <div class="tier-chip" style="border-color:#f59e0b; color:#b45309;">Spares: __ / 6</div>
+        </div>
+      </div>
+      <div class="grand-total-box">
+        <div style="font-size: 9px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; color: #94a3b8;">Grand Total</div>
+        <div class="grand-total-val">____ / 30</div>
+      </div>
+    </div>
+
+    <!-- Verification / Sign-Off Footer -->
+    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 12px; margin-top: 6px;">
+      <div class="field-container">
+        <div class="field-label">Evaluator / Judge Name:</div>
+        <div style="border-bottom: 1.5px solid #0f172a; height: 18px;"></div>
+      </div>
+      <div class="field-container">
+        <div class="field-label">Judge Signature:</div>
+        <div style="border-bottom: 1.5px solid #0f172a; height: 18px;"></div>
+      </div>
+      <div class="field-container">
+        <div class="field-label">Scrutiny Verification:</div>
+        <div style="border-bottom: 1.5px solid #0f172a; height: 18px; font-size: 10px; font-weight: bold; text-align: center;">[ &nbsp;&nbsp; ] VERIFIED</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Page Footer -->
+  <div class="page-footer">
+    <span>⚡ S.H.I.E.L.D. Division // Cyber Event 2026 — Operation Ultron</span>
+    <span>Paper 2 of 2 • Round 1 Quiz Official Answer Sheet</span>
+    <span>Confidential Scoring Record (Max: 30 Marks)</span>
+  </div>
+</div>
+
+</body>
+</html>

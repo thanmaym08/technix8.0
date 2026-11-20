@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ULTRON: DIGITAL DOMINION — Master Team Registration Ledger (20 Teams)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 5mm 8mm;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body {
+    background-color: #f1f5f9;
+    color: #0f172a;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.25;
+    font-size: 11px;
+  }
+
+  .no-print-bar {
+    background: #090d16;
+    color: #ffffff;
+    padding: 12px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+    border-bottom: 2px solid #e11d48;
+  }
+
+  .no-print-bar .title {
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .no-print-bar .badge {
+    background: #e11d48;
+    color: #fff;
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .btn-group {
+    display: flex;
+    gap: 10px;
+  }
+
+  .btn {
+    background: #e11d48;
+    color: white;
+    border: none;
+    padding: 8px 18px;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+  }
+
+  .btn:hover {
+    background: #be123c;
+    transform: translateY(-1px);
+  }
+
+  .btn-outline {
+    background: transparent;
+    border: 1px solid #475569;
+    color: #e2e8f0;
+  }
+
+  .btn-outline:hover {
+    background: #1e293b;
+    border-color: #94a3b8;
+  }
+
+  /* Sheet container */
+  .sheet {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 15px auto;
+    background: #ffffff;
+    padding: 6mm 9mm 5mm 9mm;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .page-break {
+    page-break-after: always;
+    break-after: page;
+  }
+
+  /* Header with breathing room */
+  .header-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-bottom: 2px solid #0f172a;
+    padding-bottom: 5px;
+    margin-bottom: 4px;
+  }
+
+  .header-left .sub-meta {
+    font-size: 8px;
+    font-weight: 700;
+    color: #475569;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    margin-bottom: 3px;
+  }
+
+  .header-left h1 {
+    font-size: 16px;
+    font-weight: 900;
+    color: #0f172a;
+    letter-spacing: -0.3px;
+    line-height: 1.15;
+    margin-bottom: 3px;
+  }
+
+  .header-left .doc-title {
+    font-size: 10.5px;
+    font-weight: 800;
+    color: #e11d48;
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .header-left .doc-title span {
+    color: #334155;
+    font-weight: 700;
+  }
+
+  .header-left .tagline {
+    font-size: 7.2px;
+    color: #64748b;
+    font-style: italic;
+  }
+
+  .header-right {
+    text-align: right;
+    vertical-align: middle;
+  }
+
+  .header-badge {
+    background: #0f172a;
+    color: #ffffff;
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 5px;
+    text-align: center;
+    border: 1px solid #1e293b;
+  }
+
+  .header-badge .hb-title {
+    font-size: 8.5px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+  }
+
+  .header-badge .hb-meta {
+    font-size: 7.2px;
+    color: #fda4af;
+    margin-top: 2px;
+    font-weight: 700;
+  }
+
+  .header-badge .hb-size {
+    font-size: 6.5px;
+    color: #cbd5e1;
+    margin-top: 1px;
+  }
+
+  /* Instructions */
+  .inst-strip {
+    background: #fff1f2;
+    border-left: 3px solid #e11d48;
+    padding: 3px 8px;
+    font-size: 7.2px;
+    color: #0f172a;
+    margin-bottom: 4px;
+    line-height: 1.25;
+  }
+
+  /* Teams container */
+  .teams-container {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    flex-grow: 1;
+  }
+
+  /* Team Blocks */
+  .team-block {
+    display: grid;
+    grid-template-columns: 78px 1fr;
+    border: 1px solid #94a3b8;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #ffffff;
+  }
+
+  .block-p1 {
+    height: 91px;
+  }
+
+  .block-p2 {
+    height: 80px;
+  }
+
+  .block-p3 {
+    height: 91px;
+  }
+
+  .team-block:nth-child(even) {
+    background: #f8fafc;
+  }
+
+  .team-block-badge {
+    background: #f1f5f9;
+    border-right: 1px solid #94a3b8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3px 2px;
+    text-align: center;
+  }
+
+  .team-block:nth-child(even) .team-block-badge {
+    background: #e2e8f0;
+  }
+
+  .team-code {
+    font-family: 'Fira Code', monospace;
+    font-size: 14px;
+    font-weight: 900;
+    color: #0f172a;
+    line-height: 1;
+  }
+
+  .team-num {
+    font-size: 7px;
+    font-weight: 700;
+    color: #64748b;
+    margin-top: 2px;
+    text-transform: uppercase;
+  }
+
+  .team-desk {
+    font-size: 7px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-top: 4px;
+  }
+
+  .team-fee {
+    font-size: 6.5px;
+    font-weight: 800;
+    color: #e11d48;
+    margin-top: 2px;
+  }
+
+  .team-sign {
+    font-size: 6px;
+    color: #64748b;
+    margin-top: 3px;
+  }
+
+  /* Team Detail Rows */
+  .team-details {
+    padding: 3px 10px;
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+    gap: 2px;
+    align-items: center;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    align-items: center;
+  }
+
+  .form-field {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    font-size: 7.8px;
+  }
+
+  .form-field .lbl {
+    font-weight: 800;
+    color: #0f172a;
+    white-space: nowrap;
+    font-size: 7.8px;
+  }
+
+  .form-field .line {
+    flex-grow: 1;
+    border-bottom: 1px solid #94a3b8;
+    height: 12px;
+  }
+
+  /* Audit Reconciliation Box (Page 3) */
+  .audit-card {
+    border: 1.5px solid #0f172a;
+    border-radius: 4px;
+    display: grid;
+    grid-template-columns: 1fr 130px;
+    overflow: hidden;
+    margin-top: 4px;
+  }
+
+  .audit-left {
+    background: #f8fafc;
+    padding: 6px 12px;
+    font-size: 7.2px;
+    color: #0f172a;
+    line-height: 1.4;
+  }
+
+  .audit-right {
+    background: #0f172a;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 6px;
+  }
+
+  .audit-right .status-lbl {
+    font-size: 6.5px;
+    color: #94a3b8;
+  }
+
+  .audit-right .status-val {
+    font-size: 10px;
+    font-weight: 900;
+    color: #38bdf8;
+    margin-top: 2px;
+  }
+
+  /* Footer */
+  .footer-table {
+    width: 100%;
+    border-top: 1px solid #94a3b8;
+    padding-top: 3px;
+    margin-top: 3px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 6.8px;
+    color: #475569;
+  }
+
+  .footer-contacts strong {
+    color: #0f172a;
+  }
+
+  .footer-sign {
+    text-align: right;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  @media print {
+    body {
+      background: white !important;
+    }
+    .no-print-bar {
+      display: none !important;
+    }
+    .sheet {
+      width: 100% !important;
+      min-height: auto !important;
+      margin: 0 !important;
+      padding: 5mm 6mm !important;
+      box-shadow: none !important;
+    }
+    .page-break {
+      page-break-after: always !important;
+      break-after: page !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="no-print-bar">
+  <div class="title">
+    <span>🛡️ ULTRON: DIGITAL DOMINION — Master Team Registration Ledger (20 Teams)</span>
+    <span class="badge">A4 Portrait • 3 Pages (Teams 01–07, 08–15, 16–20)</span>
+  </div>
+  <div class="btn-group">
+    <a href="ULTRON_MASTER_TEAM_REGISTRATION_ROSTER.pdf" download class="btn">
+      <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+      Download Roster PDF (3 Pages)
+    </a>
+    <a href="ULTRON_ROUND1_QUIZ_ANSWER_SHEET.pdf" download class="btn btn-outline">
+      <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+      Download Round 1 Quiz PDF
+    </a>
+    <a href="ULTRON_ROUND2_QUIZ_ANSWER_SHEET.pdf" download class="btn btn-outline">
+      <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+      Download Round 2 Quiz PDF
+    </a>
+    <button onclick="window.print()" class="btn btn-outline">
+      <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+      Print Roster
+    </button>
+  </div>
+</div>
+
+<!-- PAGE 1 OF 3: TEAMS 01 – 07 -->
+<div class="sheet page-break">
+  <div>
+    <!-- Top Header -->
+    <table class="header-table">
+      <tr>
+        <td class="header-left">
+          <div class="sub-meta">Technical Events // Cybersecurity Challenge &nbsp;•&nbsp; <strong>TECHNIX 8.0</strong></div>
+          <h1>ULTRON: DIGITAL DOMINION</h1>
+          <div class="doc-title">
+            Master Team Registration Ledger 
+            <span>&nbsp;•&nbsp; (Teams 01 – 07) &nbsp;|&nbsp; Page 1 of 3</span>
+          </div>
+          <div class="tagline">"Trace the Threat. Crack the Code. Defeat Ultron. Save the Digital Universe!"</div>
+        </td>
+        <td class="header-right">
+          <div class="header-badge">
+            <div class="hb-title">MASTER INTAKE LEDGER</div>
+            <div class="hb-meta">Fee: ₹250 / Team</div>
+            <div class="hb-size">Team Size: 2–4 Members</div>
+          </div>
+        </td>
+      </tr>
+    </table>
+
+    <!-- Instructions -->
+    <div class="inst-strip">
+      <strong>Registration Desk Instructions:</strong> Each team fills one numbered entry block below. Enter official Team Name, College / Institution, Leader contact details, all member names (2 to 4 members), and valid email address clearly in block handwriting.
+    </div>
+
+    <!-- Team Blocks -->
+    <div class="teams-container">
+
+      <div class="team-block block-p1">
+        <div class="team-block-badge">
+          <div class="team-code">T-01</div>
+          <div class="team-num">Team #01</div>
+          <div class="team-desk">Desk: #___</div>
+          <div class="team-fee">[ &nbsp; ] ₹250 PD</div>
+          <div class="team-sign">Sign: _____</div>
+        </div>
+        <div class="team-details">
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">TEAM NAME:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">COLLEGE / INST:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">LEADER (M1):</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">LEADER PHONE:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">MEMBER 2:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">MEMBER 3:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">MEMBER 4:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">OFFICIAL EMAIL:</span><div class="line"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-block block-p1">
+        <div class="team-block-badge">
+          <div class="team-code">T-02</div>
+          <div class="team-num">Team #02</div>
+          <div class="team-desk">Desk: #___</div>
+          <div class="team-fee">[ &nbsp; ] ₹250 PD</div>
+          <div class="team-sign">Sign: _____</div>
+        </div>
+        <div class="team-details">
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">TEAM NAME:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">COLLEGE / INST:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">LEADER (M1):</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">LEADER PHONE:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">MEMBER 2:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">MEMBER 3:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">MEMBER 4:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">OFFICIAL EMAIL:</span><div class="line"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-block block-p1">
+        <div class="team-block-badge">
+          <div class="team-code">T-03</div>
+          <div class="team-num">Team #03</div>
+          <div class="team-desk">Desk: #___</div>
+          <div class="team-fee">[ &nbsp; ] ₹250 PD</div>
+          <div class="team-sign">Sign: _____</div>
+        </div>
+        <div class="team-details">
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">TEAM NAME:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">COLLEGE / INST:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">LEADER (M1):</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">LEADER PHONE:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">MEMBER 2:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">MEMBER 3:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">MEMBER 4:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">OFFICIAL EMAIL:</span><div class="line"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-block block-p1">
+        <div class="team-block-badge">
+          <div class="team-code">T-04</div>
+          <div class="team-num">Team #04</div>
+          <div class="team-desk">Desk: #___</div>
+          <div class="team-fee">[ &nbsp; ] ₹250 PD</div>
+          <div class="team-sign">Sign: _____</div>
+        </div>
+        <div class="team-details">
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">TEAM NAME:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">COLLEGE / INST:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">LEADER (M1):</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">LEADER PHONE:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">MEMBER 2:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">MEMBER 3:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">MEMBER 4:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">OFFICIAL EMAIL:</span><div class="line"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-block block-p1">
+        <div class="team-block-badge">
+          <div class="team-code">T-05</div>
+          <div class="team-num">Team #05</div>
+          <div class="team-desk">Desk: #___</div>
+          <div class="team-fee">[ &nbsp; ] ₹250 PD</div>
+          <div class="team-sign">Sign: _____</div>
+        </div>
+        <div class="team-details">
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">TEAM NAME:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">COLLEGE / INST:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">LEADER (M1):</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">LEADER PHONE:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">MEMBER 2:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">MEMBER 3:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">MEMBER 4:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">OFFICIAL EMAIL:</span><div class="line"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-block block-p1">
+        <div class="team-block-badge">
+          <div class="team-code">T-06</div>
+          <div class="team-num">Team #06</div>
+          <div class="team-desk">Desk: #___</div>
+          <div class="team-fee">[ &nbsp; ] ₹250 PD</div>
+          <div class="team-sign">Sign: _____</div>
+        </div>
+        <div class="team-details">
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">TEAM NAME:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">COLLEGE / INST:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">LEADER (M1):</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">LEADER PHONE:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">MEMBER 2:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">MEMBER 3:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">MEMBER 4:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">OFFICIAL EMAIL:</span><div class="line"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-block block-p1">
+        <div class="team-block-badge">
+          <div class="team-code">T-07</div>
+          <div class="team-num">Team #07</div>
+          <div class="team-desk">Desk: #___</div>
+          <div class="team-fee">[ &nbsp; ] ₹250 PD</div>
+          <div class="team-sign">Sign: _____</div>
+        </div>
+        <div class="team-details">
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">TEAM NAME:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">COLLEGE / INST:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">LEADER (M1):</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">LEADER PHONE:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">MEMBER 2:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">MEMBER 3:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">MEMBER 4:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">OFFICIAL EMAIL:</span><div class="line"></div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="footer-table">
+    <div class="footer-contacts">
+      <strong>COORDINATORS:</strong> M THANMAY (9391120323) | NISHITHA B P (8073167665) | technix8.0team@gmail.com | @technix8.0
+    </div>
+    <div class="footer-sign">
+      DESK OFFICER SIGNATURE: ___________________________ Page 1 of 3
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 2 OF 3: TEAMS 08 – 15 -->
+<div class="sheet page-break">
+  <div>
+    <!-- Top Header -->
+    <table class="header-table">
+      <tr>
+        <td class="header-left">
+          <div class="sub-meta">Technical Events // Cybersecurity Challenge &nbsp;•&nbsp; <strong>TECHNIX 8.0</strong></div>
+          <h1>ULTRON: DIGITAL DOMINION</h1>
+          <div class="doc-title">
+            Master Team Registration Ledger 
+            <span>&nbsp;•&nbsp; (Teams 08 – 15) &nbsp;|&nbsp; Page 2 of 3</span>
+          </div>
+          <div class="tagline">"Trace the Threat. Crack the Code. Defeat Ultron. Save the Digital Universe!"</div>
+        </td>
+        <td class="header-right">
+          <div class="header-badge">
+            <div class="hb-title">MASTER INTAKE LEDGER</div>
+            <div class="hb-meta">Fee: ₹250 / Team</div>
+            <div class="hb-size">Team Size: 2–4 Members</div>
+          </div>
+        </td>
+      </tr>
+    </table>
+
+    <!-- Instructions -->
+    <div class="inst-strip">
+      <strong>Registration Desk Instructions:</strong> Each team fills one numbered entry block below. Enter official Team Name, College / Institution, Leader contact details, all member names (2 to 4 members), and valid email address clearly in block handwriting.
+    </div>
+
+    <!-- Team Blocks -->
+    <div class="teams-container">
+
+      <div class="team-block block-p2">
+        <div class="team-block-badge">
+          <div class="team-code">T-08</div>
+          <div class="team-num">Team #08</div>
+          <div class="team-desk">Desk: #___</div>
+          <div class="team-fee">[ &nbsp; ] ₹250 PD</div>
+          <div class="team-sign">Sign: _____</div>
+        </div>
+        <div class="team-details">
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">TEAM NAME:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">COLLEGE / INST:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">LEADER (M1):</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">LEADER PHONE:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">MEMBER 2:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">MEMBER 3:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">MEMBER 4:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">OFFICIAL EMAIL:</span><div class="line"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-block block-p2">
+        <div class="team-block-badge">
+          <div class="team-code">T-09</div>
+          <div class="team-num">Team #09</div>
+          <div class="team-desk">Desk: #___</div>
+          <div class="team-fee">[ &nbsp; ] ₹250 PD</div>
+          <div class="team-sign">Sign: _____</div>
+        </div>
+        <div class="team-details">
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">TEAM NAME:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">COLLEGE / INST:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">LEADER (M1):</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">LEADER PHONE:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">MEMBER 2:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">MEMBER 3:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">MEMBER 4:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">OFFICIAL EMAIL:</span><div class="line"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-block block-p2">
+        <div class="team-block-badge">
+          <div class="team-code">T-10</div>
+          <div class="team-num">Team #10</div>
+          <div class="team-desk">Desk: #___</div>
+          <div class="team-fee">[ &nbsp; ] ₹250 PD</div>
+          <div class="team-sign">Sign: _____</div>
+        </div>
+        <div class="team-details">
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">TEAM NAME:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">COLLEGE / INST:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">LEADER (M1):</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">LEADER PHONE:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">MEMBER 2:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">MEMBER 3:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">MEMBER 4:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">OFFICIAL EMAIL:</span><div class="line"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-block block-p2">
+        <div class="team-block-badge">
+          <div class="team-code">T-11</div>
+          <div class="team-num">Team #11</div>
+          <div class="team-desk">Desk: #___</div>
+          <div class="team-fee">[ &nbsp; ] ₹250 PD</div>
+          <div class="team-sign">Sign: _____</div>
+        </div>
+        <div class="team-details">
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">TEAM NAME:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">COLLEGE / INST:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">LEADER (M1):</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">LEADER PHONE:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">MEMBER 2:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">MEMBER 3:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">MEMBER 4:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">OFFICIAL EMAIL:</span><div class="line"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-block block-p2">
+        <div class="team-block-badge">
+          <div class="team-code">T-12</div>
+          <div class="team-num">Team #12</div>
+          <div class="team-desk">Desk: #___</div>
+          <div class="team-fee">[ &nbsp; ] ₹250 PD</div>
+          <div class="team-sign">Sign: _____</div>
+        </div>
+        <div class="team-details">
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">TEAM NAME:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">COLLEGE / INST:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">LEADER (M1):</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">LEADER PHONE:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">MEMBER 2:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">MEMBER 3:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">MEMBER 4:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">OFFICIAL EMAIL:</span><div class="line"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-block block-p2">
+        <div class="team-block-badge">
+          <div class="team-code">T-13</div>
+          <div class="team-num">Team #13</div>
+          <div class="team-desk">Desk: #___</div>
+          <div class="team-fee">[ &nbsp; ] ₹250 PD</div>
+          <div class="team-sign">Sign: _____</div>
+        </div>
+        <div class="team-details">
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">TEAM NAME:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">COLLEGE / INST:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">LEADER (M1):</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">LEADER PHONE:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">MEMBER 2:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">MEMBER 3:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">MEMBER 4:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">OFFICIAL EMAIL:</span><div class="line"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-block block-p2">
+        <div class="team-block-badge">
+          <div class="team-code">T-14</div>
+          <div class="team-num">Team #14</div>
+          <div class="team-desk">Desk: #___</div>
+          <div class="team-fee">[ &nbsp; ] ₹250 PD</div>
+          <div class="team-sign">Sign: _____</div>
+        </div>
+        <div class="team-details">
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">TEAM NAME:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">COLLEGE / INST:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">LEADER (M1):</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">LEADER PHONE:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">MEMBER 2:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">MEMBER 3:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">MEMBER 4:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">OFFICIAL EMAIL:</span><div class="line"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-block block-p2">
+        <div class="team-block-badge">
+          <div class="team-code">T-15</div>
+          <div class="team-num">Team #15</div>
+          <div class="team-desk">Desk: #___</div>
+          <div class="team-fee">[ &nbsp; ] ₹250 PD</div>
+          <div class="team-sign">Sign: _____</div>
+        </div>
+        <div class="team-details">
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">TEAM NAME:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">COLLEGE / INST:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">LEADER (M1):</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">LEADER PHONE:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">MEMBER 2:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">MEMBER 3:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">MEMBER 4:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">OFFICIAL EMAIL:</span><div class="line"></div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="footer-table">
+    <div class="footer-contacts">
+      <strong>COORDINATORS:</strong> M THANMAY (9391120323) | NISHITHA B P (8073167665) | technix8.0team@gmail.com | @technix8.0
+    </div>
+    <div class="footer-sign">
+      DESK OFFICER SIGNATURE: ___________________________ Page 2 of 3
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 3 OF 3: TEAMS 16 – 20 -->
+<div class="sheet ">
+  <div>
+    <!-- Top Header -->
+    <table class="header-table">
+      <tr>
+        <td class="header-left">
+          <div class="sub-meta">Technical Events // Cybersecurity Challenge &nbsp;•&nbsp; <strong>TECHNIX 8.0</strong></div>
+          <h1>ULTRON: DIGITAL DOMINION</h1>
+          <div class="doc-title">
+            Master Team Registration Ledger 
+            <span>&nbsp;•&nbsp; (Teams 16 – 20) &nbsp;|&nbsp; Page 3 of 3</span>
+          </div>
+          <div class="tagline">"Trace the Threat. Crack the Code. Defeat Ultron. Save the Digital Universe!"</div>
+        </td>
+        <td class="header-right">
+          <div class="header-badge">
+            <div class="hb-title">MASTER INTAKE LEDGER</div>
+            <div class="hb-meta">Fee: ₹250 / Team</div>
+            <div class="hb-size">Team Size: 2–4 Members</div>
+          </div>
+        </td>
+      </tr>
+    </table>
+
+    <!-- Instructions -->
+    <div class="inst-strip">
+      <strong>Registration Desk Instructions:</strong> Each team fills one numbered entry block below. Enter official Team Name, College / Institution, Leader contact details, all member names (2 to 4 members), and valid email address clearly in block handwriting.
+    </div>
+
+    <!-- Team Blocks -->
+    <div class="teams-container">
+
+      <div class="team-block block-p3">
+        <div class="team-block-badge">
+          <div class="team-code">T-16</div>
+          <div class="team-num">Team #16</div>
+          <div class="team-desk">Desk: #___</div>
+          <div class="team-fee">[ &nbsp; ] ₹250 PD</div>
+          <div class="team-sign">Sign: _____</div>
+        </div>
+        <div class="team-details">
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">TEAM NAME:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">COLLEGE / INST:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">LEADER (M1):</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">LEADER PHONE:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">MEMBER 2:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">MEMBER 3:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">MEMBER 4:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">OFFICIAL EMAIL:</span><div class="line"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-block block-p3">
+        <div class="team-block-badge">
+          <div class="team-code">T-17</div>
+          <div class="team-num">Team #17</div>
+          <div class="team-desk">Desk: #___</div>
+          <div class="team-fee">[ &nbsp; ] ₹250 PD</div>
+          <div class="team-sign">Sign: _____</div>
+        </div>
+        <div class="team-details">
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">TEAM NAME:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">COLLEGE / INST:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">LEADER (M1):</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">LEADER PHONE:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">MEMBER 2:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">MEMBER 3:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">MEMBER 4:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">OFFICIAL EMAIL:</span><div class="line"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-block block-p3">
+        <div class="team-block-badge">
+          <div class="team-code">T-18</div>
+          <div class="team-num">Team #18</div>
+          <div class="team-desk">Desk: #___</div>
+          <div class="team-fee">[ &nbsp; ] ₹250 PD</div>
+          <div class="team-sign">Sign: _____</div>
+        </div>
+        <div class="team-details">
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">TEAM NAME:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">COLLEGE / INST:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">LEADER (M1):</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">LEADER PHONE:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">MEMBER 2:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">MEMBER 3:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">MEMBER 4:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">OFFICIAL EMAIL:</span><div class="line"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-block block-p3">
+        <div class="team-block-badge">
+          <div class="team-code">T-19</div>
+          <div class="team-num">Team #19</div>
+          <div class="team-desk">Desk: #___</div>
+          <div class="team-fee">[ &nbsp; ] ₹250 PD</div>
+          <div class="team-sign">Sign: _____</div>
+        </div>
+        <div class="team-details">
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">TEAM NAME:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">COLLEGE / INST:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">LEADER (M1):</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">LEADER PHONE:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">MEMBER 2:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">MEMBER 3:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">MEMBER 4:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">OFFICIAL EMAIL:</span><div class="line"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-block block-p3">
+        <div class="team-block-badge">
+          <div class="team-code">T-20</div>
+          <div class="team-num">Team #20</div>
+          <div class="team-desk">Desk: #___</div>
+          <div class="team-fee">[ &nbsp; ] ₹250 PD</div>
+          <div class="team-sign">Sign: _____</div>
+        </div>
+        <div class="team-details">
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">TEAM NAME:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">COLLEGE / INST:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">LEADER (M1):</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">LEADER PHONE:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">MEMBER 2:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">MEMBER 3:</span><div class="line"></div></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><span class="lbl">MEMBER 4:</span><div class="line"></div></div>
+            <div class="form-field"><span class="lbl">OFFICIAL EMAIL:</span><div class="line"></div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Official Desk Reconciliation & Summary Card -->
+    <div class="audit-card">
+      <div class="audit-left">
+        <strong>OFFICIAL REGISTRATION DESK RECONCILIATION & AUDIT SUMMARY (ORGANIZERS USE ONLY)</strong><br/>
+        Total Registered Teams: <strong>____ / 20</strong> &nbsp;|&nbsp; 
+        Total Fees Collected: <strong>₹ _________</strong> (Cash: ₹_______ / UPI: ₹_______)<br/>
+        Reporting Time: <strong>___:___ AM</strong> &nbsp;|&nbsp; 
+        Cash Handover / Batch Ref: __________________________<br/>
+        Desk Officer Name: __________________________ Sign: __________________________
+      </div>
+      <div class="audit-right">
+        <div class="status-lbl">DESK STATUS</div>
+        <div class="status-val">CLOSED / VERIFIED</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="footer-table">
+    <div class="footer-contacts">
+      <strong>COORDINATORS:</strong> M THANMAY (9391120323) | NISHITHA B P (8073167665) | technix8.0team@gmail.com | @technix8.0
+    </div>
+    <div class="footer-sign">
+      DESK OFFICER SIGNATURE: ___________________________ Page 3 of 3
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

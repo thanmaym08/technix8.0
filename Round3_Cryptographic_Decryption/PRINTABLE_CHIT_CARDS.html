@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Round 3: Printable Cryptography Chits — S.H.I.E.L.D. Division (20 Chits)</title>
+<style>
+  @page {
+    size: A4;
+    margin: 8mm;
+  }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  }
+  body {
+    background: #f0f2f5;
+    color: #111827;
+  }
+  .print-page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto 15px auto;
+    background: #ffffff;
+    padding: 10mm;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    page-break-after: always;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  @media print {
+    body { background: none; }
+    .print-page {
+      box-shadow: none;
+      margin: 0;
+      width: 100%;
+      min-height: 100vh;
+      page-break-after: always;
+    }
+    .no-print { display: none !important; }
+  }
+
+  .chit-card {
+    border: 2.5px dashed #374151;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 10mm;
+    background: #fafafa;
+    position: relative;
+    page-break-inside: avoid;
+  }
+  .chit-card:last-child {
+    margin-bottom: 0;
+  }
+
+  .cut-guide {
+    position: absolute;
+    top: -12px;
+    left: 20px;
+    background: #ffffff;
+    padding: 0 8px;
+    font-size: 11px;
+    font-weight: bold;
+    color: #4b5563;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #111827;
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+  }
+
+  .shield-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .shield-icon {
+    font-size: 20px;
+  }
+
+  .card-id-badge {
+    font-size: 16px;
+    font-weight: 900;
+    color: #1e3a8a;
+    letter-spacing: 0.5px;
+  }
+
+  .bowl-badge {
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .bowl-easy {
+    background: #dcfce7;
+    color: #166534;
+    border: 1px solid #86efac;
+  }
+
+  .bowl-hard {
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fca5a5;
+  }
+
+  .scenario-text {
+    font-size: 13px;
+    color: #374151;
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+
+  .cipher-box {
+    background: #111827;
+    color: #38bdf8;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    word-break: break-all;
+    border: 1px solid #1e293b;
+    letter-spacing: 1px;
+  }
+
+  .clue-box {
+    background: #fffbeb;
+    border-left: 4px solid #f59e0b;
+    padding: 8px 12px;
+    font-size: 12px;
+    color: #78350f;
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+
+  .response-grid {
+    border-top: 1.5px solid #d1d5db;
+    padding-top: 10px;
+  }
+
+  .field-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 6px;
+  }
+
+  .field-label {
+    font-size: 11px;
+    font-weight: bold;
+    color: #4b5563;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+
+  .field-input-box {
+    border: 1.5px solid #9ca3af;
+    background: #ffffff;
+    height: 32px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #111827;
+  }
+
+  .print-btn-bar {
+    text-align: center;
+    padding: 16px;
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    margin-bottom: 15px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+
+  .btn-print {
+    background: #0284c7;
+    color: #ffffff;
+    border: none;
+    padding: 10px 24px;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  }
+  .btn-print:hover { background: #0369a1; }
+</style>
+</head>
+<body>
+
+<div class="print-btn-bar no-print">
+  <button class="btn-print" onclick="window.print()">🖨️ Print All 20 Chit Cards (A4 Cut-Out Format)</button>
+  <span style="margin-left: 15px; font-size: 13px; color: #4b5563;">Tip: Set Paper Size to A4 and Margins to 'None' or 'Minimum'. Total: 10 Sheets (2 chits/page).</span>
+</div>
+<div class="print-page">
+
+    <div class="chit-card">
+      <div class="cut-guide">✂️ CUT ALONG DOTTED LINE — FOLD INTO BOWL 1: EASY POOL</div>
+      <div class="card-top">
+        <div class="shield-header">
+          <span class="shield-icon">🛡️</span>
+          <div>
+            <div class="card-id-badge">Chit #E1 — Caesar Shift Cipher (Unit 1)</div>
+            <div style="font-size: 11px; color: #6b7280; font-weight: 600;">S.H.I.E.L.D. TACTICAL DECRYPTION CHALLENGE // OPERATION ULTRON</div>
+          </div>
+        </div>
+        <div class="bowl-badge bowl-easy">EASY • 10 MARKS</div>
+      </div>
+
+      <div class="scenario-text"><strong>Mission Scenario:</strong> Ultron Drone Intercepted Tactical Command (Caesar / Shift Cipher (Unit 1))</div>
+
+      <div style="font-size: 11px; font-weight: bold; color: #4b5563; margin-bottom: 4px;">INTERCEPTED CIPHERTEXT / PAYLOAD:</div>
+      <div class="cipher-box">YPXVSR TVSXSGSP</div>
+
+      <div class="clue-box">
+        <strong>Mission Clue:</strong> An intercepted tactical radio burst was encrypted with a constant Caesar key offset k = 4.<br>
+        <span style="color: #92400e; font-size: 11.5px;"><strong>💡 Formula & Hint:</strong> Formula: P_i ≡ (C_i - k) mod 26. Shift each ciphertext letter backward by 4 positions in the alphabet (A=0, B=1 ... Z=25).</span>
+      </div>
+
+      <div class="response-grid">
+        <div class="field-row">
+          <div style="flex: 1;">
+            <div class="field-label">Team Name / Station:</div>
+            <div class="field-input-box"></div>
+          </div>
+          <div style="flex: 2;">
+            <div class="field-label">Final Decrypted Plaintext / Key / Value:</div>
+            <div class="field-input-box"></div>
+          </div>
+          <div style="flex: 0.8;">
+            <div class="field-label">Score (Judge):</div>
+            <div class="field-input-box" style="justify-content: center;">____ / 10M</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="chit-card">
+      <div class="cut-guide">✂️ CUT ALONG DOTTED LINE — FOLD INTO BOWL 1: EASY POOL</div>
+      <div class="card-top">
+        <div class="shield-header">
+          <span class="shield-icon">🛡️</span>
+          <div>
+            <div class="card-id-badge">Chit #E2 — Monoalphabetic Substitution Cipher (Unit 1)</div>
+            <div style="font-size: 11px; color: #6b7280; font-weight: 600;">S.H.I.E.L.D. TACTICAL DECRYPTION CHALLENGE // OPERATION ULTRON</div>
+          </div>
+        </div>
+        <div class="bowl-badge bowl-easy">EASY • 10 MARKS</div>
+      </div>
+
+      <div class="scenario-text"><strong>Mission Scenario:</strong> Hydra Sub-Level Storage Override (Monoalphabetic Substitution Cipher (Unit 1))</div>
+
+      <div style="font-size: 11px; font-weight: bold; color: #4b5563; margin-bottom: 4px;">INTERCEPTED CIPHERTEXT / PAYLOAD:</div>
+      <div class="cipher-box">LZQKA ZGVTK</div>
+
+      <div class="clue-box">
+        <strong>Mission Clue:</strong> Encrypted using a fixed, scrambled permutation of the 26-letter alphabet. Use the provided lookup table to reverse each character.<br>
+        <span style="color: #92400e; font-size: 11.5px;"><strong>💡 Formula & Hint:</strong> Lookup Table: Plain A B C D E F G H I J K L M N O P Q R S T U V W X Y Z ↔ Cipher Q W E R T Y U I O P A S D F G H J K L Z X C V B N M. Find each cipher letter and read the matching plain letter.</span>
+      </div>
+
+      <div class="response-grid">
+        <div class="field-row">
+          <div style="flex: 1;">
+            <div class="field-label">Team Name / Station:</div>
+            <div class="field-input-box"></div>
+          </div>
+          <div style="flex: 2;">
+            <div class="field-label">Final Decrypted Plaintext / Key / Value:</div>
+            <div class="field-input-box"></div>
+          </div>
+          <div style="flex: 0.8;">
+            <div class="field-label">Score (Judge):</div>
+            <div class="field-input-box" style="justify-content: center;">____ / 10M</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+<div class="print-page">
+
+    <div class="chit-card">
+      <div class="cut-guide">✂️ CUT ALONG DOTTED LINE — FOLD INTO BOWL 1: EASY POOL</div>
+      <div class="card-top">
+        <div class="shield-header">
+          <span class="shield-icon">🛡️</span>
+          <div>
+            <div class="card-id-badge">Chit #E3 — Vigenère Polyalphabetic Cipher (Unit 1)</div>
+            <div style="font-size: 11px; color: #6b7280; font-weight: 600;">S.H.I.E.L.D. TACTICAL DECRYPTION CHALLENGE // OPERATION ULTRON</div>
+          </div>
+        </div>
+        <div class="bowl-badge bowl-easy">EASY • 10 MARKS</div>
+      </div>
+
+      <div class="scenario-text"><strong>Mission Scenario:</strong> Mind Stone Encrypted Telemetry Broadcast (Vigenère Polyalphabetic Cipher (Unit 1))</div>
+
+      <div style="font-size: 11px; font-weight: bold; color: #4b5563; margin-bottom: 4px;">INTERCEPTED CIPHERTEXT / PAYLOAD:</div>
+      <div class="cipher-box">VDWVURMA SAGRHJDM</div>
+
+      <div class="clue-box">
+        <strong>Mission Clue:</strong> The broadcast is protected by a polyalphabetic Vigenère cipher repeated with keyword 'VISION'.<br>
+        <span style="color: #92400e; font-size: 11.5px;"><strong>💡 Formula & Hint:</strong> Formula: P_i ≡ (C_i - K_i) mod 26 where K = VISION (V=21, I=8, S=18, I=8, O=14, N=13). Subtract key letter shifts from ciphertext (add 26 if negative).</span>
+      </div>
+
+      <div class="response-grid">
+        <div class="field-row">
+          <div style="flex: 1;">
+            <div class="field-label">Team Name / Station:</div>
+            <div class="field-input-box"></div>
+          </div>
+          <div style="flex: 2;">
+            <div class="field-label">Final Decrypted Plaintext / Key / Value:</div>
+            <div class="field-input-box"></div>
+          </div>
+          <div style="flex: 0.8;">
+            <div class="field-label">Score (Judge):</div>
+            <div class="field-input-box" style="justify-content: center;">____ / 10M</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="chit-card">
+      <div class="cut-guide">✂️ CUT ALONG DOTTED LINE — FOLD INTO BOWL 1: EASY POOL</div>
+      <div class="card-top">
+        <div class="shield-header">
+          <span class="shield-icon">🛡️</span>
+          <div>
+            <div class="card-id-badge">Chit #E4 — One-Time Pad / Vernam Cipher (Unit 1)</div>
+            <div style="font-size: 11px; color: #6b7280; font-weight: 600;">S.H.I.E.L.D. TACTICAL DECRYPTION CHALLENGE // OPERATION ULTRON</div>
+          </div>
+        </div>
+        <div class="bowl-badge bowl-easy">EASY • 10 MARKS</div>
+      </div>
+
+      <div class="scenario-text"><strong>Mission Scenario:</strong> S.H.I.E.L.D. Secure Satellite Channel (One-Time Pad (OTP) / Vernam Cipher (Unit 1))</div>
+
+      <div style="font-size: 11px; font-weight: bold; color: #4b5563; margin-bottom: 4px;">INTERCEPTED CIPHERTEXT / PAYLOAD:</div>
+      <div class="cipher-box">JYMYLKYZR</div>
+
+      <div class="clue-box">
+        <strong>Mission Clue:</strong> A 9-character secret payload was combined with an equal-length truly random one-time key: 'XQZVTRKMN'.<br>
+        <span style="color: #92400e; font-size: 11.5px;"><strong>💡 Formula & Hint:</strong> Formula: P_i ≡ (C_i - K_i) mod 26. Key: X(23) Q(16) Z(25) V(21) T(19) R(17) K(10) M(12) N(13). Subtract key from ciphertext modulo 26.</span>
+      </div>
+
+      <div class="response-grid">
+        <div class="field-row">
+          <div style="flex: 1;">
+            <div class="field-label">Team Name / Station:</div>
+            <div class="field-input-box"></div>
+          </div>
+          <div style="flex: 2;">
+            <div class="field-label">Final Decrypted Plaintext / Key / Value:</div>
+            <div class="field-input-box"></div>
+          </div>
+          <div style="flex: 0.8;">
+            <div class="field-label">Score (Judge):</div>
+            <div class="field-input-box" style="justify-content: center;">____ / 10M</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+<div class="print-page">
+
+    <div class="chit-card">
+      <div class="cut-guide">✂️ CUT ALONG DOTTED LINE — FOLD INTO BOWL 1: EASY POOL</div>
+      <div class="card-top">
+        <div class="shield-header">
+          <span class="shield-icon">🛡️</span>
+          <div>
+            <div class="card-id-badge">Chit #E5 — Rail Fence Transposition Cipher (Unit 1)</div>
+            <div style="font-size: 11px; color: #6b7280; font-weight: 600;">S.H.I.E.L.D. TACTICAL DECRYPTION CHALLENGE // OPERATION ULTRON</div>
+          </div>
+        </div>
+        <div class="bowl-badge bowl-easy">EASY • 10 MARKS</div>
+      </div>
+
+      <div class="scenario-text"><strong>Mission Scenario:</strong> Intercepted Ultron Distributed Hive Beacon (Rail Fence Transposition (Unit 1))</div>
+
+      <div style="font-size: 11px; font-weight: bold; color: #4b5563; margin-bottom: 4px;">INTERCEPTED CIPHERTEXT / PAYLOAD:</div>
+      <div class="cipher-box">PEEHRTC ATOTR</div>
+
+      <div class="clue-box">
+        <strong>Mission Clue:</strong> A 13-character directive was scrambled across 3 electrical rails in an oscillating zig-zag wave pattern.<br>
+        <span style="color: #92400e; font-size: 11.5px;"><strong>💡 Formula & Hint:</strong> Pattern across 3 rails: Rail 1 takes 4 chars (P,E,E,H), Rail 2 takes 6 chars (R,T,C, ,A,T), Rail 3 takes 3 chars (O,T,O). Trace the zig-zag wave: R1-R2-R3-R2-R1...</span>
+      </div>
+
+      <div class="response-grid">
+        <div class="field-row">
+          <div style="flex: 1;">
+            <div class="field-label">Team Name / Station:</div>
+            <div class="field-input-box"></div>
+          </div>
+          <div style="flex: 2;">
+            <div class="field-label">Final Decrypted Plaintext / Key / Value:</div>
+            <div class="field-input-box"></div>
+          </div>
+          <div style="flex: 0.8;">
+            <div class="field-label">Score (Judge):</div>
+            <div class="field-input-box" style="justify-content: center;">____ / 10M</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="chit-card">
+      <div class="cut-guide">✂️ CUT ALONG DOTTED LINE — FOLD INTO BOWL 1: EASY POOL (SPARE 1)</div>
+      <div class="card-top">
+        <div class="shield-header">
+          <span class="shield-icon">🛡️</span>
+          <div>
+            <div class="card-id-badge">Chit #E6 [SPARE-1] — Columnar Transposition Cipher (Unit 1)</div>
+            <div style="font-size: 11px; color: #6b7280; font-weight: 600;">S.H.I.E.L.D. TACTICAL DECRYPTION CHALLENGE // OPERATION ULTRON</div>
+          </div>
+        </div>
+        <div class="bowl-badge bowl-easy">EASY (SPARE) • 10 MARKS</div>
+      </div>
+
+      <div class="scenario-text"><strong>Mission Scenario:</strong> Defense Grid Re-Routing Broadcast (Row-Column Transposition Cipher (Unit 1))</div>
+
+      <div style="font-size: 11px; font-weight: bold; color: #4b5563; margin-bottom: 4px;">INTERCEPTED CIPHERTEXT / PAYLOAD:</div>
+      <div class="cipher-box">CAACE TTRHX IEMIX AVWAN</div>
+
+      <div class="clue-box">
+        <strong>Mission Clue:</strong> A 20-character military command was written into 5 rows of 4 columns under keyword 'THOR' and read out column-by-column.<br>
+        <span style="color: #92400e; font-size: 11.5px;"><strong>💡 Formula & Hint:</strong> Keyword THOR alphabetical column order: H=1, O=2, R=3, T=4. Place 5 letters per column in alphabetical order, sort columns back to T-H-O-R, then read across rows.</span>
+      </div>
+
+      <div class="response-grid">
+        <div class="field-row">
+          <div style="flex: 1;">
+            <div class="field-label">Team Name / Station:</div>
+            <div class="field-input-box"></div>
+          </div>
+          <div style="flex: 2;">
+            <div class="field-label">Final Decrypted Plaintext / Key / Value:</div>
+            <div class="field-input-box"></div>
+          </div>
+          <div style="flex: 0.8;">
+            <div class="field-label">Score (Judge):</div>
+            <div class="field-input-box" style="justify-content: center;">____ / 10M</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+<div class="print-page">
+
+    <div class="chit-card">
+      <div class="cut-guide">✂️ CUT ALONG DOTTED LINE — FOLD INTO BOWL 1: EASY POOL (SPARE 2)</div>
+      <div class="card-top">
+        <div class="shield-header">
+          <span class="shield-icon">🛡️</span>
+          <div>
+            <div class="card-id-badge">Chit #E7 [SPARE-2] — Playfair Digram Cipher (Unit 1)</div>
+            <div style="font-size: 11px; color: #6b7280; font-weight: 600;">S.H.I.E.L.D. TACTICAL DECRYPTION CHALLENGE // OPERATION ULTRON</div>
+          </div>
+        </div>
+        <div class="bowl-badge bowl-easy">EASY (SPARE) • 10 MARKS</div>
+      </div>
+
+      <div class="scenario-text"><strong>Mission Scenario:</strong> Intercepted Tactical Infiltration Orders (Playfair Cipher (Unit 1))</div>
+
+      <div style="font-size: 11px; font-weight: bold; color: #4b5563; margin-bottom: 4px;">INTERCEPTED CIPHERTEXT / PAYLOAD:</div>
+      <div class="cipher-box">NI PO OU ZH CL ZE PZ</div>
+
+      <div class="clue-box">
+        <strong>Mission Clue:</strong> Encrypted using a 5x5 Playfair keyword matrix keyed by 'ULTRON' (I and J share a cell).<br>
+        <span style="color: #92400e; font-size: 11.5px;"><strong>💡 Formula & Hint:</strong> Matrix: [U,L,T,R,O / N,A,B,C,D / E,F,G,H,I / K,M,P,Q,S / V,W,X,Y,Z]. Decryption rules: Same row -> shift left; Same col -> shift up; Rectangle -> swap columns.</span>
+      </div>
+
+      <div class="response-grid">
+        <div class="field-row">
+          <div style="flex: 1;">
+            <div class="field-label">Team Name / Station:</div>
+            <div class="field-input-box"></div>
+          </div>
+          <div style="flex: 2;">
+            <div class="field-label">Final Decrypted Plaintext / Key / Value:</div>
+            <div class="field-input-box"></div>
+          </div>
+          <div style="flex: 0.8;">
+            <div class="field-label">Score (Judge):</div>
+            <div class="field-input-box" style="justify-content: center;">____ / 10M</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="chit-card">
+      <div class="cut-guide">✂️ CUT ALONG DOTTED LINE — FOLD INTO BOWL 1: EASY POOL (SPARE 3)</div>
+      <div class="card-top">
+        <div class="shield-header">
+          <span class="shield-icon">🛡️</span>
+          <div>
+            <div class="card-id-badge">Chit #E8 [SPARE-3] — RC4 Stream Cipher (Unit 2)</div>
+            <div style="font-size: 11px; color: #6b7280; font-weight: 600;">S.H.I.E.L.D. TACTICAL DECRYPTION CHALLENGE // OPERATION ULTRON</div>
+          </div>
+        </div>
+        <div class="bowl-badge bowl-easy">EASY (SPARE) • 10 MARKS</div>
+      </div>
+
+      <div class="scenario-text"><strong>Mission Scenario:</strong> Encrypted Communication Link Recovery (RC4 Stream Cipher (Unit 2))</div>
+
+      <div style="font-size: 11px; font-weight: bold; color: #4b5563; margin-bottom: 4px;">INTERCEPTED CIPHERTEXT / PAYLOAD:</div>
+      <div class="cipher-box">0x30 0x5E 0x19 0xC4 0x11 0x6F</div>
+
+      <div class="clue-box">
+        <strong>Mission Clue:</strong> A 6-byte message stream was encrypted using an RC4 keystream generated by the Pseudo-Random Generation Algorithm (PRGA).<br>
+        <span style="color: #92400e; font-size: 11.5px;"><strong>💡 Formula & Hint:</strong> Formula: Plaintext_Byte = Ciphertext_Byte ⊕ Keystream_Byte. Given PRGA Keystream: [0x7A, 0x1F, 0x4B, 0x92, 0x58, 0x3C]. Compute bitwise XOR for each byte.</span>
+      </div>
+
+      <div class="response-grid">
+        <div class="field-row">
+          <div style="flex: 1;">
+            <div class="field-label">Team Name / Station:</div>
+            <div class="field-input-box"></div>
+          </div>
+          <div style="flex: 2;">
+            <div class="field-label">Final Decrypted Plaintext / Key / Value:</div>
+            <div class="field-input-box"></div>
+          </div>
+          <div style="flex: 0.8;">
+            <div class="field-label">Score (Judge):</div>
+            <div class="field-input-box" style="justify-content: center;">____ / 10M</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+<div class="print-page">
+
+    <div class="chit-card">
+      <div class="cut-guide">✂️ CUT ALONG DOTTED LINE — FOLD INTO BOWL 1: EASY POOL (SPARE 4)</div>
+      <div class="card-top">
+        <div class="shield-header">
+          <span class="shield-icon">🛡️</span>
+          <div>
+            <div class="card-id-badge">Chit #E9 [SPARE-4] — Affine Cipher (Unit 1)</div>
+            <div style="font-size: 11px; color: #6b7280; font-weight: 600;">S.H.I.E.L.D. TACTICAL DECRYPTION CHALLENGE // OPERATION ULTRON</div>
+          </div>
+        </div>
+        <div class="bowl-badge bowl-easy">EASY (SPARE) • 10 MARKS</div>
+      </div>
+
+      <div class="scenario-text"><strong>Mission Scenario:</strong> Orbital Targeting Protocol Encryption (Affine Cipher (Unit 1))</div>
+
+      <div style="font-size: 11px; font-weight: bold; color: #4b5563; margin-bottom: 4px;">INTERCEPTED CIPHERTEXT / PAYLOAD:</div>
+      <div class="cipher-box">U Z I P G</div>
+
+      <div class="clue-box">
+        <strong>Mission Clue:</strong> An intercepted orbital telemetry burst was encrypted using the affine transformation C ≡ (5 · P + 8) mod 26.<br>
+        <span style="color: #92400e; font-size: 11.5px;"><strong>💡 Formula & Hint:</strong> Decryption Formula: P_i ≡ a^(-1) · (C_i - b) mod 26. Given: a = 5, b = 8. Pre-computed modular inverse: 5^(-1) mod 26 = 21 (since 5 · 21 = 105 = 4 · 26 + 1 ≡ 1). Decryption: P_i ≡ 21 · (C_i - 8) mod 26. Alphabet: A=0, B=1 ... Z=25.</span>
+      </div>
+
+      <div class="response-grid">
+        <div class="field-row">
+          <div style="flex: 1;">
+            <div class="field-label">Team Name / Station:</div>
+            <div class="field-input-box"></div>
+          </div>
+          <div style="flex: 2;">
+            <div class="field-label">Final Decrypted Plaintext / Key / Value:</div>
+            <div class="field-input-box"></div>
+          </div>
+          <div style="flex: 0.8;">
+            <div class="field-label">Score (Judge):</div>
+            <div class="field-input-box" style="justify-content: center;">____ / 10M</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="chit-card">
+      <div class="cut-guide">✂️ CUT ALONG DOTTED LINE — FOLD INTO BOWL 1: EASY POOL (SPARE 5)</div>
+      <div class="card-top">
+        <div class="shield-header">
+          <span class="shield-icon">🛡️</span>
+          <div>
+            <div class="card-id-badge">Chit #E10 [SPARE-5] — Vernam Bitwise XOR Stream (Unit 1)</div>
+            <div style="font-size: 11px; color: #6b7280; font-weight: 600;">S.H.I.E.L.D. TACTICAL DECRYPTION CHALLENGE // OPERATION ULTRON</div>
+          </div>
+        </div>
+        <div class="bowl-badge bowl-easy">EASY (SPARE) • 10 MARKS</div>
+      </div>
+
+      <div class="scenario-text"><strong>Mission Scenario:</strong> Emergency Transponder Stream Decryption (Vernam Bitwise XOR Stream Cipher (Unit 1))</div>
+
+      <div style="font-size: 11px; font-weight: bold; color: #4b5563; margin-bottom: 4px;">INTERCEPTED CIPHERTEXT / PAYLOAD:</div>
+      <div class="cipher-box">0x12  0x13  0x04  0x1C  0x1F</div>
+
+      <div class="clue-box">
+        <strong>Mission Clue:</strong> An emergency distress burst of 5 bytes was encrypted bit-by-bit using Vernam stream XOR with the ASCII key string 'STARK'.<br>
+        <span style="color: #92400e; font-size: 11.5px;"><strong>💡 Formula & Hint:</strong> Formula: Plaintext_Byte P_i = C_i ⊕ K_i. Given Key 'STARK' in Hex ASCII: S = 0x53 (01010011_2), T = 0x54 (01010100_2), A = 0x41 (01000001_2), R = 0x52 (01010010_2), K = 0x4B (01001011_2). Compute bitwise XOR for each byte to recover the ASCII characters.</span>
+      </div>
+
+      <div class="response-grid">
+        <div class="field-row">
+          <div style="flex: 1;">
+            <div class="field-label">Team Name / Station:</div>
+            <div class="field-input-box"></div>
+          </div>
+          <div style="flex: 2;">
+            <div class="field-label">Final Decrypted Plaintext / Key / Value:</div>
+            <div class="field-input-box"></div>
+          </div>
+          <div style="flex: 0.8;">
+            <div class="field-label">Score (Judge):</div>
+            <div class="field-input-box" style="justify-content: center;">____ / 10M</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+<div class="print-page">
+
+    <div class="chit-card">
+      <div class="cut-guide">✂️ CUT ALONG DOTTED LINE — FOLD INTO BOWL 2: HARD POOL</div>
+      <div class="card-top">
+        <div class="shield-header">
+          <span class="shield-icon">🛡️</span>
+          <div>
+            <div class="card-id-badge">Chit #H1 — Hill Cipher (Unit 1)</div>
+            <div style="font-size: 11px; color: #6b7280; font-weight: 600;">S.H.I.E.L.D. TACTICAL DECRYPTION CHALLENGE // OPERATION ULTRON</div>
+          </div>
+        </div>
+        <div class="bowl-badge bowl-hard">HARD • 20 MARKS</div>
+      </div>
+
+      <div class="scenario-text"><strong>Mission Scenario:</strong> Tactical Encryption Matrix Inversion (Hill Cipher (Unit 1))</div>
+
+      <div style="font-size: 11px; font-weight: bold; color: #4b5563; margin-bottom: 4px;">INTERCEPTED CIPHERTEXT / PAYLOAD:</div>
+      <div class="cipher-box">IE RR</div>
+
+      <div class="clue-box">
+        <strong>Mission Clue:</strong> A 4-letter defense token was encrypted using a 2x2 Hill matrix K = [[3, 2], [5, 7]] modulo 26.<br>
+        <span style="color: #92400e; font-size: 11.5px;"><strong>💡 Formula & Hint:</strong> Decryption formula: P ≡ K^(-1) * C mod 26. Pre-computed inverse key matrix: K^(-1) ≡ [[3, 14], [9, 5]] mod 26. Compute vector multiplication for digraphs [I(8), E(4)] and [R(17), R(17)].</span>
+      </div>
+
+      <div class="response-grid">
+        <div class="field-row">
+          <div style="flex: 1;">
+            <div class="field-label">Team Name / Station:</div>
+            <div class="field-input-box"></div>
+          </div>
+          <div style="flex: 2;">
+            <div class="field-label">Final Decrypted Plaintext / Key / Value:</div>
+            <div class="field-input-box"></div>
+          </div>
+          <div style="flex: 0.8;">
+            <div class="field-label">Score (Judge):</div>
+            <div class="field-input-box" style="justify-content: center;">____ / 20M</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="chit-card">
+      <div class="cut-guide">✂️ CUT ALONG DOTTED LINE — FOLD INTO BOWL 2: HARD POOL</div>
+      <div class="card-top">
+        <div class="shield-header">
+          <span class="shield-icon">🛡️</span>
+          <div>
+            <div class="card-id-badge">Chit #H2 — DES & 3DES Block Cipher (Unit 2)</div>
+            <div style="font-size: 11px; color: #6b7280; font-weight: 600;">S.H.I.E.L.D. TACTICAL DECRYPTION CHALLENGE // OPERATION ULTRON</div>
+          </div>
+        </div>
+        <div class="bowl-badge bowl-hard">HARD • 20 MARKS</div>
+      </div>
+
+      <div class="scenario-text"><strong>Mission Scenario:</strong> Hardware Cryptographic Register Reconstruction (DES Feistel Network & S-Box (Unit 2))</div>
+
+      <div style="font-size: 11px; font-weight: bold; color: #4b5563; margin-bottom: 4px;">INTERCEPTED CIPHERTEXT / PAYLOAD:</div>
+      <div class="cipher-box">L_1 = 1100 (binary), R_1 = 1010 (binary) | S-Box 1 Input: 101010 (6 bits)</div>
+
+      <div class="clue-box">
+        <strong>Mission Clue:</strong> Recover the initial 8-bit input (L_0, R_0) before Round 1 of DES. Also explain the 3DES EDE decryption order.<br>
+        <span style="color: #92400e; font-size: 11.5px;"><strong>💡 Formula & Hint:</strong> 1. S-Box 1 Input '101010': Outer bits 1&6 = 10_2 (Row 2), Inner bits 2-5 = 0101_2 (Col 5) -> S-Box 1 Row 2 Col 5 = 11 = 1011_2. 2. Feistel inverse: R_0 = L_1 = 1100_2, L_0 = R_1 ⊕ f(R_0) = 1010_2 ⊕ 1011_2 = 0001_2. 3. 3DES EDE Decryption order: D_K1(E_K2(D_K3(C))).</span>
+      </div>
+
+      <div class="response-grid">
+        <div class="field-row">
+          <div style="flex: 1;">
+            <div class="field-label">Team Name / Station:</div>
+            <div class="field-input-box"></div>
+          </div>
+          <div style="flex: 2;">
+            <div class="field-label">Final Decrypted Plaintext / Key / Value:</div>
+            <div class="field-input-box"></div>
+          </div>
+          <div style="flex: 0.8;">
+            <div class="field-label">Score (Judge):</div>
+            <div class="field-input-box" style="justify-content: center;">____ / 20M</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+<div class="print-page">
+
+    <div class="chit-card">
+      <div class="cut-guide">✂️ CUT ALONG DOTTED LINE — FOLD INTO BOWL 2: HARD POOL</div>
+      <div class="card-top">
+        <div class="shield-header">
+          <span class="shield-icon">🛡️</span>
+          <div>
+            <div class="card-id-badge">Chit #H3 — AES / Rijndael Block Cipher (Unit 2)</div>
+            <div style="font-size: 11px; color: #6b7280; font-weight: 600;">S.H.I.E.L.D. TACTICAL DECRYPTION CHALLENGE // OPERATION ULTRON</div>
+          </div>
+        </div>
+        <div class="bowl-badge bowl-hard">HARD • 20 MARKS</div>
+      </div>
+
+      <div class="scenario-text"><strong>Mission Scenario:</strong> Reversing AES Final Round Transformations (AES State Matrix Operations (Unit 2))</div>
+
+      <div style="font-size: 11px; font-weight: bold; color: #4b5563; margin-bottom: 4px;">INTERCEPTED CIPHERTEXT / PAYLOAD:</div>
+      <div class="cipher-box">State Column: [0x76, 0x2B, 0xAF, 0x63] | Round Key K_10: [0x50, 0x1A, 0xC3, 0x02]</div>
+
+      <div class="clue-box">
+        <strong>Mission Clue:</strong> Reverse the final round of AES (where MixColumns is omitted) by applying InvShiftRows, InvSubBytes, and AddRoundKey.<br>
+        <span style="color: #92400e; font-size: 11.5px;"><strong>💡 Formula & Hint:</strong> 1. AddRoundKey: State ⊕ K_10. For byte 1: 0x76 ⊕ 0x50 = 0x26. 2. InvSubBytes lookup (provided): InvSBox[0x26] = 0x4D ('M'), InvSBox[0x31] = 0x49 ('I'), etc. Recover the 4-byte plaintext word.</span>
+      </div>
+
+      <div class="response-grid">
+        <div class="field-row">
+          <div style="flex: 1;">
+            <div class="field-label">Team Name / Station:</div>
+            <div class="field-input-box"></div>
+          </div>
+          <div style="flex: 2;">
+            <div class="field-label">Final Decrypted Plaintext / Key / Value:</div>
+            <div class="field-input-box"></div>
+          </div>
+          <div style="flex: 0.8;">
+            <div class="field-label">Score (Judge):</div>
+            <div class="field-input-box" style="justify-content: center;">____ / 20M</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="chit-card">
+      <div class="cut-guide">✂️ CUT ALONG DOTTED LINE — FOLD INTO BOWL 2: HARD POOL</div>
+      <div class="card-top">
+        <div class="shield-header">
+          <span class="shield-icon">🛡️</span>
+          <div>
+            <div class="card-id-badge">Chit #H4 — Blowfish Block Cipher (Unit 2)</div>
+            <div style="font-size: 11px; color: #6b7280; font-weight: 600;">S.H.I.E.L.D. TACTICAL DECRYPTION CHALLENGE // OPERATION ULTRON</div>
+          </div>
+        </div>
+        <div class="bowl-badge bowl-hard">HARD • 20 MARKS</div>
+      </div>
+
+      <div class="scenario-text"><strong>Mission Scenario:</strong> Feistel Round Evaluation & Key-Dependent S-Boxes (Blowfish Block Cipher (Unit 2))</div>
+
+      <div style="font-size: 11px; font-weight: bold; color: #4b5563; margin-bottom: 4px;">INTERCEPTED CIPHERTEXT / PAYLOAD:</div>
+      <div class="cipher-box">Input Word: (a, b, c, d) | S_1[a]=10, S_2[b]=20, S_3[c]=5, S_4[d]=15 | L_1 = 50</div>
+
+      <div class="clue-box">
+        <strong>Mission Clue:</strong> Calculate the Blowfish round function F(a,b,c,d) and recover the previous left register L_0 = L_1 ⊕ F.<br>
+        <span style="color: #92400e; font-size: 11.5px;"><strong>💡 Formula & Hint:</strong> Blowfish Round Formula: F(a,b,c,d) = ((S_1[a] + S_2[b] mod 2^32) ⊕ S_3[c]) + S_4[d] mod 2^32. Here: ((10 + 20) ⊕ 5) + 15 = (30 ⊕ 5) + 15 = 27 + 15 = 42. Then compute L_0 = 50 ⊕ 42.</span>
+      </div>
+
+      <div class="response-grid">
+        <div class="field-row">
+          <div style="flex: 1;">
+            <div class="field-label">Team Name / Station:</div>
+            <div class="field-input-box"></div>
+          </div>
+          <div style="flex: 2;">
+            <div class="field-label">Final Decrypted Plaintext / Key / Value:</div>
+            <div class="field-input-box"></div>
+          </div>
+          <div style="flex: 0.8;">
+            <div class="field-label">Score (Judge):</div>
+            <div class="field-input-box" style="justify-content: center;">____ / 20M</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+<div class="print-page">
+
+    <div class="chit-card">
+      <div class="cut-guide">✂️ CUT ALONG DOTTED LINE — FOLD INTO BOWL 2: HARD POOL</div>
+      <div class="card-top">
+        <div class="shield-header">
+          <span class="shield-icon">🛡️</span>
+          <div>
+            <div class="card-id-badge">Chit #H5 — RC5 Block Cipher (Unit 2)</div>
+            <div style="font-size: 11px; color: #6b7280; font-weight: 600;">S.H.I.E.L.D. TACTICAL DECRYPTION CHALLENGE // OPERATION ULTRON</div>
+          </div>
+        </div>
+        <div class="bowl-badge bowl-hard">HARD • 20 MARKS</div>
+      </div>
+
+      <div class="scenario-text"><strong>Mission Scenario:</strong> Data-Dependent Circular Bit Rotation Inversion (RC5 Block Cipher (Unit 2))</div>
+
+      <div style="font-size: 11px; font-weight: bold; color: #4b5563; margin-bottom: 4px;">INTERCEPTED CIPHERTEXT / PAYLOAD:</div>
+      <div class="cipher-box">Register A = 0x9A, Register B = 3 (rotate amount) | Subkey S[0] = 0x00</div>
+
+      <div class="clue-box">
+        <strong>Mission Clue:</strong> Invert an RC5 half-round rotation to retrieve original 8-bit plaintext register A.<br>
+        <span style="color: #92400e; font-size: 11.5px;"><strong>💡 Formula & Hint:</strong> RC5 Half-Round Decryption: A = ((A - S[0]) >>> B) ⊕ B. Given A = 0x9A (10011010_2). Rotate right circularly by 3 bits: 01010011_2 = 0x53 ('S'). Finally XOR with 0 (since S[0]=0).</span>
+      </div>
+
+      <div class="response-grid">
+        <div class="field-row">
+          <div style="flex: 1;">
+            <div class="field-label">Team Name / Station:</div>
+            <div class="field-input-box"></div>
+          </div>
+          <div style="flex: 2;">
+            <div class="field-label">Final Decrypted Plaintext / Key / Value:</div>
+            <div class="field-input-box"></div>
+          </div>
+          <div style="flex: 0.8;">
+            <div class="field-label">Score (Judge):</div>
+            <div class="field-input-box" style="justify-content: center;">____ / 20M</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="chit-card">
+      <div class="cut-guide">✂️ CUT ALONG DOTTED LINE — FOLD INTO BOWL 2: HARD POOL</div>
+      <div class="card-top">
+        <div class="shield-header">
+          <span class="shield-icon">🛡️</span>
+          <div>
+            <div class="card-id-badge">Chit #H6 — IDEA Block Cipher (Unit 2)</div>
+            <div style="font-size: 11px; color: #6b7280; font-weight: 600;">S.H.I.E.L.D. TACTICAL DECRYPTION CHALLENGE // OPERATION ULTRON</div>
+          </div>
+        </div>
+        <div class="bowl-badge bowl-hard">HARD • 20 MARKS</div>
+      </div>
+
+      <div class="scenario-text"><strong>Mission Scenario:</strong> Modular Multiplication Inversion mod (2^16 + 1) (IDEA Block Cipher (Unit 2))</div>
+
+      <div style="font-size: 11px; font-weight: bold; color: #4b5563; margin-bottom: 4px;">INTERCEPTED CIPHERTEXT / PAYLOAD:</div>
+      <div class="cipher-box">Output Sub-block Y = 135 | Subkey Z = 9 (modulo 65537)</div>
+
+      <div class="clue-box">
+        <strong>Mission Clue:</strong> IDEA mixes XOR, addition mod 2^16, and multiplication mod 65537. Invert the multiplication step to find plaintext sub-block X.<br>
+        <span style="color: #92400e; font-size: 11.5px;"><strong>💡 Formula & Hint:</strong> Formula: X = (Y * Z^(-1)) mod 65537. Given pre-computed modular inverse: Z^(-1) = 9^(-1) mod 65537 = 7282 (since 9 * 7282 = 65538 ≡ 1 mod 65537). Calculate (135 * 7282) mod 65537.</span>
+      </div>
+
+      <div class="response-grid">
+        <div class="field-row">
+          <div style="flex: 1;">
+            <div class="field-label">Team Name / Station:</div>
+            <div class="field-input-box"></div>
+          </div>
+          <div style="flex: 2;">
+            <div class="field-label">Final Decrypted Plaintext / Key / Value:</div>
+            <div class="field-input-box"></div>
+          </div>
+          <div style="flex: 0.8;">
+            <div class="field-label">Score (Judge):</div>
+            <div class="field-input-box" style="justify-content: center;">____ / 20M</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+<div class="print-page">
+
+    <div class="chit-card">
+      <div class="cut-guide">✂️ CUT ALONG DOTTED LINE — FOLD INTO BOWL 2: HARD POOL</div>
+      <div class="card-top">
+        <div class="shield-header">
+          <span class="shield-icon">🛡️</span>
+          <div>
+            <div class="card-id-badge">Chit #H7 — RSA Public-Key Algorithm (Unit 2)</div>
+            <div style="font-size: 11px; color: #6b7280; font-weight: 600;">S.H.I.E.L.D. TACTICAL DECRYPTION CHALLENGE // OPERATION ULTRON</div>
+          </div>
+        </div>
+        <div class="bowl-badge bowl-hard">HARD • 20 MARKS</div>
+      </div>
+
+      <div class="scenario-text"><strong>Mission Scenario:</strong> Missile Defense Cryptographic Key Recovery (RSA Algorithm (Unit 2))</div>
+
+      <div style="font-size: 11px; font-weight: bold; color: #4b5563; margin-bottom: 4px;">INTERCEPTED CIPHERTEXT / PAYLOAD:</div>
+      <div class="cipher-box">Public Primes: p = 5, q = 11 | Public Exponent: e = 3 | Ciphertext: c = 14</div>
+
+      <div class="clue-box">
+        <strong>Mission Clue:</strong> Derive the private key d and decrypt ciphertext c = 14 to reveal the plaintext integer m.<br>
+        <span style="color: #92400e; font-size: 11.5px;"><strong>💡 Formula & Hint:</strong> 1. Compute n = p*q = 55, φ(n) = (p-1)*(q-1) = 40. 2. Find d where 3*d ≡ 1 mod 40 -> d = 27 (since 3*27 = 81 = 2*40 + 1). 3. Decrypt: m = c^d mod n = 14^27 mod 55. (Hint: 14^2 ≡ 31, 14^4 ≡ 26, 14^8 ≡ 16, 14^16 ≡ 36; 14^27 = 36*16*31*14 mod 55 = 9).</span>
+      </div>
+
+      <div class="response-grid">
+        <div class="field-row">
+          <div style="flex: 1;">
+            <div class="field-label">Team Name / Station:</div>
+            <div class="field-input-box"></div>
+          </div>
+          <div style="flex: 2;">
+            <div class="field-label">Final Decrypted Plaintext / Key / Value:</div>
+            <div class="field-input-box"></div>
+          </div>
+          <div style="flex: 0.8;">
+            <div class="field-label">Score (Judge):</div>
+            <div class="field-input-box" style="justify-content: center;">____ / 20M</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="chit-card">
+      <div class="cut-guide">✂️ CUT ALONG DOTTED LINE — FOLD INTO BOWL 2: HARD POOL</div>
+      <div class="card-top">
+        <div class="shield-header">
+          <span class="shield-icon">🛡️</span>
+          <div>
+            <div class="card-id-badge">Chit #H8 — ElGamal Cryptography (Unit 2)</div>
+            <div style="font-size: 11px; color: #6b7280; font-weight: 600;">S.H.I.E.L.D. TACTICAL DECRYPTION CHALLENGE // OPERATION ULTRON</div>
+          </div>
+        </div>
+        <div class="bowl-badge bowl-hard">HARD • 20 MARKS</div>
+      </div>
+
+      <div class="scenario-text"><strong>Mission Scenario:</strong> Quantum-Safe Asymmetric Decryption (ElGamal Cryptography (Unit 2))</div>
+
+      <div style="font-size: 11px; font-weight: bold; color: #4b5563; margin-bottom: 4px;">INTERCEPTED CIPHERTEXT / PAYLOAD:</div>
+      <div class="cipher-box">Prime p = 23, Generator g = 5 | Public Key y = 8, Private Key x = 6 | Ciphertext Pair: (c_1 = 19, c_2 = 18)</div>
+
+      <div class="clue-box">
+        <strong>Mission Clue:</strong> Decrypt the ElGamal ciphertext pair (c_1, c_2) using private key x = 6.<br>
+        <span style="color: #92400e; font-size: 11.5px;"><strong>💡 Formula & Hint:</strong> Decryption Steps: 1. Compute shared secret: s = c_1^x mod p = 19^6 mod 23 = 2. 2. Find modular inverse s^(-1) mod 23: 2 * 12 = 24 ≡ 1 mod 23 -> s^(-1) = 12. 3. Recover plaintext: m = (c_2 * s^(-1)) mod p = (18 * 12) mod 23 = 216 mod 23 = 9.</span>
+      </div>
+
+      <div class="response-grid">
+        <div class="field-row">
+          <div style="flex: 1;">
+            <div class="field-label">Team Name / Station:</div>
+            <div class="field-input-box"></div>
+          </div>
+          <div style="flex: 2;">
+            <div class="field-label">Final Decrypted Plaintext / Key / Value:</div>
+            <div class="field-input-box"></div>
+          </div>
+          <div style="flex: 0.8;">
+            <div class="field-label">Score (Judge):</div>
+            <div class="field-input-box" style="justify-content: center;">____ / 20M</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+<div class="print-page">
+
+    <div class="chit-card">
+      <div class="cut-guide">✂️ CUT ALONG DOTTED LINE — FOLD INTO BOWL 2: HARD POOL (SPARE 4)</div>
+      <div class="card-top">
+        <div class="shield-header">
+          <span class="shield-icon">🛡️</span>
+          <div>
+            <div class="card-id-badge">Chit #H9 [SPARE-4] — Diffie-Hellman Key Exchange (Unit 2)</div>
+            <div style="font-size: 11px; color: #6b7280; font-weight: 600;">S.H.I.E.L.D. TACTICAL DECRYPTION CHALLENGE // OPERATION ULTRON</div>
+          </div>
+        </div>
+        <div class="bowl-badge bowl-hard">HARD (SPARE) • 20 MARKS</div>
+      </div>
+
+      <div class="scenario-text"><strong>Mission Scenario:</strong> S.H.I.E.L.D. Secure Session Key Derivation (Diffie-Hellman Key Exchange (Unit 2))</div>
+
+      <div style="font-size: 11px; font-weight: bold; color: #4b5563; margin-bottom: 4px;">INTERCEPTED CIPHERTEXT / PAYLOAD:</div>
+      <div class="cipher-box">Modulus p = 31, Generator g = 3 | Private Key a = 4 | Intercepted Public Key B = 13</div>
+
+      <div class="clue-box">
+        <strong>Mission Clue:</strong> Vision and Banner establish a secure link. Using public modulus p = 31, Alice's private key a = 4, and Bob's public value B = 13, calculate the shared secret session key K_AB.<br>
+        <span style="color: #92400e; font-size: 11.5px;"><strong>💡 Formula & Hint:</strong> Formula: Shared Secret K_AB ≡ B^a mod p = 13^4 mod 31. Step-by-step modular squaring: 1. 13^2 = 169. Since 169 = 5 · 31 + 14, 13^2 ≡ 14 mod 31. 2. 13^4 = (13^2)^2 ≡ 14^2 = 196 mod 31. 3. Find 196 mod 31.</span>
+      </div>
+
+      <div class="response-grid">
+        <div class="field-row">
+          <div style="flex: 1;">
+            <div class="field-label">Team Name / Station:</div>
+            <div class="field-input-box"></div>
+          </div>
+          <div style="flex: 2;">
+            <div class="field-label">Final Decrypted Plaintext / Key / Value:</div>
+            <div class="field-input-box"></div>
+          </div>
+          <div style="flex: 0.8;">
+            <div class="field-label">Score (Judge):</div>
+            <div class="field-input-box" style="justify-content: center;">____ / 20M</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="chit-card">
+      <div class="cut-guide">✂️ CUT ALONG DOTTED LINE — FOLD INTO BOWL 2: HARD POOL (SPARE 5)</div>
+      <div class="card-top">
+        <div class="shield-header">
+          <span class="shield-icon">🛡️</span>
+          <div>
+            <div class="card-id-badge">Chit #H10 [SPARE-5] — AES MixColumns Transformation in GF(2^8) (Unit 2)</div>
+            <div style="font-size: 11px; color: #6b7280; font-weight: 600;">S.H.I.E.L.D. TACTICAL DECRYPTION CHALLENGE // OPERATION ULTRON</div>
+          </div>
+        </div>
+        <div class="bowl-badge bowl-hard">HARD (SPARE) • 20 MARKS</div>
+      </div>
+
+      <div class="scenario-text"><strong>Mission Scenario:</strong> Rijndael Diffusion Layer Hardware Simulation (AES MixColumns in GF(2^8) (Unit 2))</div>
+
+      <div style="font-size: 11px; font-weight: bold; color: #4b5563; margin-bottom: 4px;">INTERCEPTED CIPHERTEXT / PAYLOAD:</div>
+      <div class="cipher-box">State Column: [0x25, 0x12, 0x31, 0x1E]^T | Matrix Row: [02, 03, 01, 01]</div>
+
+      <div class="clue-box">
+        <strong>Mission Clue:</strong> Calculate the first output byte d_0 of the AES MixColumns transformation in the Galois Field GF(2^8) with irreducible polynomial m(x) = x^8 + x^4 + x^3 + x + 1 (0x11B). Convert the resulting hex byte to its ASCII character.<br>
+        <span style="color: #92400e; font-size: 11.5px;"><strong>💡 Formula & Hint:</strong> MixColumns Formula: d_0 = (02 • 0x25) ⊕ (03 • 0x12) ⊕ (01 • 0x31) ⊕ (01 • 0x1E). Rules in GF(2^8): 1. (02 • b): Left shift by 1 bit (if original MSB was 1, XOR with 0x1B). Since 0x25 MSB=0 -> 02 • 0x25 = 0x4A. 2. (03 • b) = (02 • b) ⊕ b. For 0x12: 02 • 0x12 = 0x24 -> 03 • 0x12 = 0x24 ⊕ 0x12 = 0x36. 3. 01 • b = b. Compute d_0 = 0x4A ⊕ 0x36 ⊕ 0x31 ⊕ 0x1E.</span>
+      </div>
+
+      <div class="response-grid">
+        <div class="field-row">
+          <div style="flex: 1;">
+            <div class="field-label">Team Name / Station:</div>
+            <div class="field-input-box"></div>
+          </div>
+          <div style="flex: 2;">
+            <div class="field-label">Final Decrypted Plaintext / Key / Value:</div>
+            <div class="field-input-box"></div>
+          </div>
+          <div style="flex: 0.8;">
+            <div class="field-label">Score (Judge):</div>
+            <div class="field-input-box" style="justify-content: center;">____ / 20M</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+</body>
+</html>

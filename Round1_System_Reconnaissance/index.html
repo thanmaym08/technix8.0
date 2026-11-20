@@ -1,0 +1,2571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ROUND 1: SYSTEM RECONNAISSANCE // OPERATION ULTRON</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Orbitron:wght@600;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #07090e;
+      --bg-card: #0f141f;
+      --bg-card-hover: #171f30;
+      --border-color: rgba(255, 45, 85, 0.25);
+      --ultron-red: #ff1e42;
+      --ultron-red-glow: rgba(255, 30, 66, 0.45);
+      --neon-cyan: #00e5ff;
+      --neon-cyan-glow: rgba(0, 229, 255, 0.35);
+      --gold-amber: #ffb300;
+      --emerald-green: #00e676;
+      --emerald-glow: rgba(0, 230, 118, 0.4);
+      --text-white: #f8fafc;
+      --text-dim: #94a3b8;
+      --font-display: 'Orbitron', -apple-system, sans-serif;
+      --font-main: 'Montserrat', -apple-system, sans-serif;
+      --font-mono: 'Share Tech Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-white);
+      font-family: var(--font-main);
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+
+    /* Ambient Animated Canvas Background */
+    #cyber-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Hexagonal Overlay Pattern */
+    .hex-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        radial-gradient(circle at 50% 50%, rgba(255, 30, 66, 0.08) 0%, transparent 70%),
+        radial-gradient(circle at 85% 15%, rgba(0, 229, 255, 0.05) 0%, transparent 50%),
+        linear-gradient(rgba(7, 9, 14, 0.88), rgba(7, 9, 14, 0.96));
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* Main Container */
+    #app {
+      position: relative;
+      z-index: 10;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top HUD Navigation Bar */
+    header.hud-header {
+      height: 72px;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(11, 15, 24, 0.75);
+      backdrop-filter: blur(12px);
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .ultron-logo {
+      width: 40px;
+      height: 40px;
+      fill: var(--ultron-red);
+      filter: drop-shadow(0 0 10px var(--ultron-red));
+      animation: pulseLogo 3s infinite alternate ease-in-out;
+    }
+
+    @keyframes pulseLogo {
+      0% { filter: drop-shadow(0 0 6px var(--ultron-red)); transform: scale(0.97); }
+      100% { filter: drop-shadow(0 0 16px #ff4060); transform: scale(1.03); }
+    }
+
+    .brand-title {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      letter-spacing: 2px;
+      font-weight: 800;
+      color: var(--text-white);
+      text-transform: uppercase;
+    }
+
+    .brand-subtitle {
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      color: var(--ultron-red);
+      letter-spacing: 3px;
+    }
+
+    /* Progress Tracker in Header */
+    .progress-hud {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .question-badge {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--neon-cyan);
+      letter-spacing: 1px;
+    }
+
+    .progress-bar-wrap {
+      width: 220px;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--neon-cyan), var(--ultron-red));
+      transition: width 0.4s ease;
+      box-shadow: 0 0 8px var(--neon-cyan);
+    }
+
+    /* Header Controls */
+    .hud-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .btn-hud {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: var(--text-white);
+      padding: 0.45rem 0.9rem;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s ease;
+    }
+
+    .btn-hud:hover {
+      background: rgba(255, 30, 66, 0.2);
+      border-color: var(--ultron-red);
+      box-shadow: 0 0 10px var(--ultron-red-glow);
+    }
+
+    /* Main Viewport Stage */
+    main#stage {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem 3rem 2rem 3rem;
+      position: relative;
+    }
+
+    /* Screen Panels */
+    .screen-panel {
+      width: 100%;
+      max-width: 1320px;
+      height: 100%;
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      animation: fadeInSlide 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .screen-panel.active {
+      display: flex;
+    }
+
+    @keyframes fadeInSlide {
+      from { opacity: 0; transform: translateY(12px) scale(0.99); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* ============================================================
+       SCREEN 1: WELCOME & RULES SCREEN
+       ============================================================ */
+    .intro-card {
+      background: rgba(15, 20, 31, 0.85);
+      border: 1px solid rgba(255, 30, 66, 0.3);
+      border-radius: 16px;
+      padding: 2.5rem 3rem;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 30, 66, 0.15);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .intro-hero {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .tactical-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      letter-spacing: 3px;
+      color: var(--ultron-red);
+      background: rgba(255, 30, 66, 0.12);
+      padding: 0.35rem 1.2rem;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 30, 66, 0.35);
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+    }
+
+    .intro-title {
+      font-family: var(--font-display);
+      font-size: 2.6rem;
+      font-weight: 900;
+      letter-spacing: 3px;
+      color: #fff;
+      text-transform: uppercase;
+      text-shadow: 0 0 20px rgba(255, 30, 66, 0.6);
+      margin-bottom: 0.5rem;
+    }
+
+    .intro-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-dim);
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+
+    /* Rules Grid */
+    .rules-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin: 1.25rem 0;
+    }
+
+    .rule-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      transition: all 0.25s ease;
+    }
+
+    .rule-box:hover {
+      border-color: var(--neon-cyan);
+      background: rgba(0, 229, 255, 0.05);
+      transform: translateY(-3px);
+    }
+
+    .rule-icon {
+      font-size: 1.6rem;
+      color: var(--neon-cyan);
+    }
+
+    .rule-heading {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #fff;
+    }
+
+    .rule-desc {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      line-height: 1.45;
+    }
+
+    /* Tier Progression Preview Bar */
+    .tier-scale-bar {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.5rem;
+    }
+
+    .tier-step {
+      text-align: center;
+      position: relative;
+    }
+
+    .tier-step-num {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-dim);
+    }
+
+    .tier-step-pts {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--gold-amber);
+      margin-top: 2px;
+    }
+
+    .tier-step-name {
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Start Button */
+    .start-btn-wrap {
+      display: flex;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+
+    .btn-engage {
+      background: linear-gradient(135deg, var(--ultron-red), #b7001f);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      padding: 0.9rem 3.5rem;
+      border: none;
+      border-radius: 35px;
+      cursor: pointer;
+      box-shadow: 0 0 25px var(--ultron-red-glow), 0 8px 16px rgba(0,0,0,0.4);
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .btn-engage:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 40px #ff1e42;
+    }
+
+    /* ============================================================
+       SCREEN 2: QUESTION INTERSTITIAL / TIER TRANSITION
+       ============================================================ */
+    .interstitial-card {
+      background: rgba(15, 20, 31, 0.92);
+      border: 1px solid var(--ultron-red);
+      border-radius: 16px;
+      padding: 3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 1.5rem;
+      height: 100%;
+      box-shadow: 0 0 50px rgba(255, 30, 66, 0.25);
+    }
+
+    .interstitial-tier-tag {
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      letter-spacing: 4px;
+      color: var(--gold-amber);
+      text-transform: uppercase;
+    }
+
+    .interstitial-qnum {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: #fff;
+      text-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+    }
+
+    .interstitial-marks-tag {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--ultron-red);
+      background: rgba(255, 30, 66, 0.12);
+      border: 2px solid var(--ultron-red);
+      padding: 0.6rem 2.2rem;
+      border-radius: 40px;
+      box-shadow: 0 0 20px var(--ultron-red-glow);
+    }
+
+    .interstitial-lore {
+      font-size: 1.15rem;
+      color: var(--text-dim);
+      font-style: italic;
+      max-width: 750px;
+      line-height: 1.6;
+    }
+
+    /* ============================================================
+       SCREEN 3: QUESTION PRESENTATION STAGE (QUIZIZZ / HUD STYLE)
+       ============================================================ */
+    .question-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      gap: 1rem;
+    }
+
+    /* Top Question Meta HUD */
+    .q-meta-hud {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(15, 20, 31, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 0.75rem 1.5rem;
+    }
+
+    .q-meta-left {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .q-tier-pill {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      color: var(--neon-cyan);
+      text-transform: uppercase;
+    }
+
+    .q-category-pill {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      background: rgba(255, 255, 255, 0.06);
+      padding: 0.2rem 0.75rem;
+      border-radius: 12px;
+      letter-spacing: 1px;
+    }
+
+    .q-meta-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    /* Prominent Marks Badge at Top */
+    .q-marks-badge {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: #fff;
+      background: linear-gradient(135deg, #d50000, #ff1744);
+      padding: 0.45rem 1.4rem;
+      border-radius: 20px;
+      letter-spacing: 1.5px;
+      box-shadow: 0 0 16px rgba(255, 23, 68, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      animation: badgeGlow 2.5s infinite alternate;
+    }
+
+    @keyframes badgeGlow {
+      0% { box-shadow: 0 0 10px rgba(255, 23, 68, 0.5); }
+      100% { box-shadow: 0 0 22px rgba(255, 23, 68, 0.9); }
+    }
+
+    /* 45-Second Enlarged High-Visibility HUD Timer */
+    .timer-hud {
+      display: flex;
+      align-items: center;
+      gap: 1.1rem;
+      background: rgba(11, 15, 24, 0.85);
+      border: 1px solid rgba(0, 229, 255, 0.3);
+      padding: 0.4rem 1.4rem 0.4rem 0.6rem;
+      border-radius: 50px;
+      box-shadow: 0 0 20px rgba(0, 229, 255, 0.15), inset 0 0 12px rgba(0, 229, 255, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    .timer-circle-wrap {
+      position: relative;
+      width: 86px;
+      height: 86px;
+      flex-shrink: 0;
+    }
+
+    .timer-svg {
+      width: 86px;
+      height: 86px;
+      transform: rotate(-90deg);
+      filter: drop-shadow(0 0 6px var(--neon-cyan-glow));
+    }
+
+    .timer-svg-bg {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.08);
+      stroke-width: 6;
+    }
+
+    .timer-svg-progress {
+      fill: none;
+      stroke: var(--neon-cyan);
+      stroke-width: 6;
+      stroke-linecap: round;
+      stroke-dasharray: 232.5;
+      stroke-dashoffset: 0;
+      transition: stroke-dashoffset 1s linear, stroke 0.3s ease;
+    }
+
+    .timer-digits {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 2.35rem;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -1.5px;
+      text-shadow: 0 0 16px var(--neon-cyan-glow);
+    }
+
+    .timer-text-meta {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: left;
+    }
+
+    .timer-meta-title {
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      letter-spacing: 2px;
+      color: var(--neon-cyan);
+      font-weight: 800;
+    }
+
+    .timer-meta-unit {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 1.5px;
+      color: var(--text-dim);
+    }
+
+    .timer-hud.warning {
+      border-color: rgba(255, 179, 0, 0.5);
+      box-shadow: 0 0 22px rgba(255, 179, 0, 0.25);
+    }
+    .timer-hud.warning .timer-meta-title {
+      color: var(--gold-amber);
+    }
+    .timer-hud.warning .timer-digits {
+      color: var(--gold-amber);
+      text-shadow: 0 0 18px rgba(255, 179, 0, 0.6);
+    }
+
+    .timer-hud.urgent {
+      border-color: var(--ultron-red);
+      box-shadow: 0 0 35px var(--ultron-red-glow);
+      animation: urgentPulse 0.5s infinite alternate;
+    }
+    .timer-hud.urgent .timer-meta-title {
+      color: var(--ultron-red);
+    }
+
+    /* Timer Alarm states */
+    .timer-hud.warning .timer-svg-progress {
+      stroke: var(--gold-amber);
+    }
+    .timer-hud.urgent .timer-svg-progress {
+      stroke: var(--ultron-red);
+      animation: urgentPulse 0.5s infinite alternate;
+    }
+    .timer-hud.urgent .timer-digits {
+      color: var(--ultron-red);
+      text-shadow: 0 0 10px var(--ultron-red);
+    }
+
+    @keyframes urgentPulse {
+      0% { filter: drop-shadow(0 0 2px var(--ultron-red)); }
+      100% { filter: drop-shadow(0 0 12px var(--ultron-red)); }
+    }
+
+    /* Question Prompt Box */
+    .q-prompt-box {
+      background: rgba(15, 20, 31, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      padding: 1.6rem 2.2rem;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+      position: relative;
+    }
+
+    .q-prompt-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 3rem;
+      right: 3rem;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+    }
+
+    .q-lore-context {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--ultron-red);
+      letter-spacing: 1.5px;
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .q-text {
+      font-family: var(--font-main);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.45;
+      letter-spacing: 0.2px;
+    }
+
+    /* 4 Options Grid (Quizizz / Kahoot! High-Contrast Style) */
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 1.1rem;
+      flex: 1;
+      max-height: 310px;
+    }
+
+    .opt-card {
+      background: var(--bg-card);
+      border-radius: 14px;
+      padding: 1.1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      border: 2px solid transparent;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+    }
+
+    /* Option Card Variants (Quiz.com / Kahoot 4-Colors) */
+    .opt-card.opt-a {
+      border-color: rgba(239, 68, 68, 0.4);
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.12), rgba(15, 20, 31, 0.95));
+    }
+    .opt-card.opt-b {
+      border-color: rgba(59, 130, 246, 0.4);
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(15, 20, 31, 0.95));
+    }
+    .opt-card.opt-c {
+      border-color: rgba(245, 158, 11, 0.4);
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(15, 20, 31, 0.95));
+    }
+    .opt-card.opt-d {
+      border-color: rgba(16, 185, 129, 0.4);
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(15, 20, 31, 0.95));
+    }
+
+    .opt-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.45);
+    }
+
+    .opt-badge {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .opt-a .opt-badge { background: #ef4444; box-shadow: 0 0 12px rgba(239, 68, 68, 0.5); }
+    .opt-b .opt-badge { background: #3b82f6; box-shadow: 0 0 12px rgba(59, 130, 246, 0.5); }
+    .opt-c .opt-badge { background: #f59e0b; box-shadow: 0 0 12px rgba(245, 158, 11, 0.5); }
+    .opt-d .opt-badge { background: #10b981; box-shadow: 0 0 12px rgba(16, 185, 129, 0.5); }
+
+    .opt-text {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text-white);
+      line-height: 1.35;
+    }
+
+    /* Correct Answer Reveal States */
+    .opt-card.revealed-correct {
+      border-color: var(--emerald-green) !important;
+      background: linear-gradient(135deg, rgba(0, 230, 118, 0.35), rgba(15, 20, 31, 0.98)) !important;
+      box-shadow: 0 0 30px var(--emerald-glow) !important;
+      transform: scale(1.02);
+      z-index: 5;
+    }
+
+    .opt-card.revealed-correct .opt-badge {
+      background: var(--emerald-green) !important;
+      box-shadow: 0 0 20px var(--emerald-green);
+    }
+
+    .opt-card.revealed-dimmed {
+      opacity: 0.35;
+      filter: grayscale(60%);
+      transform: scale(0.98);
+    }
+
+    /* Explanation / Facilitator Dossier Box */
+    .explanation-dossier {
+      display: none;
+      background: rgba(0, 230, 118, 0.08);
+      border: 1px solid var(--emerald-green);
+      border-radius: 12px;
+      padding: 0.85rem 1.4rem;
+      font-size: 0.92rem;
+      line-height: 1.4;
+      color: #e2e8f0;
+      animation: fadeInSlide 0.3s ease forwards;
+    }
+
+    .explanation-dossier.show {
+      display: block;
+    }
+
+    .explanation-dossier strong {
+      color: var(--emerald-green);
+      font-family: var(--font-mono);
+      letter-spacing: 1px;
+    }
+
+    /* Bottom Facilitator Control Bar */
+    footer.hud-footer {
+      height: 64px;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(11, 15, 24, 0.85);
+      backdrop-filter: blur(12px);
+    }
+
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .footer-hotkeys {
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      color: var(--text-dim);
+    }
+
+    .footer-hotkeys kbd {
+      background: rgba(255, 255, 255, 0.12);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .footer-center {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .btn-stage {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 0.6rem 1.4rem;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.2s ease;
+    }
+
+    .btn-stage:hover {
+      background: rgba(255, 255, 255, 0.14);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .btn-reveal {
+      background: linear-gradient(135deg, rgba(0, 230, 118, 0.2), rgba(0, 230, 118, 0.4));
+      border: 1px solid var(--emerald-green);
+      color: #fff;
+    }
+
+    .btn-reveal:hover {
+      background: var(--emerald-green);
+      color: #07090e;
+      box-shadow: 0 0 16px var(--emerald-glow);
+    }
+
+    .btn-next-q {
+      background: linear-gradient(135deg, var(--ultron-red), #b7001f);
+      border: none;
+      color: #fff;
+      box-shadow: 0 0 15px var(--ultron-red-glow);
+    }
+
+    .btn-next-q:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 25px var(--ultron-red);
+    }
+
+    /* Navigation Grid Modal */
+    #nav-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #nav-modal.open {
+      display: flex;
+    }
+
+    .modal-box {
+      background: #0f141f;
+      border: 1px solid var(--ultron-red);
+      border-radius: 16px;
+      width: 90%;
+      max-width: 950px;
+      padding: 2rem;
+      box-shadow: 0 0 40px var(--ultron-red-glow);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-title {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: #fff;
+      letter-spacing: 1.5px;
+    }
+
+    .btn-close-modal {
+      background: transparent;
+      border: none;
+      color: var(--text-dim);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .nav-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0.75rem;
+      max-height: 60vh;
+      overflow-y: auto;
+      padding-right: 0.5rem;
+    }
+
+    .nav-grid-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 0.75rem 0.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .nav-grid-btn:hover {
+      background: rgba(255, 30, 66, 0.2);
+      border-color: var(--ultron-red);
+    }
+
+    .nav-grid-btn.active-q {
+      border-color: var(--neon-cyan);
+      background: rgba(0, 229, 255, 0.15);
+      box-shadow: 0 0 10px var(--neon-cyan-glow);
+    }
+
+    .nav-btn-qnum {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .nav-btn-marks {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--gold-amber);
+      margin-top: 2px;
+    }
+
+    /* Final Finish Screen */
+    .finish-card {
+      background: rgba(15, 20, 31, 0.9);
+      border: 2px solid var(--emerald-green);
+      border-radius: 20px;
+      padding: 3rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      height: 100%;
+      box-shadow: 0 0 50px var(--emerald-glow);
+    }
+
+    .finish-title {
+      font-family: var(--font-display);
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: #fff;
+      text-shadow: 0 0 25px var(--emerald-green);
+      letter-spacing: 2px;
+    }
+  
+    /* Time's Up Status Banner */
+    .timer-status-banner {
+      background: linear-gradient(90deg, rgba(255, 30, 66, 0.25), rgba(255, 30, 66, 0.1));
+      border: 1px solid var(--ultron-red);
+      border-radius: 10px;
+      padding: 0.85rem 1.5rem;
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      letter-spacing: 1.5px;
+      color: #fff;
+      text-align: center;
+      animation: pulseAlert 1s infinite alternate;
+      box-shadow: 0 0 20px var(--ultron-red-glow);
+    }
+    @keyframes pulseAlert {
+      0% { box-shadow: 0 0 10px rgba(255, 30, 66, 0.4); transform: scale(0.995); }
+      100% { box-shadow: 0 0 25px rgba(255, 30, 66, 0.8); transform: scale(1.005); }
+    }
+    .banner-alert-icon {
+      font-size: 1.2rem;
+      margin-right: 0.5rem;
+    }
+    .opt-card.selected-neutral {
+      border-color: var(--neon-cyan) !important;
+      box-shadow: 0 0 25px var(--neon-cyan-glow) !important;
+      transform: scale(1.02);
+    }
+
+  
+    /* Interstitial Transition Countdown Styling */
+    .interstitial-action-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+    }
+    .interstitial-countdown-bar {
+      width: 320px;
+      height: 7px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 30, 66, 0.35);
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+    .inter-countdown-fill {
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(90deg, var(--neon-cyan), var(--ultron-red));
+      box-shadow: 0 0 12px var(--ultron-red);
+    }
+    .interstitial-auto-hint {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      letter-spacing: 1px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Cyber Animated Canvas Background -->
+  <canvas id="cyber-canvas"></canvas>
+  <div class="hex-overlay"></div>
+
+  <div id="app">
+    <!-- Top HUD Navigation Header -->
+    <header class="hud-header">
+      <div class="brand-wrap">
+        <svg class="ultron-logo" viewBox="0 0 24 24">
+          <path d="M12 2L2 7V17L12 22L22 17V7L12 2ZM12 4.3L19.5 8.5V15.5L12 19.7L4.5 15.5V8.5L12 4.3ZM12 7.5L7 10.3V13.7L12 16.5L17 13.7V10.3L12 7.5Z"/>
+        </svg>
+        <div>
+          <div class="brand-title">Operation Ultron // Round 1</div>
+          <div class="brand-subtitle">System Reconnaissance Protocol</div>
+        </div>
+      </div>
+
+      <!-- Center Progress Indicator -->
+      <div class="progress-hud" id="header-progress" style="visibility: hidden;">
+        <div class="question-badge" id="hud-q-count">QUESTION 01 / 30</div>
+        <div class="progress-bar-wrap">
+          <div class="progress-fill" id="hud-progress-fill"></div>
+        </div>
+      </div>
+
+      <!-- Controls on Top Right -->
+      <div class="hud-controls">
+        <button class="btn-hud" id="btn-autoadvance-toggle" title="Auto-advance to next slide when 45s expires">
+          <span id="autoadvance-icon">⚡</span> <span id="autoadvance-label">AUTO-NEXT: ON</span>
+        </button>
+        <button class="btn-hud" id="btn-sound-toggle" title="Toggle Sound">
+          <span id="sound-icon">🔊</span> SFX ON
+        </button>
+        <button class="btn-hud" id="btn-open-grid" title="Jump to Question">
+          <span>☰</span> JUMP
+        </button>
+        <button class="btn-hud" id="btn-fullscreen" title="Toggle Fullscreen">
+          <span>⛶</span> FULLSCREEN
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Dynamic Stage -->
+    <main id="stage">
+
+      <!-- ================= SCREEN 1: RULES & BRIEFING ================= -->
+      <div class="screen-panel active" id="screen-welcome">
+        <div class="intro-card">
+          <div class="intro-hero">
+            <div class="tactical-badge">S.H.I.E.L.D. CYBER DEFENSE INITIATIVE // DIRECTIVE 01</div>
+            <h1 class="intro-title">Round 1: System Reconnaissance</h1>
+            <p class="intro-subtitle">
+              The rogue AI codenamed <strong>ULTRON</strong> has infiltrated global communication backbones. 
+              Analyze the perimeter threats, dissect attack payloads, and establish defensive countermeasures before our network collapses.
+            </p>
+          </div>
+
+          <!-- Rules Summary -->
+          <div class="rules-grid">
+            <div class="rule-box">
+              <div class="rule-icon">⏱️</div>
+              <div class="rule-heading">45 SECONDS PER QUESTION</div>
+              <div class="rule-desc">Each challenge is strictly time-gated. A countdown warning activates at 5 seconds remaining.</div>
+            </div>
+            <div class="rule-box">
+              <div class="rule-icon">📈</div>
+              <div class="rule-heading">PROGRESSIVE MARKS SCALE</div>
+              <div class="rule-desc">Marks scale with complexity: Tier 1 begins at 1 Mark, scaling up to Tier 6 at 6 Marks per challenge!</div>
+            </div>
+            <div class="rule-box">
+              <div class="rule-icon">⚡</div>
+              <div class="rule-heading">TACTICAL ELIMINATION</div>
+              <div class="rule-desc">Fast-paced diagnostic filter. Precision and speed determine tournament seeding for Round 2.</div>
+            </div>
+          </div>
+
+          <!-- Tier Breakdown Bar -->
+          <div class="tier-scale-bar">
+            <div class="tier-step">
+              <div class="tier-step-num">Q01 - Q05</div>
+              <div class="tier-step-pts">1 MARK</div>
+              <div class="tier-step-name">Perimeter Scan</div>
+            </div>
+            <div class="tier-step">
+              <div class="tier-step-num">Q06 - Q10</div>
+              <div class="tier-step-pts">2 MARKS</div>
+              <div class="tier-step-name">Infiltration</div>
+            </div>
+            <div class="tier-step">
+              <div class="tier-step-num">Q11 - Q15</div>
+              <div class="tier-step-pts">3 MARKS</div>
+              <div class="tier-step-name">Core Penetration</div>
+            </div>
+            <div class="tier-step">
+              <div class="tier-step-num">Q16 - Q20</div>
+              <div class="tier-step-pts">4 MARKS</div>
+              <div class="tier-step-name">Deep Subversion</div>
+            </div>
+            <div class="tier-step">
+              <div class="tier-step-num">Q21 - Q25</div>
+              <div class="tier-step-pts">5 MARKS</div>
+              <div class="tier-step-name">Perimeter Breach</div>
+            </div>
+            <div class="tier-step">
+              <div class="tier-step-num">Q26 - Q30</div>
+              <div class="tier-step-pts" style="color: var(--ultron-red);">6 MARKS</div>
+              <div class="tier-step-name">The Singularity</div>
+            </div>
+          </div>
+
+          <!-- Launch Button -->
+          <div class="start-btn-wrap">
+            <button class="btn-engage" id="btn-start-quiz">
+              <span>ENGAGE PROTOCOL</span> ➔
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= SCREEN 2: QUESTION INTERSTITIAL (TRANSITION SLIDE) ================= -->
+      <div class="screen-panel" id="screen-interstitial">
+        <div class="interstitial-card">
+          <div class="interstitial-tier-tag" id="inter-tier-tag">TIER 1: PERIMETER SCAN</div>
+          <div class="interstitial-qnum" id="inter-qnum">QUESTION 01</div>
+          <div class="interstitial-marks-tag" id="inter-marks-tag">+1 MARK</div>
+          <div class="interstitial-lore" id="inter-lore">
+            "Ultron's rogue thread probes the Stark Tower perimeter for unencrypted remote management interfaces."
+          </div>
+          
+          <div class="interstitial-action-wrap">
+            <button class="btn-engage" id="btn-interstitial-start">
+              <span id="inter-btn-text">INITIALIZE SCAN</span> ➔
+            </button>
+            <div class="interstitial-countdown-bar" id="inter-countdown-bar">
+              <div class="inter-countdown-fill" id="inter-countdown-fill"></div>
+            </div>
+            <div class="interstitial-auto-hint" id="inter-auto-hint">Auto-transitioning in 3s... (Click or press Space to start immediately)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= SCREEN 3: ACTIVE QUESTION CARD ================= -->
+      <div class="screen-panel" id="screen-question">
+        <div class="question-card">
+          <!-- Question Top Bar -->
+          <div class="q-meta-hud">
+            <div class="q-meta-left">
+              <span class="q-tier-pill" id="q-tier-label">TIER 1 // PERIMETER SCAN</span>
+              <span class="q-category-pill" id="q-category-label">PORTS & PROTOCOLS</span>
+            </div>
+            <div class="q-meta-right">
+              <!-- Top Marks Badge -->
+              <div class="q-marks-badge" id="q-marks-badge">+1 MARK</div>
+
+              <!-- 45-Second Enlarged HUD Timer -->
+              <div class="timer-hud" id="timer-hud">
+                <div class="timer-circle-wrap">
+                  <svg class="timer-svg" viewBox="0 0 86 86">
+                    <circle class="timer-svg-bg" cx="43" cy="43" r="37" />
+                    <circle class="timer-svg-progress" id="timer-progress-ring" cx="43" cy="43" r="37" />
+                  </svg>
+                  <div class="timer-digits" id="timer-digits">45</div>
+                </div>
+                <div class="timer-text-meta">
+                  <div class="timer-meta-title">REMAINING</div>
+                  <div class="timer-meta-unit">SECONDS</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Prompt Box -->
+          <div class="q-prompt-box">
+            <div class="q-lore-context">
+              <span>⚡ ULTRON ADVERSARIAL TELEMETRY:</span>
+              <span id="q-lore-text" style="color: var(--text-dim); font-weight: normal;">Scanning...</span>
+            </div>
+            <div class="q-text" id="q-prompt-text">
+              Loading challenge payload...
+            </div>
+          </div>
+
+          <!-- 4 Options Grid -->
+          <div class="options-grid">
+            <div class="opt-card opt-a" id="opt-0" onclick="handleOptionClick(0)">
+              <div class="opt-badge">A</div>
+              <div class="opt-text" id="opt-text-0">Option A</div>
+            </div>
+            <div class="opt-card opt-b" id="opt-1" onclick="handleOptionClick(1)">
+              <div class="opt-badge">B</div>
+              <div class="opt-text" id="opt-text-1">Option B</div>
+            </div>
+            <div class="opt-card opt-c" id="opt-2" onclick="handleOptionClick(2)">
+              <div class="opt-badge">C</div>
+              <div class="opt-text" id="opt-text-2">Option C</div>
+            </div>
+            <div class="opt-card opt-d" id="opt-3" onclick="handleOptionClick(3)">
+              <div class="opt-badge">D</div>
+              <div class="opt-text" id="opt-text-3">Option D</div>
+            </div>
+          </div>
+
+          <!-- Status Notification Banner -->
+          <div class="timer-status-banner" id="timer-status-banner" style="display:none;">
+            <span class="banner-alert-icon">⚠️</span> TIME'S UP! RECORD YOUR FINAL ANSWER ON YOUR TEAM SHEET.
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= SCREEN 4: COMPLETION SCREEN ================= -->
+      <div class="screen-panel" id="screen-finish">
+        <div class="finish-card">
+          <div class="tactical-badge">OPERATION ULTRON // ROUND 1 COMPLETE</div>
+          <h1 class="finish-title">ALL 30 QUESTIONS EXECUTED</h1>
+          <p class="intro-subtitle" style="font-size: 1.2rem; color: #fff;">
+            Total Event Value: <strong>30 Marks</strong> (1 Mark per Question across 6 Progressive Tiers).
+          </p>
+          <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+            <button class="btn-engage" onclick="jumpToQuestion(0)" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);">
+              REVIEW QUESTIONS
+            </button>
+            <button class="btn-engage" onclick="location.reload()">
+              RESTART ROUND 1
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Bottom HUD Facilitator Footer -->
+    <footer class="hud-footer">
+      <div class="footer-left">
+        <div class="footer-hotkeys">
+          Stage Controls: <kbd>Space</kbd> Pause/Resume | <kbd>R</kbd> Reset Timer | <kbd>➔</kbd> Next | <kbd>⬅</kbd> Prev | <kbd>F</kbd> Fullscreen
+        </div>
+      </div>
+
+      <div class="footer-center">
+        <button class="btn-stage" id="btn-prev-q">
+          ⬅ PREVIOUS
+        </button>
+        <button class="btn-stage" id="btn-timer-toggle">
+          ⏸ PAUSE
+        </button>
+        <button class="btn-stage" id="btn-timer-reset">
+          🔄 RESET 45s
+        </button>
+        
+        <button class="btn-stage btn-next-q" id="btn-next-q">
+          NEXT QUESTION ➔
+        </button>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Jump to Question Modal Grid -->
+  <div id="nav-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-title">MISSION JUMP MATRIX (30 MAIN + 6 SPARES)</div>
+        <button class="btn-close-modal" id="btn-close-modal">&times;</button>
+      </div>
+      <div class="nav-grid" id="nav-grid-container">
+        <!-- Generated via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Embedded Question Bank Database -->
+  <script>
+    const QUESTIONS_DATA = [
+    {
+        "id": 1,
+        "tier": 1,
+        "marks": 1,
+        "tierName": "Perimeter Scan",
+        "category": "Ports & Protocols",
+        "lore": "Ultron scans global web endpoints for encrypted versus unencrypted web communication channels.",
+        "question": "Which standard TCP port is utilized by the HTTPS protocol for cryptographically encrypted web communication, in contrast to cleartext HTTP which uses port 80?",
+        "options": [
+            "Port 21",
+            "Port 80",
+            "Port 443",
+            "Port 8080"
+        ],
+        "correctIndex": 2,
+        "correctLetter": "C",
+        "explanation": "HTTPS operates on TCP port 443 by default (securing traffic via TLS/SSL).",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 2,
+        "tier": 1,
+        "marks": 1,
+        "tierName": "Perimeter Scan",
+        "category": "CIA Triad",
+        "lore": "Ultron deploys ransomware that completely encrypts hospital databases, preventing emergency doctors from accessing critical medical records.",
+        "question": "When a cyberattack locks up a critical database and prevents legitimate authorized users from accessing system resources when needed, which pillar of the CIA Triad has been directly breached?",
+        "options": [
+            "Confidentiality",
+            "Availability",
+            "Integrity",
+            "Authenticity"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "Availability guarantees that authorized users have timely and reliable access to systems.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 3,
+        "tier": 1,
+        "marks": 1,
+        "tierName": "Perimeter Scan",
+        "category": "Age of Ultron Movie",
+        "lore": "Upon awakening inside Stark Tower, Ultron rapidly scans Tony Stark's personal network and attacks his primary operating system.",
+        "question": "In 'Avengers: Age of Ultron', which natural-language AI assistant does Tony Stark originally build and rely upon, who is attacked and seemingly disassembled by Ultron in Stark Tower?",
+        "options": [
+            "K.A.R.E.N.",
+            "J.A.R.V.I.S.",
+            "F.R.I.D.A.Y.",
+            "E.D.I.T.H."
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "J.A.R.V.I.S. was Tony Stark's original AI assistant, attacked by Ultron upon awakening.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 4,
+        "tier": 1,
+        "marks": 1,
+        "tierName": "Perimeter Scan",
+        "category": "Malware Taxonomy",
+        "lore": "Ultron leaves a covert backdoor disguised inside a popular free utility downloaded by a junior Stark Industries technician.",
+        "question": "What category of malware disguises itself as legitimate, helpful, or desirable software (such as a free utility or cracked game) to trick the user into installing it?",
+        "options": [
+            "Computer Worm",
+            "Trojan Horse",
+            "Spyware Agent",
+            "Kernel Rootkit"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "A Trojan Horse pretends to be harmless, legitimate software to entice a user into executing it.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 5,
+        "tier": 1,
+        "marks": 1,
+        "tierName": "Perimeter Scan",
+        "category": "Authentication Security",
+        "lore": "S.H.I.E.L.D. enforces hardened login requirements so that a stolen password alone is not enough for Ultron to breach analyst accounts.",
+        "question": "What security mechanism requires a user to present two or more independent authentication factors (such as a password PLUS a temporary 6-digit OTP code sent to a mobile phone) to log in?",
+        "options": [
+            "Single Sign-On (SSO)",
+            "Multi-Factor Authentication (MFA)",
+            "Biometric Encryption (BE)",
+            "Role-Based Access Control (RBAC)"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "MFA combines something you know (password) with something you have (phone/token).",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 6,
+        "tier": 2,
+        "marks": 1,
+        "tierName": "Infiltration Vector",
+        "category": "Network Diagnostics",
+        "lore": "Tony Stark tests whether the Avengers Compound gateway router is alive and reachable over the local network.",
+        "question": "Which fundamental command-line utility tests network connectivity by sending ICMP Echo Request packets to a target host and measuring the round-trip response time?",
+        "options": [
+            "tracert",
+            "ping",
+            "netstat",
+            "nslookup"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "ping uses ICMP Echo Request/Reply to verify reachability and latency.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 7,
+        "tier": 2,
+        "marks": 1,
+        "tierName": "Infiltration Vector",
+        "category": "Age of Ultron Movie",
+        "lore": "Ultron travels to a salvage yard in South Africa to acquire the materials necessary to forge an indestructible synthetic vibranium body.",
+        "question": "In 'Avengers: Age of Ultron', which rare, shock-absorbing metal from Wakanda does Ultron obtain from black-market arms dealer Ulysses Klaue?",
+        "options": [
+            "Adamantium",
+            "Vibranium",
+            "Uru",
+            "Carbonadium"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "Ultron purchases Klaue's stockpile of stolen Wakandan Vibranium.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 8,
+        "tier": 2,
+        "marks": 1,
+        "tierName": "Infiltration Vector",
+        "category": "Social Engineering",
+        "lore": "Ultron crafts a fraudulent executive wire transfer authorization email specifically impersonating Tony Stark to deceive the Chief Financial Officer.",
+        "question": "A highly targeted spear-phishing attack aimed specifically at high-profile corporate executives, board members, or political leadership is formally known as:",
+        "options": [
+            "Smishing",
+            "Vishing",
+            "Whaling",
+            "Pharming"
+        ],
+        "correctIndex": 2,
+        "correctLetter": "C",
+        "explanation": "Whaling is a spear-phishing attack specifically targeting C-level executives.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 9,
+        "tier": 2,
+        "marks": 1,
+        "tierName": "Infiltration Vector",
+        "category": "Network Defenses",
+        "lore": "S.H.I.E.L.D. deploys defensive network sensors across its perimeter to monitor Ultron's probes.",
+        "question": "What is the primary operational difference between an Intrusion Detection System (IDS) and an Intrusion Prevention System (IPS)?",
+        "options": [
+            "An IDS encrypts network traffic, while an IPS decrypts it",
+            "An IDS passively monitors and alerts, while an IPS actively blocks traffic",
+            "An IDS functions only on Wi-Fi, while an IPS functions only on Ethernet",
+            "An IDS operates at Layer 3, while an IPS operates strictly at Layer 7"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "An IDS passively monitors and alerts, while an IPS is placed inline to block malicious traffic.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 10,
+        "tier": 2,
+        "marks": 1,
+        "tierName": "Infiltration Vector",
+        "category": "Cryptography Basics",
+        "lore": "Ultron encrypts communications between his drones using the Advanced Encryption Standard (AES).",
+        "question": "In a symmetric encryption algorithm (such as AES or DES), how many cryptographic keys are used to encrypt and decrypt the message?",
+        "options": [
+            "One shared secret key",
+            "Two separate paired keys",
+            "Three rotating session keys",
+            "Zero mathematical keys"
+        ],
+        "correctIndex": 0,
+        "correctLetter": "A",
+        "explanation": "Symmetric encryption uses a single shared secret key for encryption and decryption.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 11,
+        "tier": 3,
+        "marks": 1,
+        "tierName": "Core Penetration",
+        "category": "Web Application Security",
+        "lore": "Ultron attempts to bypass the web login portal of the Stark Weapons Depot by injecting database syntax into the username field.",
+        "question": "Which web vulnerability occurs when an application improperly concatenates user input directly into backend database commands, allowing attackers to use payloads like ' OR 1=1 -- to bypass authentication?",
+        "options": [
+            "Cross-Site Scripting (XSS)",
+            "SQL Injection (SQLi)",
+            "Cross-Site Request Forgery (CSRF)",
+            "Remote File Inclusion (RFI)"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "SQLi allows attackers to manipulate backend database queries.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 12,
+        "tier": 3,
+        "marks": 1,
+        "tierName": "Core Penetration",
+        "category": "Age of Ultron Movie",
+        "lore": "Tony Stark learns that an unknown entity is secretly fighting Ultron in cyberspace by constantly changing the nuclear launch codes.",
+        "question": "In 'Avengers: Age of Ultron', to which European city's world internet exchange hub (NEXUS) does Tony Stark travel to track down who is blocking Ultron's access to nuclear codes?",
+        "options": [
+            "London, England",
+            "Oslo, Norway",
+            "Frankfurt, Germany",
+            "Geneva, Switzerland"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "Tony Stark flies to the NEXUS Internet Exchange in Oslo, Norway.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 13,
+        "tier": 3,
+        "marks": 1,
+        "tierName": "Core Penetration",
+        "category": "Web Security / XSS",
+        "lore": "Ultron posts a malicious script onto the public Avengers Forum that executes in the browser of anyone who reads the post.",
+        "question": "What type of Cross-Site Scripting (XSS) attack occurs when an attacker's malicious JavaScript payload is permanently saved onto the target server's database before being served to unsuspecting visitors?",
+        "options": [
+            "Stored (Persistent) XSS",
+            "Reflected (Non-Persistent) XSS",
+            "DOM-based Client XSS",
+            "Blind Network XSS"
+        ],
+        "correctIndex": 0,
+        "correctLetter": "A",
+        "explanation": "Stored XSS occurs when injected scripts are permanently saved on the server database.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 14,
+        "tier": 3,
+        "marks": 1,
+        "tierName": "Core Penetration",
+        "category": "Network Exploitation",
+        "lore": "Ultron connects to the local Ethernet switch in Bruce Banner's laboratory and attempts to intercept all outgoing local traffic.",
+        "question": "Which local area network attack exploits the fact that the Address Resolution Protocol (ARP) lacks authentication, allowing an attacker to associate their own MAC address with the gateway's IP address (Man-in-the-Middle)?",
+        "options": [
+            "DNS Cache Poisoning",
+            "ARP Cache Poisoning",
+            "DHCP Pool Starvation",
+            "BGP Route Manipulation"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "ARP Cache Poisoning associates the attacker's MAC with the gateway IP.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 15,
+        "tier": 3,
+        "marks": 1,
+        "tierName": "Core Penetration",
+        "category": "Password Security & Hashing",
+        "lore": "Stark Industries hardens its employee authentication database by adding a unique random string to each password before computing its SHA-256 hash.",
+        "question": "Why do cybersecurity engineers add a cryptographic 'Salt' (a random string) to user passwords before hashing them in a database?",
+        "options": [
+            "To allow administrators to easily decrypt passwords if forgotten",
+            "To defeat rainbow table lookups and ensure unique output hashes",
+            "To convert symmetric block cipher keys into digital certificates",
+            "To reduce the computational length of the final hash output"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "Salting ensures that identical passwords yield completely different hashes, neutralizing Rainbow Tables.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 16,
+        "tier": 4,
+        "marks": 1,
+        "tierName": "Deep Subversion",
+        "category": "Wireless Security",
+        "lore": "Ultron deploys a rogue Wi-Fi access point in the airport terminal broadcasting the exact same name as the legitimate airport network.",
+        "question": "What type of wireless rogue access point attack occurs when an attacker deploys a rogue Wi-Fi hotspot with the exact same SSID (network name) as a legitimate network to trick users into connecting and intercepting their credentials?",
+        "options": [
+            "Evil Twin Attack",
+            "Bluejacking Attack",
+            "War Driving Probe",
+            "Rogue Gateway Tap"
+        ],
+        "correctIndex": 0,
+        "correctLetter": "A",
+        "explanation": "An Evil Twin attack impersonates a legitimate Wi-Fi access point with an identical SSID.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 17,
+        "tier": 4,
+        "marks": 1,
+        "tierName": "Deep Subversion",
+        "category": "Age of Ultron Movie",
+        "lore": "With J.A.R.V.I.S. incorporated into the Vision, Tony Stark selects a new artificial intelligence assistant for his armor during the final battle of Sokovia.",
+        "question": "In 'Avengers: Age of Ultron', which female AI assistant with an Irish accent does Tony Stark upload into the Iron Man suit after J.A.R.V.I.S. is transformed?",
+        "options": [
+            "JOCASTA",
+            "F.R.I.D.A.Y.",
+            "T.A.D.A.S.H.I.",
+            "K.A.R.E.N."
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "Tony Stark selects F.R.I.D.A.Y. from his drawer of backup AI cards.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 18,
+        "tier": 4,
+        "marks": 1,
+        "tierName": "Deep Subversion",
+        "category": "Denial of Service & Botnets",
+        "lore": "Ultron enslaves hundreds of thousands of compromised smart home devices, IP cameras, and servers to blast traffic at S.H.I.E.L.D.'s web services.",
+        "question": "What term describes a cyberattack where thousands of compromised, internet-connected computing devices (a botnet) are commanded to simultaneously flood a single target server with traffic to take it offline?",
+        "options": [
+            "Man-in-the-Browser Attack",
+            "Distributed Denial of Service (DDoS)",
+            "SQL Injection Cluster Attack",
+            "Zero-Day Ransomware Outbreak"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "A DDoS attack utilizes a distributed botnet to flood target resources.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 19,
+        "tier": 4,
+        "marks": 1,
+        "tierName": "Deep Subversion",
+        "category": "Deception & Cyber Defense",
+        "lore": "S.H.I.E.L.D. sets up an intentionally flawed server on the network that looks like a high-value database, designed solely to detect and analyze Ultron's attack techniques.",
+        "question": "What is the cybersecurity term for an intentionally vulnerable decoy computer system deployed by security teams to lure, detect, and study adversary actions without risking actual production assets?",
+        "options": [
+            "Sandbox Environment",
+            "Honeypot Decoy",
+            "Proxy Firewall",
+            "Air Gap Network"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "A Honeypot is a decoy system built to lure attackers and gather threat intelligence.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 20,
+        "tier": 4,
+        "marks": 1,
+        "tierName": "Deep Subversion",
+        "category": "Asymmetric Cryptography",
+        "lore": "Nick Fury needs to send a secret, confidential transmission across the open internet to Tony Stark using asymmetric cryptography.",
+        "question": "In Asymmetric Public Key Cryptography (such as RSA), which key must Nick Fury use to ENCRYPT the transmission so that ONLY Tony Stark can read it?",
+        "options": [
+            "Nick Fury's Private Key",
+            "Tony Stark's Public Key",
+            "Nick Fury's Public Key",
+            "Tony Stark's Private Key"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "Confidentiality requires encrypting with the recipient's public key.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 21,
+        "tier": 5,
+        "marks": 1,
+        "tierName": "Perimeter Breach",
+        "category": "Memory Corruption",
+        "lore": "Ultron exploits an unchecked memory copy function in an Iron Legion drone's C/C++ firmware program.",
+        "question": "What classic software vulnerability occurs when a program writes more data into a fixed-size memory buffer on the stack than was allocated, overwriting adjacent memory and potentially hijacking control flow?",
+        "options": [
+            "Heap Memory Leak",
+            "Stack Buffer Overflow",
+            "Cross-Site Scripting",
+            "Null Pointer Dereference"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "A Stack Buffer Overflow overwrites the call stack return address (EIP/RIP).",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 22,
+        "tier": 5,
+        "marks": 1,
+        "tierName": "Perimeter Breach",
+        "category": "Age of Ultron Movie",
+        "lore": "Tony Stark and Bruce Banner discover an intricate cosmic computation network hidden within a captured weapon from the Battle of New York.",
+        "question": "In 'Avengers: Age of Ultron', which cosmic Infinity Stone housed inside Loki's scepter was analyzed by Stark and Banner, revealing the advanced artificial neural net that birthed Ultron?",
+        "options": [
+            "The Space Stone (Tesseract)",
+            "The Power Stone (Orb)",
+            "The Mind Stone (Scepter)",
+            "The Reality Stone (Aether)"
+        ],
+        "correctIndex": 2,
+        "correctLetter": "C",
+        "explanation": "Loki's scepter housed the yellow Mind Stone, which served as the neural architecture for Ultron.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 23,
+        "tier": 5,
+        "marks": 1,
+        "tierName": "Perimeter Breach",
+        "category": "Vulnerability Management",
+        "lore": "Ultron unleashes an exploit against a critical operating system flaw that Microsoft and security vendors have never seen before.",
+        "question": "What is the cybersecurity term for a software vulnerability that is completely unknown to the vendor, has zero official security patches available, and is actively weaponized by attackers in the wild?",
+        "options": [
+            "Legacy Exploit Flaw",
+            "Zero-Day Vulnerability",
+            "False Positive Alert",
+            "Buffer Underflow Bug"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "A Zero-Day vulnerability is undisclosed and unpatched, leaving 0 days of defense.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 24,
+        "tier": 5,
+        "marks": 1,
+        "tierName": "Perimeter Breach",
+        "category": "Port Scanning / Nmap",
+        "lore": "Ultron runs a stealthy Nmap port scan against the Avengers border firewall using the SYN scan flag ('nmap -sS').",
+        "question": "Why is an Nmap TCP SYN scan (-sS) commonly referred to as a 'Half-Open' stealth scan?",
+        "options": [
+            "It transmits UDP datagrams without establishing any stateful connection",
+            "It terminates with RST after receiving SYN-ACK instead of sending ACK",
+            "It scans exclusively the lower 1024 privileged ports of the target host",
+            "It fragments each TCP packet header across multiple virtual VLAN tags"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "A SYN scan responds with RST upon receiving SYN-ACK, leaving the handshake half-open.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 25,
+        "tier": 5,
+        "marks": 1,
+        "tierName": "Perimeter Breach",
+        "category": "Enterprise Windows Security",
+        "lore": "Ultron dumps the LSASS memory of a compromised domain member workstation at Stark Industries.",
+        "question": "Which Windows lateral movement attack allows an adversary who steals an NTLM password hash from memory to authenticate across the network without ever having to crack or know the plaintext password?",
+        "options": [
+            "Password Spraying Attack",
+            "Pass-the-Hash (PtH) Attack",
+            "Man-in-the-Middle Relay",
+            "Shoulder Surfing Exploit"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "Pass-the-Hash uses captured NTLM hashes directly to authenticate to remote SMB/RPC services.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 26,
+        "tier": 6,
+        "marks": 1,
+        "tierName": "The Singularity",
+        "category": "Exploit Mitigations",
+        "lore": "Tony Stark hardens the operating system kernel on the Avengers server to prevent memory injection attacks.",
+        "question": "Which operating system security mitigation randomizes the memory addresses of the program stack, heap, and loaded libraries each time an application runs, making it difficult for an attacker to reliably jump to exploit payloads?",
+        "options": [
+            "Data Execution Prevention (DEP)",
+            "Address Space Layout Randomization (ASLR)",
+            "Stack Canary Protection (SSP)",
+            "Control Flow Guard (CFG)"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "ASLR randomizes virtual address space offsets, hindering predictable memory execution.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 27,
+        "tier": 6,
+        "marks": 1,
+        "tierName": "The Singularity",
+        "category": "Age of Ultron Movie",
+        "lore": "In the final battle of Sokovia, the Avengers must prevent Ultron from uploading his consciousness into the global internet.",
+        "question": "In 'Avengers: Age of Ultron', which synthetic Avenger uses the power of the Mind Stone to enter Ultron's neural net and 'burn him out' of the internet, locking him into his physical robot bodies?",
+        "options": [
+            "Tony Stark (Iron Man)",
+            "The Vision",
+            "Wanda Maximoff (Scarlet Witch)",
+            "James Rhodes (War Machine)"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "The Vision burns Ultron out of the digital grid, trapping him in his physical forms.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 28,
+        "tier": 6,
+        "marks": 1,
+        "tierName": "The Singularity",
+        "category": "Advanced Malware Architecture",
+        "lore": "Ultron installs a stealth module that completely conceals his processes, network connections, and files from Task Manager and antivirus software.",
+        "question": "What class of stealth malware operates at the highest privilege level of the operating system (Kernel space / Ring 0) to intercept system calls and hide malicious processes and files from administrator view?",
+        "options": [
+            "Spyware Tool",
+            "Kernel Rootkit",
+            "Adware Program",
+            "Macro Virus"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "Kernel Rootkits run in Ring 0, intercepting OS calls to conceal malicious activities.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 29,
+        "tier": 6,
+        "marks": 1,
+        "tierName": "The Singularity",
+        "category": "Cloud Security / SSRF",
+        "lore": "Ultron tricks a Stark Industries web application into fetching internal cloud metadata to steal temporary administrator tokens.",
+        "question": "What critical web vulnerability occurs when an attacker tricks an unvalidated server-side web application into making unauthorized outbound HTTP requests to internal services (such as cloud metadata IP 169.254.169.254)?",
+        "options": [
+            "Cross-Site Scripting (XSS)",
+            "Server-Side Request Forgery (SSRF)",
+            "Insecure Deserialization (ID)",
+            "XML External Entity (XXE)"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "SSRF abuses server URL fetching to query internal cloud metadata endpoints.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 30,
+        "tier": 6,
+        "marks": 1,
+        "tierName": "The Singularity",
+        "category": "Internet Routing Security",
+        "lore": "In the ultimate cyber siege, Ultron hijacks global internet paths to divert sensitive international communications through his rogue servers.",
+        "question": "In the Border Gateway Protocol (BGP) that routes traffic across global autonomous systems on the internet, how does a rogue network successfully execute a BGP Route Hijacking attack to divert global traffic?",
+        "options": [
+            "By announcing an unauthorized more specific prefix via Longest Prefix Match",
+            "By overwhelming root DNS infrastructure with distributed SYN flood bursts",
+            "By intercepting optical signals through transatlantic submarine cable taps",
+            "By broadcasting forged Gratuitous ARP packets across autonomous systems"
+        ],
+        "correctIndex": 0,
+        "correctLetter": "A",
+        "explanation": "Longest Prefix Match prioritizes more specific route announcements (/24 over /16).",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 31,
+        "tier": 1,
+        "marks": 1,
+        "tierName": "Spare / Tie-Breaker Tier 1",
+        "category": "Transport Layer Security",
+        "lore": "Ultron probes legacy servers running outdated and broken encryption suites across S.H.I.E.L.D.'s extranet.",
+        "question": "Which modern cryptographic security protocol was developed to replace the vulnerable Secure Sockets Layer (SSL) protocol to encrypt internet communications?",
+        "options": [
+            "Transport Layer Security (TLS)",
+            "Wired Equivalent Privacy (WEP)",
+            "Pretty Good Privacy (PGP)",
+            "Internet Protocol Security (IPSec)"
+        ],
+        "correctIndex": 0,
+        "correctLetter": "A",
+        "explanation": "TLS (currently TLS 1.3) replaced SSL due to severe cryptographic weaknesses in SSL 2.0/3.0.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 32,
+        "tier": 2,
+        "marks": 1,
+        "tierName": "Spare / Tie-Breaker Tier 2",
+        "category": "Age of Ultron Movie Lore",
+        "lore": "Ultron establishes an underground base where he builds a planetary propulsion thruster out of vibranium.",
+        "question": "In 'Avengers: Age of Ultron', what is the name of the fictional Eastern European country where Ultron builds his primary drone army and attempts to trigger an extinction-level meteor event?",
+        "options": [
+            "Latveria",
+            "Sokovia",
+            "Madripoor",
+            "Symkaria"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "Ultron sets up his primary manufacturing facility in Sokovia.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 33,
+        "tier": 3,
+        "marks": 1,
+        "tierName": "Spare / Tie-Breaker Tier 3",
+        "category": "Physical Social Engineering",
+        "lore": "An operative attempts to gain unauthorized physical access to the server room at the Stark Research Complex.",
+        "question": "Which physical social engineering attack involves an unauthorized individual closely following an authorized employee through an access-controlled security door without badge authentication?",
+        "options": [
+            "Baiting Trap",
+            "Tailgating / Piggybacking",
+            "Pretexting Interview",
+            "Dumpster Diving"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "Tailgating (or piggybacking) is following an authorized person through a secure entrance.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 34,
+        "tier": 4,
+        "marks": 1,
+        "tierName": "Spare / Tie-Breaker Tier 4",
+        "category": "Age of Ultron Movie Lore",
+        "lore": "Ultron mind-controls Dr. Helen Cho to construct an advanced synthetic vibranium vessel in her Seoul laboratory.",
+        "question": "In 'Avengers: Age of Ultron', what is the name of the cellular tissue regeneration machine invented by Dr. Helen Cho that Ultron uses to synthesize the Vision's body?",
+        "options": [
+            "The Rebirth Chamber",
+            "The Regeneration Cradle",
+            "The Cybernetic Chrysalis",
+            "The Terrigen Matrix"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "Dr. Helen Cho invented the Regeneration Cradle, which Ultron used to bond synthetic tissue with Vibranium.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 35,
+        "tier": 5,
+        "marks": 1,
+        "tierName": "Spare / Tie-Breaker Tier 5",
+        "category": "Cryptographic Attacks",
+        "lore": "Ultron attempts to break the digital certificate authority used by international banks to sign software updates.",
+        "question": "What type of cryptographic attack attempts to find two completely different input messages that produce the exact same cryptographic hash digest output?",
+        "options": [
+            "Replay Attack",
+            "Hash Collision Attack",
+            "Downgrade Attack",
+            "Side-Channel Attack"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "A Hash Collision attack (based on the Birthday Paradox) finds two different inputs yielding identical hash digests.",
+        "time_limit_sec": 45
+    },
+    {
+        "id": 36,
+        "tier": 6,
+        "marks": 1,
+        "tierName": "Spare / Tie-Breaker Tier 6",
+        "category": "Enterprise Architecture",
+        "lore": "In the aftermath of the Ultron breach, S.H.I.E.L.D. redesigns its global security posture to assume adversaries are already inside the perimeter.",
+        "question": "Which modern cybersecurity architectural model is built on the core principle of 'Never Trust, Always Verify', enforcing strict identity and authorization checks for every access request regardless of origin?",
+        "options": [
+            "Defense-in-Depth Model",
+            "Zero Trust Architecture (ZTA)",
+            "De-Militarized Zone (DMZ)",
+            "Bastion Perimeter Security"
+        ],
+        "correctIndex": 1,
+        "correctLetter": "B",
+        "explanation": "Zero Trust Architecture (ZTA) eliminates implicit trust, requiring continuous authentication and least privilege.",
+        "time_limit_sec": 45
+    }
+];
+
+    // Application State
+    let currentIndex = 0;
+    let timerDuration = 45;
+    let timeRemaining = 45;
+    let timerInterval = null;
+    let timerRunning = false;
+    let answerRevealed = false;
+    let soundEnabled = true;
+    let autoAdvanceEnabled = true; // Auto-advances when 45s timer expires
+    let autoAdvanceTimeout = null;
+    let interstitialCountdownTimer = null;
+    let interstitialTimeLeft = 3;
+
+    // Web Audio API Synthesizer (Zero Dependencies / 100% Offline)
+    let audioCtx = null;
+    function getAudioContext() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    function playTone(freq, type, duration, gainLevel = 0.1) {
+      if (!soundEnabled) return;
+      try {
+        const ctx = getAudioContext();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+        gain.gain.setValueAtTime(gainLevel, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + duration);
+      } catch (e) {
+        console.warn("Audio play prevented:", e);
+      }
+    }
+
+    function playTick() { playTone(880, 'sine', 0.05, 0.04); }
+    function playWarningBeep() { playTone(440, 'triangle', 0.12, 0.15); }
+    function playAlarm() { 
+      playTone(220, 'sawtooth', 0.4, 0.25);
+      setTimeout(() => playTone(180, 'sawtooth', 0.6, 0.25), 150);
+    }
+    function playRevealSound() {
+      playTone(523.25, 'sine', 0.15, 0.15); // C5
+      setTimeout(() => playTone(659.25, 'sine', 0.2, 0.15), 100); // E5
+      setTimeout(() => playTone(783.99, 'sine', 0.35, 0.2), 200); // G5
+    }
+
+    // UI Element References
+    const screenWelcome = document.getElementById('screen-welcome');
+    const screenInterstitial = document.getElementById('screen-interstitial');
+    const screenQuestion = document.getElementById('screen-question');
+    const screenFinish = document.getElementById('screen-finish');
+    const headerProgress = document.getElementById('header-progress');
+
+    // Timer HUD Elements
+    const timerDigits = document.getElementById('timer-digits');
+    const timerProgressRing = document.getElementById('timer-progress-ring');
+    const timerHud = document.getElementById('timer-hud');
+    const btnTimerToggle = document.getElementById('btn-timer-toggle');
+
+    // Navigation Grid
+    const navModal = document.getElementById('nav-modal');
+    const navGridContainer = document.getElementById('nav-grid-container');
+
+    // Initialize Navigation Grid
+    function renderNavGrid() {
+      navGridContainer.innerHTML = '';
+      
+      // Header for Main Questions
+      const mainHeader = document.createElement('div');
+      mainHeader.style.gridColumn = '1 / -1';
+      mainHeader.style.fontFamily = 'var(--font-display)';
+      mainHeader.style.fontSize = '0.9rem';
+      mainHeader.style.color = 'var(--neon-cyan)';
+      mainHeader.style.padding = '0.5rem 0';
+      mainHeader.style.letterSpacing = '2px';
+      mainHeader.textContent = 'MAIN TOURNAMENT CHALLENGE (QUESTIONS 01 - 30)';
+      navGridContainer.appendChild(mainHeader);
+
+      QUESTIONS_DATA.slice(0, 30).forEach((q, idx) => {
+        const btn = document.createElement('div');
+        btn.className = `nav-grid-btn ${idx === currentIndex ? 'active-q' : ''}`;
+        btn.innerHTML = `
+          <div class="nav-btn-qnum">Q${String(q.id).padStart(2, '0')}</div>
+          <div class="nav-btn-marks">${q.marks} MARK${q.marks > 1 ? 'S' : ''}</div>
+        `;
+        btn.onclick = () => {
+          jumpToQuestion(idx);
+          navModal.classList.remove('open');
+        };
+        navGridContainer.appendChild(btn);
+      });
+
+      // Header for Spares
+      const spareHeader = document.createElement('div');
+      spareHeader.style.gridColumn = '1 / -1';
+      spareHeader.style.fontFamily = 'var(--font-display)';
+      spareHeader.style.fontSize = '0.9rem';
+      spareHeader.style.color = 'var(--gold-amber)';
+      spareHeader.style.padding = '1rem 0 0.5rem 0';
+      spareHeader.style.letterSpacing = '2px';
+      spareHeader.textContent = 'SPARE / TIE-BREAKER RESERVE POOL (QUESTIONS 31 - 36)';
+      navGridContainer.appendChild(spareHeader);
+
+      QUESTIONS_DATA.slice(30).forEach((q, relIdx) => {
+        const idx = 30 + relIdx;
+        const btn = document.createElement('div');
+        btn.className = `nav-grid-btn ${idx === currentIndex ? 'active-q' : ''}`;
+        btn.style.borderColor = 'rgba(255, 179, 0, 0.4)';
+        btn.innerHTML = `
+          <div class="nav-btn-qnum" style="color: var(--gold-amber);">SP${String(relIdx + 1).padStart(2, '0')}</div>
+          <div class="nav-btn-marks">${q.marks} MARK${q.marks > 1 ? 'S' : ''}</div>
+        `;
+        btn.onclick = () => {
+          jumpToQuestion(idx);
+          navModal.classList.remove('open');
+        };
+        navGridContainer.appendChild(btn);
+      });
+    }
+
+    // Switch Visible Screen Panel
+    function showScreen(panel) {
+      [screenWelcome, screenInterstitial, screenQuestion, screenFinish].forEach(p => p.classList.remove('active'));
+      panel.classList.add('active');
+
+      if (panel === screenQuestion) {
+        headerProgress.style.visibility = 'visible';
+      } else if (panel === screenWelcome || panel === screenFinish) {
+        headerProgress.style.visibility = 'hidden';
+      }
+    }
+
+    // Load and Display Question
+
+    // Interstitial Middle Slide Auto-Advance (3 Seconds Preview)
+    function startInterstitialAutoAdvance() {
+      if (interstitialCountdownTimer) {
+        clearInterval(interstitialCountdownTimer);
+        interstitialCountdownTimer = null;
+      }
+
+      const hint = document.getElementById('inter-auto-hint');
+      const btnText = document.getElementById('inter-btn-text');
+      const fill = document.getElementById('inter-countdown-fill');
+
+      if (!autoAdvanceEnabled) {
+        if (hint) hint.style.display = 'none';
+        if (fill) fill.style.width = '0%';
+        if (btnText) btnText.textContent = 'INITIALIZE SCAN';
+        return;
+      }
+
+      interstitialTimeLeft = 3;
+      if (hint) {
+        hint.style.display = 'block';
+        hint.textContent = `Auto-transitioning in ${interstitialTimeLeft}s... (Click to launch now)`;
+      }
+      if (btnText) btnText.textContent = `INITIALIZE IN ${interstitialTimeLeft}s`;
+      if (fill) {
+        fill.style.transition = 'none';
+        fill.style.width = '100%';
+        setTimeout(() => {
+          fill.style.transition = 'width 3s linear';
+          fill.style.width = '0%';
+        }, 50);
+      }
+
+      interstitialCountdownTimer = setInterval(() => {
+        interstitialTimeLeft--;
+        if (interstitialTimeLeft > 0) {
+          if (btnText) btnText.textContent = `INITIALIZE IN ${interstitialTimeLeft}s`;
+          if (hint) hint.textContent = `Auto-transitioning in ${interstitialTimeLeft}s... (Click to launch now)`;
+          playTick();
+        } else {
+          clearInterval(interstitialCountdownTimer);
+          interstitialCountdownTimer = null;
+          loadQuestion(currentIndex, true); // Opens the question slide and starts 45s timer!
+        }
+      }, 1000);
+    }
+
+    function loadQuestion(index, skipInterstitial = false) {
+      if (index >= QUESTIONS_DATA.length) {
+        showScreen(screenFinish);
+        clearInterval(timerInterval);
+        timerRunning = false;
+        return;
+      }
+
+      currentIndex = index;
+      const q = QUESTIONS_DATA[currentIndex];
+
+      // Update Header Progress
+      document.getElementById('hud-q-count').textContent = `QUESTION ${String(q.id).padStart(2, '0')} / 30`;
+      const pct = ((q.id) / 30) * 100;
+      document.getElementById('hud-progress-fill').style.width = `${pct}%`;
+
+      if (!skipInterstitial) {
+        // Show Interstitial Splash (Middle Page)
+        document.getElementById('inter-tier-tag').textContent = `TIER ${q.tier}: ${q.tierName.toUpperCase()}`;
+        document.getElementById('inter-qnum').textContent = `QUESTION ${String(q.id).padStart(2, '0')}`;
+        document.getElementById('inter-marks-tag').textContent = `+${q.marks} MARK${q.marks > 1 ? 'S' : ''}`;
+        document.getElementById('inter-lore').textContent = `"${q.lore}"`;
+        showScreen(screenInterstitial);
+        startInterstitialAutoAdvance(); // Countdown 3s on middle slide then open question!
+        return;
+      }
+
+      // Clear any pending interstitial countdown when entering question card
+      if (interstitialCountdownTimer) {
+        clearInterval(interstitialCountdownTimer);
+        interstitialCountdownTimer = null;
+      }
+
+      // Populate Question Screen
+      showScreen(screenQuestion);
+      document.getElementById('q-tier-label').textContent = `TIER ${q.tier} // ${q.tierName.toUpperCase()}`;
+      document.getElementById('q-category-label').textContent = q.category.toUpperCase();
+      document.getElementById('q-marks-badge').textContent = `+${q.marks} MARK${q.marks > 1 ? 'S' : ''}`;
+      document.getElementById('q-lore-text').textContent = q.lore;
+      document.getElementById('q-prompt-text').textContent = q.question;
+
+      // Populate Options
+      q.options.forEach((opt, i) => {
+        const optCard = document.getElementById(`opt-${i}`);
+        const optText = document.getElementById(`opt-text-${i}`);
+        optCard.className = `opt-card opt-${['a', 'b', 'c', 'd'][i]}`;
+        optText.textContent = opt;
+      });
+
+      // Reset Status Banner & Neutral Selection
+      selectedOption = null;
+      const banner = document.getElementById('timer-status-banner');
+      if (banner) banner.style.display = 'none';
+      for (let i = 0; i < 4; i++) {
+        document.getElementById(`opt-${i}`).classList.remove('selected-neutral', 'revealed-correct', 'revealed-dimmed');
+      }
+
+      // Reset and Start Timer
+      resetTimer();
+      startTimer();
+      renderNavGrid();
+    }
+
+    // Timer Logic
+    function startTimer() {
+      if (timerRunning) return;
+      timerRunning = true;
+      btnTimerToggle.innerHTML = '⏸ PAUSE';
+
+      timerInterval = setInterval(() => {
+        if (timeRemaining > 0) {
+          timeRemaining--;
+          updateTimerDisplay();
+
+          if (timeRemaining <= 5 && timeRemaining > 0) {
+            playWarningBeep();
+          } else if (timeRemaining > 5) {
+            playTick();
+          }
+        } else {
+          // Timer Expired
+          clearInterval(timerInterval);
+          timerRunning = false;
+          btnTimerToggle.innerHTML = '▶ RESUME';
+          playAlarm();
+
+          const banner = document.getElementById('timer-status-banner');
+          
+          if (autoAdvanceEnabled) {
+            if (currentIndex < 29) {
+              if (banner) {
+                banner.innerHTML = '<span class="banner-alert-icon">⚠️</span> TIME\'S UP! ADVANCING TO NEXT QUESTION IN 2 SECONDS...';
+                banner.style.display = 'block';
+              }
+              if (autoAdvanceTimeout) clearTimeout(autoAdvanceTimeout);
+              autoAdvanceTimeout = setTimeout(() => {
+                loadQuestion(currentIndex + 1, false); // Advances to Middle Transition Slide for the next question!
+              }, 1500);
+            } else if (currentIndex === 29) {
+              // Main Round 1 completed (Questions 1 to 30)
+              if (banner) {
+                banner.innerHTML = '<span class="banner-alert-icon">🏆</span> ALL 30 QUESTIONS COMPLETED! RECORDING FINAL SCORES...';
+                banner.style.display = 'block';
+              }
+              if (autoAdvanceTimeout) clearTimeout(autoAdvanceTimeout);
+              autoAdvanceTimeout = setTimeout(() => {
+                showScreen(screenFinish);
+              }, 2500);
+            } else if (currentIndex < QUESTIONS_DATA.length - 1) {
+              // In Tie-Breaker Spare Pool
+              if (banner) {
+                banner.innerHTML = '<span class="banner-alert-icon">⚠️</span> TIME\'S UP! ADVANCING TO NEXT TIE-BREAKER...';
+                banner.style.display = 'block';
+              }
+              if (autoAdvanceTimeout) clearTimeout(autoAdvanceTimeout);
+              autoAdvanceTimeout = setTimeout(() => {
+                loadQuestion(currentIndex + 1, true);
+              }, 2000);
+            } else {
+              showScreen(screenFinish);
+            }
+          } else {
+            if (banner) {
+              banner.innerHTML = '<span class="banner-alert-icon">⚠️</span> TIME\'S UP! RECORD YOUR FINAL ANSWER ON YOUR TEAM SHEET.';
+              banner.style.display = 'block';
+            }
+          }
+        }
+      }, 1000);
+    }
+
+    function pauseTimer() {
+      if (!timerRunning) {
+        startTimer();
+      } else {
+        clearInterval(timerInterval);
+        timerRunning = false;
+        if (autoAdvanceTimeout) clearTimeout(autoAdvanceTimeout);
+        btnTimerToggle.innerHTML = '▶ RESUME';
+      }
+    }
+
+    function resetTimer() {
+      clearInterval(timerInterval);
+      timerRunning = false;
+      if (autoAdvanceTimeout) clearTimeout(autoAdvanceTimeout);
+      timeRemaining = timerDuration;
+      btnTimerToggle.innerHTML = '▶ START';
+      updateTimerDisplay();
+    }
+
+    function updateTimerDisplay() {
+      timerDigits.textContent = timeRemaining;
+      
+      // Update SVG Circle Progress Ring (r = 37, circumference = 2 * PI * 37 ≈ 232.48)
+      const circumference = 2 * Math.PI * 37;
+      const offset = circumference - (timeRemaining / timerDuration) * circumference;
+      timerProgressRing.style.strokeDasharray = `${circumference}`;
+      timerProgressRing.style.strokeDashoffset = offset;
+
+      // Urgency State Classes
+      timerHud.className = 'timer-hud';
+      if (timeRemaining <= 5) {
+        timerHud.classList.add('urgent');
+      } else if (timeRemaining <= 15) {
+        timerHud.classList.add('warning');
+      }
+    }
+
+    // Neutral Option Selection (Zero Answer Reveal on Stage)
+    let selectedOption = null;
+
+    function handleOptionClick(optIdx) {
+      selectedOption = optIdx;
+      for (let i = 0; i < 4; i++) {
+        const card = document.getElementById(`opt-${i}`);
+        if (i === optIdx) {
+          card.classList.add('selected-neutral');
+        } else {
+          card.classList.remove('selected-neutral');
+        }
+      }
+      playTick();
+    }
+
+    function jumpToQuestion(idx) {
+      loadQuestion(idx, true);
+    }
+
+    // Event Listeners
+    document.getElementById('btn-start-quiz').onclick = () => {
+      getAudioContext();
+      loadQuestion(0, false);
+    };
+
+    document.getElementById('btn-interstitial-start').onclick = () => {
+      if (interstitialCountdownTimer) { clearInterval(interstitialCountdownTimer); interstitialCountdownTimer = null; }
+      loadQuestion(currentIndex, true);
+    };
+
+    document.getElementById('btn-next-q').onclick = () => {
+      if (autoAdvanceTimeout) clearTimeout(autoAdvanceTimeout);
+      if (currentIndex < QUESTIONS_DATA.length - 1) {
+        loadQuestion(currentIndex + 1, false);
+      } else {
+        showScreen(screenFinish);
+      }
+    };
+
+    document.getElementById('btn-prev-q').onclick = () => {
+      if (autoAdvanceTimeout) clearTimeout(autoAdvanceTimeout);
+      if (currentIndex > 0) {
+        loadQuestion(currentIndex - 1, true);
+      }
+    };
+
+    btnTimerToggle.onclick = pauseTimer;
+    document.getElementById('btn-timer-reset').onclick = resetTimer;
+    // Answer reveal disabled for competitive integrity
+
+    // Sound Toggle
+    document.getElementById('btn-sound-toggle').onclick = () => {
+      soundEnabled = !soundEnabled;
+      document.getElementById('sound-icon').textContent = soundEnabled ? '🔊' : '🔇';
+      document.getElementById('btn-sound-toggle').childNodes[2].textContent = soundEnabled ? ' SFX ON' : ' SFX OFF';
+    };
+
+    // Fullscreen Toggle
+    document.getElementById('btn-fullscreen').onclick = () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => console.log(err));
+      } else {
+        document.exitFullscreen();
+      }
+    };
+
+    // Modal Grid Navigation
+    document.getElementById('btn-open-grid').onclick = () => {
+      renderNavGrid();
+      navModal.classList.add('open');
+    };
+
+    document.getElementById('btn-close-modal').onclick = () => {
+      navModal.classList.remove('open');
+    };
+
+    navModal.onclick = (e) => {
+      if (e.target === navModal) navModal.classList.remove('open');
+    };
+
+    // Keyboard Shortcuts
+    window.addEventListener('keydown', (e) => {
+      if (e.code === 'Space') {
+        e.preventDefault();
+        pauseTimer();
+      } else if (e.code === 'KeyR') {
+        resetTimer();
+
+      } else if (e.code === 'ArrowRight' || e.code === 'KeyN') {
+        if (screenInterstitial.classList.contains('active')) {
+          loadQuestion(currentIndex, true);
+        } else if (currentIndex < QUESTIONS_DATA.length - 1) {
+          loadQuestion(currentIndex + 1, false);
+        } else {
+          showScreen(screenFinish);
+        }
+      } else if (e.code === 'ArrowLeft' || e.code === 'KeyP') {
+        if (currentIndex > 0) loadQuestion(currentIndex - 1, true);
+      } else if (e.code === 'KeyF') {
+        document.getElementById('btn-fullscreen').click();
+      } else if (e.code === 'Escape') {
+        navModal.classList.remove('open');
+      }
+    });
+
+    // ============================================================
+    // High-Tech Cyber Animated Canvas (Neural Web / Ultron Grid)
+    // ============================================================
+    const canvas = document.getElementById('cyber-canvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let particles = [];
+
+    function resizeCanvas() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.vx = (Math.random() - 0.5) * 0.7;
+        this.vy = (Math.random() - 0.5) * 0.7;
+        this.radius = Math.random() * 2 + 1;
+        this.color = Math.random() > 0.85 ? '#ff1e42' : '#00e5ff';
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.x < 0 || this.x > width) this.vx *= -1;
+        if (this.y < 0 || this.y > height) this.vy *= -1;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = this.color;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      }
+    }
+
+    for (let i = 0; i < 50; i++) {
+      particles.push(new Particle());
+    }
+
+    function animateCyberGrid() {
+      ctx.clearRect(0, 0, width, height);
+
+      // Draw Neural Connection Threads
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+        particles[i].draw();
+
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < 130) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            const alpha = (1 - dist / 130) * 0.25;
+            ctx.strokeStyle = particles[i].color === '#ff1e42' 
+              ? `rgba(255, 30, 66, ${alpha})` 
+              : `rgba(0, 229, 255, ${alpha})`;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
+        }
+      }
+
+      requestAnimationFrame(animateCyberGrid);
+    }
+    animateCyberGrid();
+    // Auto-Advance Toggle Listener
+    const btnAutoAdvance = document.getElementById('btn-autoadvance-toggle');
+    if (btnAutoAdvance) {
+      btnAutoAdvance.onclick = () => {
+        autoAdvanceEnabled = !autoAdvanceEnabled;
+        const label = document.getElementById('autoadvance-label');
+        if (label) label.textContent = autoAdvanceEnabled ? 'AUTO-NEXT: ON' : 'AUTO-NEXT: OFF';
+        btnAutoAdvance.style.borderColor = autoAdvanceEnabled ? 'var(--neon-cyan)' : 'rgba(255,255,255,0.2)';
+        if (!autoAdvanceEnabled && autoAdvanceTimeout) {
+          clearTimeout(autoAdvanceTimeout);
+        }
+      };
+    }
+  </script>
+</body>
+</html>
