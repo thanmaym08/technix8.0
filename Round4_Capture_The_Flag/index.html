@@ -752,7 +752,7 @@
       <div class="hud-actions">
         <div class="score-badge">
           <div class="score-label">TOTAL SCORE</div>
-          <div class="score-value" id="hud-score-display">0 / 1000</div>
+          <div class="score-value" id="hud-score-display">0 / 60</div>
         </div>
         <button class="btn-hud" id="btn-sound-toggle">🔊 SOUND: ON</button>
       </div>
@@ -764,7 +764,7 @@
         <div class="milestone-card active" id="card-milestone-1">
           <div class="milestone-header">
             <span class="milestone-tag">LEVEL 1</span>
-            <span class="milestone-points">+100 PTS</span>
+            <span class="milestone-points">+5 PTS</span>
           </div>
           <div class="milestone-title">Signal Intercept</div>
           <div class="milestone-checkpoint" id="checkpoint-tag-1">
@@ -775,7 +775,7 @@
         <div class="milestone-card locked" id="card-milestone-2">
           <div class="milestone-header">
             <span class="milestone-tag">LEVEL 2</span>
-            <span class="milestone-points">+200 PTS</span>
+            <span class="milestone-points">+10 PTS</span>
           </div>
           <div class="milestone-title">Packet Sniffer</div>
           <div class="milestone-checkpoint" id="checkpoint-tag-2">
@@ -786,7 +786,7 @@
         <div class="milestone-card locked" id="card-milestone-3">
           <div class="milestone-header">
             <span class="milestone-tag">LEVEL 3</span>
-            <span class="milestone-points">+300 PTS</span>
+            <span class="milestone-points">+15 PTS</span>
           </div>
           <div class="milestone-title">Gateway Override</div>
           <div class="milestone-checkpoint" id="checkpoint-tag-3">
@@ -797,7 +797,7 @@
         <div class="milestone-card locked" id="card-milestone-4">
           <div class="milestone-header">
             <span class="milestone-tag">LEVEL 4</span>
-            <span class="milestone-points">+400 PTS</span>
+            <span class="milestone-points">+30 PTS</span>
           </div>
           <div class="milestone-title">Micro-VM Core</div>
           <div class="milestone-checkpoint" id="checkpoint-tag-4">
@@ -931,12 +931,12 @@ ENCODING_SCHEME  : RFC 1924 (Ascii85)
                   <td>HTTP</td>
                   <td>HTTP/1.1 200 OK (text/plain)</td>
                 </tr>
-                <tr class="highlighted" onclick="inspectPacket(4)">
-                  <td><strong>4</strong></td>
+                <tr onclick="inspectPacket(4)">
+                  <td>4</td>
                   <td>192.168.1.105</td>
                   <td>10.0.0.1</td>
                   <td>HTTP</td>
-                  <td><strong>POST /api/v1/telemetry/node_auth (application/json)</strong></td>
+                  <td>POST /api/v1/telemetry/node_auth (application/json)</td>
                 </tr>
                 <tr onclick="inspectPacket(5)">
                   <td>5</td>
@@ -998,17 +998,14 @@ ENCODING_SCHEME  : RFC 1924 (Ascii85)
           </div>
         </div>
 
-        <!-- Blunt Clue Banner -->
         <div style="background:rgba(255,179,0,0.12); border:1px solid var(--gold-amber); border-radius:8px; padding:14px 18px; margin-bottom:20px;">
           <div style="font-family:var(--font-mono); font-size:0.85rem; font-weight:700; color:var(--gold-amber); margin-bottom:6px;">
-            💡 BLUNT INTEL HINT (DIRECT VULNERABILITY ADVISORY):
+            💡 INTEL HINT: SQL INJECTION VULNERABILITY ADVISORY
           </div>
           <div style="font-size:0.9rem; color:#fef08a; line-height:1.6;">
-            The backend query executed on submit is:
+            The backend authentication service constructs dynamic SQL queries using raw string concatenation:
             <br><code style="background:#090d14; color:#38bdf8; padding:3px 8px; border-radius:4px; font-family:var(--font-mono);">SELECT * FROM admin_users WHERE username = '$user' AND password = '$password'</code>
-            <br>To bypass the password check and authenticate as administrator, enter this classic SQL injection payload into the <strong>Administrator Username</strong> field:
-            <br><strong style="color:var(--neon-cyan); font-family:var(--font-mono); font-size:1.05rem;">' OR 1=1 --</strong>
-            <br>Enter any dummy value for the password and click <strong>AUTHENTICATE TO GATEWAY</strong>!
+            <br>In standard SQL, single quotes allow input to break out of literal string delimiters. How can boolean logic and SQL comment sequences (such as <code>--</code> or <code>#</code>) force the statement to evaluate to true without knowing a password?
           </div>
         </div>
 
@@ -1029,22 +1026,19 @@ ENCODING_SCHEME  : RFC 1924 (Ascii85)
               <label style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:4px;">
                 ADMINISTRATOR USERNAME:
               </label>
-              <input type="text" class="form-control" id="sqli-user-input" placeholder="e.g. ' OR 1=1 --" autocomplete="off" spellcheck="false">
+              <input type="text" class="form-control" id="sqli-user-input" placeholder="Enter administrator username (e.g. admin, operator)" autocomplete="off" spellcheck="false">
             </div>
             <div>
               <label style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:4px;">
                 ACCESS PASSWORD:
               </label>
-              <input type="password" class="form-control" id="sqli-pass-input" placeholder="Enter password (or dummy value)" autocomplete="off">
+              <input type="password" class="form-control" id="sqli-pass-input" placeholder="Enter access password" autocomplete="off">
             </div>
           </div>
 
           <div style="display:flex; gap:12px; align-items:center;">
             <button class="btn-action" onclick="submitSqlInjection()">
               ⚡ AUTHENTICATE TO GATEWAY
-            </button>
-            <button class="btn-action secondary" onclick="autoFillSqlPayload()">
-              🎯 AUTO-FILL SQL PAYLOAD
             </button>
           </div>
         </div>
@@ -1165,13 +1159,15 @@ if __name__ == '__main__':
 
         <div class="clues-section">
           <details class="clue-accordion" open style="border-color:var(--gold-amber);">
-            <summary class="clue-summary" style="color:var(--gold-amber);">🤖 AI PROMPT ENGINEERING SPECIFICATION</summary>
+            <summary class="clue-summary" style="color:var(--gold-amber);">💡 INTEL HINT #1: DETERMINISTIC BYTE PIPELINE</summary>
             <div class="clue-body">
-              Copy the Python code above, open <strong>ChatGPT</strong>, <strong>Claude</strong>, or <strong>Gemini</strong>, and feed it this exact strategic prompt:<br><br>
-              <em style="color:#fde047">
-                "Here is an obfuscated 8-bit MicroVM verification algorithm from an advanced cybersecurity CTF challenge. Analyze the 4 transformation stages in `MicroVM.process_byte` (secondary dynamic key XOR, additive affine shift, circular 4-bit barrel rotation, and primary key schedule XOR). Reverse every operation step-by-step and write a complete Python solver script that extracts the original 36-character key from TARGET_STATE_REGISTER."
-              </em><br><br>
-              Execute the AI's generated solver script in Python to extract the master flag!
+              Notice that the <code>MicroVM.process_byte</code> routine performs deterministic, 1-to-1 operations on each character byte using dynamic cycle keys. If an algorithm transforms byte X to Y, every step can be mathematically inverted in reverse order to recover X from Y.
+            </div>
+          </details>
+          <details class="clue-accordion" style="border-color:var(--gold-amber);">
+            <summary class="clue-summary" style="color:var(--gold-amber);">🤖 INTEL HINT #2: LEVERAGING GENERATIVE AI</summary>
+            <div class="clue-body">
+              You are sanctioned to use Generative AI (ChatGPT, Claude, Gemini). Rather than reversing the byte logic by hand, provide the script to the AI and prompt it to analyze how <code>TARGET_STATE_REGISTER</code> is verified and to generate a reverse solver script that outputs the master flag.
             </div>
           </details>
         </div>
@@ -1230,7 +1226,7 @@ if __name__ == '__main__':
 
         <div id="judge-pin-view">
           <div class="form-group">
-            <label>ENTER FACILITATOR SECURITY PIN (DEFAULT: 1337)</label>
+            <label>ENTER FACILITATOR SECURITY PIN (DEFAULT: 0804)</label>
             <input type="password" class="form-control" id="judge-pin-input" placeholder="Enter PIN">
           </div>
           <button class="btn-action" onclick="verifyJudgePin()">AUTHENTICATE AS JUDGE</button>
@@ -1268,7 +1264,7 @@ if __name__ == '__main__':
             </div>
             <div>
               <span style="font-family:var(--font-mono); font-size:0.8rem; color:var(--text-muted);">CURRENT TOTAL SCORE:</span>
-              <strong style="color:var(--emerald-green); font-family:var(--font-display); font-size:1.1rem;" id="judge-total-score">0 / 1000</strong>
+              <strong style="color:var(--emerald-green); font-family:var(--font-display); font-size:1.1rem;" id="judge-total-score">0 / 60</strong>
             </div>
           </div>
 
@@ -1289,28 +1285,43 @@ if __name__ == '__main__':
       </div>
     </div>
 
-    <!-- Victory Modal -->
+    <!-- Victory Modal with Grand Champion Surprise -->
     <div class="modal-overlay hidden" id="modal-victory">
-      <div class="cyber-modal" style="text-align:center; border-color:var(--emerald-green); box-shadow:0 0 60px var(--emerald-glow);">
-        <div class="victory-badge">🏆</div>
-        <h2 class="modal-title" style="color:var(--emerald-green);">MISSION ACCOMPLISHED!</h2>
-        <p class="modal-subtitle">CITADEL REACTOR HAS BEEN SAFELY DISARMED</p>
+      <div class="cyber-modal" style="text-align:center; border-color:var(--gold-amber); box-shadow:0 0 70px rgba(255,179,0,0.45); max-width:760px;">
+        <div class="victory-badge" style="background:radial-gradient(circle, #ffb300 0%, #0d121c 80%); border-color:var(--gold-amber); box-shadow:0 0 35px rgba(255,179,0,0.5);">🏆</div>
+        <h2 class="modal-title" style="color:var(--gold-amber); font-size:1.8rem;">GRAND CHAMPION BREACH CONFIRMED!</h2>
+        <p class="modal-subtitle" style="color:#fde047; letter-spacing:2px;">CITADEL CORE HAS BEEN TOTALLY LIBERATED // LEVEL 4 NEUTRALIZED</p>
 
-        <div style="background:#090d14; border:1px solid rgba(0,230,118,0.3); padding:20px; border-radius:8px; margin:20px 0; text-align:left;">
-          <div style="font-family:var(--font-mono); font-size:0.85rem; color:var(--text-dim); line-height:1.8;">
-            <div>👥 <strong>TEAM:</strong> <span id="vic-team-name">-</span> (Station: <span id="vic-station-id">-</span>)</div>
-            <div>⏱️ <strong>TOTAL MISSION TIME:</strong> <span id="vic-total-time" style="color:var(--neon-cyan)">-</span></div>
-            <div>🌟 <strong>FINAL SCORE:</strong> <span id="vic-final-score" style="color:var(--emerald-green)">1000 / 1000 PTS</span></div>
-            <div>🔐 <strong>VERIFICATION TOKEN:</strong> <span id="vic-token" style="color:var(--gold-amber); word-break:break-all;">-</span></div>
+        <div style="background:#090d14; border:1px solid rgba(255,179,0,0.35); padding:20px; border-radius:10px; margin:20px 0; text-align:left;">
+          <div style="font-family:var(--font-mono); font-size:0.88rem; color:var(--text-dim); line-height:1.9;">
+            <div>👥 <strong>TEAM:</strong> <span id="vic-team-name" style="color:#fff; font-weight:bold;">-</span> (Station: <span id="vic-station-id" style="color:var(--neon-cyan);">-</span>)</div>
+            <div>⏱️ <strong>TOTAL INFILTRATION TIME:</strong> <span id="vic-total-time" style="color:var(--neon-cyan); font-weight:bold;">-</span></div>
+            <div>🌟 <strong>FINAL SCORE:</strong> <span id="vic-final-score" style="color:var(--gold-amber); font-weight:bold;">60 / 60 PTS</span></div>
+            <div>🔐 <strong>VERIFICATION TOKEN:</strong> <span id="vic-token" style="color:#fde047; word-break:break-all;">-</span></div>
           </div>
         </div>
 
-        <p style="font-size:0.85rem; color:var(--text-dim); margin-bottom:20px;">
-          Present this screen and your verification token to the evaluation judges for official tournament verification.
-        </p>
-        <button class="btn-action" onclick="document.getElementById('modal-victory').classList.add('hidden')">
-          RETURN TO DASHBOARD
-        </button>
+        <!-- SPECIAL SURPRISE REVEAL SECTION -->
+        <div style="background:linear-gradient(135deg, rgba(255,179,0,0.15) 0%, rgba(0,229,255,0.15) 100%); border:2px dashed var(--gold-amber); border-radius:10px; padding:18px; margin:18px 0; text-align:center;">
+          <div style="font-family:var(--font-display); font-size:1.05rem; color:#fde047; margin-bottom:6px;">
+            🎖️ SURPRISE UNLOCKED: CITADEL GRAND CHAMPION HONORS
+          </div>
+          <p style="font-size:0.85rem; color:#e2e8f0; margin-bottom:12px;">
+            You have executed an apex breach across all 4 defense tiers. Present this screen and the secret clearance token below to the judging panel to claim your <strong>Grand Champion Special Award</strong>!
+          </p>
+          <div style="background:#05080e; border:1px solid var(--neon-cyan); border-radius:6px; padding:10px; font-family:var(--font-mono); font-size:1.05rem; color:var(--neon-cyan); font-weight:bold; letter-spacing:2px; display:inline-block;">
+            🎁 PRIZE TOKEN: AEGIS-0804-CHAMPION-OVERRIDE
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:center; gap:14px; margin-top:20px;">
+          <button class="btn-action" style="background:linear-gradient(135deg, var(--gold-amber) 0%, #d97706 100%); color:#000;" onclick="toggleMatrixSurprise()">
+            🚀 TOGGLE MATRIX GOD-MODE SURPRISE
+          </button>
+          <button class="btn-action secondary" onclick="document.getElementById('modal-victory').classList.add('hidden')">
+            RETURN TO DASHBOARD
+          </button>
+        </div>
       </div>
     </div>
 
@@ -1327,9 +1338,9 @@ if __name__ == '__main__':
       4: "f925d51dec9ec609d450f29f795b09668adc2900a71d80c792adb704bc758ab5"  // AEGIS{A1_V1RTU4L_M4CH1N3_R3V3RS3_99}
     };
 
-    const LEVEL_POINTS = { 1: 100, 2: 200, 3: 300, 4: 400 };
+    const LEVEL_POINTS = { 1: 5, 2: 10, 3: 15, 4: 30 };
     const SECRET_SALT = "AEGIS_CITADEL_SALT_2026_CYBER_MCA";
-    const JUDGE_PIN = "1337";
+    const JUDGE_PIN = "0804";
 
     const PCAP_FILE_B64 = "1MOyoQIABAAAAAAAAAAAAP//AAABAAAAADk8Z6CGAQBfAAAAXwAAAAARIjNEVWZ3iJmquwgARQAAUdQxAABABgAAwKgBaQEBAQHMVgA1AAAD6AAAB9BQGCAAAAAAAEROUyBTdGFuZGFyZCBRdWVyeTogY2l0YWRlbC1nYXRld2F5LmxvY2FsATk8Z5DQAwBeAAAAXgAAAAARIjNEVWZ3iJmquwgARQAAUNQxAABABgAAwKgBaQoAAAHAAABQAAAD6AAAB9BQGCAAAAAAAEdFVCAvc3RhdHVzIEhUVFAvMS4xDQpIb3N0OiAxMC4wLjAuMQ0KDQoBOTxn4JMEAGUAAABlAAAAABEiM0RVZneImaq7CABFAABX1DEAAEAGAAAKAAABwKgBaQBQwAAAAAPoAAAH0FAYIAAAAAAASFRUUC8xLjEgMjAwIE9LDQpDb250ZW50LVR5cGU6IHRleHQvcGxhaW4NCg0KT0sCOTxnIKEHAEoBAABKAQAAABEiM0RVZneImaq7CABFAAE81DEAAEAGAADAqAFpCgAAAcACAFAAAAPoAAAH0FAYIAAAAAAAUE9TVCAvYXBpL3YxL3RlbGVtZXRyeS9ub2RlX2F1dGggSFRUUC8xLjENCkhvc3Q6IDEwLjAuMC4xDQpVc2VyLUFnZW50OiBBZWdpc0Ryb25lQ2xpZW50LzIuNA0KQ29udGVudC1UeXBlOiBhcHBsaWNhdGlvbi9qc29uDQpDb250ZW50LUxlbmd0aDogMTI4DQoNCnsidGVsZW1ldHJ5X25vZGUiOiAiQUVHSVMtT1VUUE9TVC0wNyIsICJhdXRoX3Rva2VuIjogIkFFR0lTe1BDNFBfTjNUVzBSS19UUjRGRjFDX000U1QzUl83N30iLCAic3RhdHVzIjogIlRSQU5TTUlTU0lPTl9WRVJJRklFRCJ9Ajk8Z3BkCAB8AAAAfAAAAAARIjNEVWZ3iJmquwgARQAAbtQxAABABgAACgAAAcCoAWkAUMACAAAD6AAAB9BQGCAAAAAAAEhUVFAvMS4xIDIwMCBPSw0KQ29udGVudC1UeXBlOiBhcHBsaWNhdGlvbi9qc29uDQoNCnsicmVzcG9uc2UiOiAiQUNLIn0=";
     const PYTHON_CORE_SCRIPT = `# ==============================================================================
@@ -1579,7 +1590,7 @@ if __name__ == '__main__':
 
     function renderUI() {
       document.getElementById("hud-team-tag").textContent = `AGENT TEAM: ${state.teamName.toUpperCase()} // ${state.stationId.toUpperCase()}`;
-      document.getElementById("hud-score-display").textContent = `${state.score} / 1000 PTS`;
+      document.getElementById("hud-score-display").textContent = `${state.score} / 60 PTS`;
 
       updateTimerDisplay();
 
@@ -1698,7 +1709,7 @@ if __name__ == '__main__':
   "status": "TRANSMISSION_VERIFIED"
 }</code>
         `;
-        document.getElementById("input-flag-2").value = "AEGIS{PC4P_N3TW0RK_TR4FF1C_M4ST3R_77}";
+        // Participant must copy or type the flag
         playSuccessSound();
       } else {
         detail.innerHTML = `
@@ -1711,11 +1722,6 @@ if __name__ == '__main__':
     // =========================================================================
     // LEVEL 3 HELPERS (SQL INJECTION AUTH BYPASS)
     // =========================================================================
-    function autoFillSqlPayload() {
-      document.getElementById("sqli-user-input").value = "' OR 1=1 --";
-      document.getElementById("sqli-pass-input").value = "password123";
-    }
-
     function submitSqlInjection() {
       const user = document.getElementById("sqli-user-input").value.trim();
       const pass = document.getElementById("sqli-pass-input").value.trim();
@@ -1733,13 +1739,12 @@ if __name__ == '__main__':
           <strong style="color:var(--neon-cyan); font-size:1.15rem;">AEGIS{SQL1_4UTH_BYP4SS_M4ST3R_33}</strong>
         `;
         document.getElementById("sqli-auth-status").textContent = "AUTH STATUS: SUPER_ADMIN (AUTHENTICATED)";
-        document.getElementById("input-flag-3").value = "AEGIS{SQL1_4UTH_BYP4SS_M4ST3R_33}";
         playSuccessSound();
       } else {
         document.getElementById("sqli-terminal-log").innerHTML = `
           [-] Executed query: <code>SELECT * FROM admin_users WHERE username = '${user || "none"}' AND password = '...'</code><br>
           <span class="err">[-] AUTHENTICATION FAILED: Invalid username or password.</span><br>
-          [!] Read the blunt hint above: Enter <strong>' OR 1=1 --</strong> in the username field!
+          [!] Hint: Construct a valid boolean SQL injection condition in the username field.
         `;
         playErrorSound();
       }
@@ -1813,7 +1818,7 @@ if __name__ == '__main__':
       document.getElementById("judge-team-name").textContent = state.teamName || "UNREGISTERED";
       document.getElementById("judge-station-id").textContent = state.stationId || "-";
       document.getElementById("judge-failed-attempts").textContent = state.failedAttempts;
-      document.getElementById("judge-total-score").textContent = `${state.score} / 1000 PTS`;
+      document.getElementById("judge-total-score").textContent = `${state.score} / 60 PTS`;
 
       const tbody = document.getElementById("judge-telemetry-body");
       tbody.innerHTML = "";
@@ -1859,7 +1864,7 @@ if __name__ == '__main__':
 Team Designation : ${state.teamName}
 Assigned Station : ${state.stationId}
 Current Level    : Level ${state.currentLevel} (Completed: ${state.completed ? "YES" : "NO"})
-Total Points     : ${state.score} / 1000 PTS
+Total Points     : ${state.score} / 60 PTS
 Failed Attempts  : ${state.failedAttempts}
 
 --- CHECKPOINT TELEMETRY (TIE-BREAKER SPLITS) ---
@@ -1905,12 +1910,71 @@ Tamper-Proof Token: ${token}
       }
     }
 
+    
+    // =========================================================================
+    // GRAND CHAMPION MATRIX SURPRISE & AUDIO FANFARE
+    // =========================================================================
+    let matrixRainActive = false;
+    let matrixInterval = null;
+
+    function playChampionFanfare() {
+      if (!state.soundEnabled) return;
+      initAudio();
+      try {
+        const notes = [523.25, 659.25, 783.99, 1046.50, 1318.51, 1567.98, 2093.00];
+        notes.forEach((freq, idx) => {
+          setTimeout(() => {
+            playBeep(freq, 0.35, "triangle", 0.22);
+          }, idx * 120);
+        });
+      } catch (e) {}
+    }
+
+    function toggleMatrixSurprise() {
+      matrixRainActive = !matrixRainActive;
+      const canvas = document.getElementById("cyber-canvas");
+      const ctx = canvas.getContext("2d");
+
+      if (matrixRainActive) {
+        canvas.style.opacity = "0.75";
+        const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*+-<>{}[]AEGIS";
+        const fontSize = 16;
+        const columns = Math.floor(canvas.width / fontSize);
+        const drops = Array(columns).fill(1);
+
+        if (matrixInterval) clearInterval(matrixInterval);
+        matrixInterval = setInterval(() => {
+          ctx.fillStyle = "rgba(7, 9, 14, 0.08)";
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+          ctx.fillStyle = "#00ff66";
+          ctx.font = fontSize + "px 'Share Tech Mono', monospace";
+
+          for (let i = 0; i < drops.length; i++) {
+            const text = chars[Math.floor(Math.random() * chars.length)];
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+              drops[i] = 0;
+            }
+            drops[i]++;
+          }
+        }, 33);
+        playChampionFanfare();
+      } else {
+        canvas.style.opacity = "0.28";
+        if (matrixInterval) clearInterval(matrixInterval);
+        initCanvasBackground();
+      }
+    }
+
     async function showVictoryScreen() {
+      playChampionFanfare();
       const token = await generateJudgeVerificationToken();
       document.getElementById("vic-team-name").textContent = state.teamName;
       document.getElementById("vic-station-id").textContent = state.stationId;
       document.getElementById("vic-total-time").textContent = formatTime(state.elapsedSeconds);
-      document.getElementById("vic-final-score").textContent = `${state.score} / 1000 PTS`;
+      document.getElementById("vic-final-score").textContent = `${state.score} / 60 PTS`;
       document.getElementById("vic-token").textContent = token;
       document.getElementById("modal-victory").classList.remove("hidden");
       playSuccessSound();

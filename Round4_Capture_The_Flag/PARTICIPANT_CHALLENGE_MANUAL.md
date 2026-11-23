@@ -19,7 +19,7 @@ You are stationed at an infiltration terminal connected to the central Citadel n
 ### 🤖 The AI Assistant Rule (STRICTLY ENFORCED):
 * **Levels 1, 2, and 3:**
   - The use of **Generative AI, Large Language Models (LLMs), or AI chatbots** (including ChatGPT, Claude, Microsoft Copilot, Gemini, Perplexity, or AI code assistants) is **STRICTLY PROHIBITED**.
-  - Any team observed using AI tools during Levels 1–3 will receive an **immediate 200-point penalty or disqualification**.
+  - Any team observed using AI tools during Levels 1–3 will receive an **immediate penalty or disqualification**.
 * **Level 4 (The Boss Level):**
   - **AI SANCTION UNLOCKED!** 🤖
   - Upon clearing Level 3, the interface will flash an alert granting full AI authorization.
@@ -30,21 +30,26 @@ You are stationed at an infiltration terminal connected to the central Citadel n
 ## ⏱️ 3. Tournament Structure & Progression
 
 1. **Linear Progression:** All teams begin at **Level 1**. You cannot access Level 2 until Level 1's flag has been validated.
-2. **Flag Format:** All authentic flags adhere to the standard format:
+2. **Scoring Architecture (60 Total Points):**
+   * **Level 1 (The Signal Intercept):** **5 Points**
+   * **Level 2 (The Packet Sniffer):** **10 Points**
+   * **Level 3 (Gateway Override):** **15 Points**
+   * **Level 4 (Micro-VM Core):** **30 Points**
+   * **Total Maximum Score:** **60 Points**
+3. **Flag Format:** All authentic flags adhere to the standard format:
    ```text
    AEGIS{flag_text_here}
    ```
    *(Flags are case-sensitive and must include the outer `AEGIS{` and `}` wrapper).*
-3. **Live Checkpoint Split Timers:**
-   - Every time your team submits a valid flag, the mission clock records your **Checkpoint Elapsed Time** and **Split Duration**.
-   - If two teams tie on score at the end of the round, the team that reached that milestone with the **earliest Checkpoint Split Time wins the tie**!
-4. **Incorrect Attempts:** Avoid wild guessing; excessive failed attempts are logged and used as tie-breakers.
+4. **Live Checkpoint Split Timers:**
+   * Every time your team submits a valid flag, the mission clock records your **Checkpoint Elapsed Time** and **Split Duration**.
+   * If two teams tie on score at the end of the round, the team that reached that milestone with the **earliest Checkpoint Split Time wins the tie**!
 
 ---
 
 ## 🗺️ 4. Level Overviews & Tactical Objectives
 
-### 🟢 LEVEL 1: THE SIGNAL INTERCEPT (100 PTS)
+### 🟢 LEVEL 1: THE SIGNAL INTERCEPT (5 PTS)
 * **Objective:** Decode an intercepted drone telemetry transmission burst.
 * **Permitted:** Web search, CyberChef, online decoders. *(❌ No AI)*
 * **Briefing:**
@@ -54,42 +59,40 @@ You are stationed at an infiltration terminal connected to the central Citadel n
 
 ---
 
-### 🟡 LEVEL 2: THE PACKET SNIFFER (200 PTS)
+### 🟡 LEVEL 2: THE PACKET SNIFFER (10 PTS)
 * **Objective:** Analyze an intercepted network packet capture (`citadel_traffic.pcap`).
 * **Permitted:** Web search, Wireshark, Strings, Packet Analyzers. *(❌ No AI)*
 * **Briefing:**
-  - Download `citadel_traffic.pcap` or use the in-browser packet dissector.
+  - Download `citadel_traffic.pcap` or use the in-browser packet dissector table.
   - Web traffic over standard HTTP (port 80) is unencrypted.
-  - Filter for HTTP POST requests or follow the TCP stream for the node authorization transmission to extract the cleartext `auth_token` flag!
+  - Inspect outgoing client request streams to locate the JSON authorization token containing the cleartext flag!
 
 ---
 
-### 🟠 LEVEL 3: GATEWAY OVERRIDE (300 PTS)
-* **Objective:** Bypass the Citadel login terminal using classic SQL Injection.
+### 🟠 LEVEL 3: GATEWAY OVERRIDE (15 PTS)
+* **Objective:** Bypass the Citadel login terminal using SQL Injection.
 * **Permitted:** Web search, Browser, SQL Reference. *(❌ No AI)*
 * **Briefing:**
-  - The login portal queries an SQL database with concatenated variables.
-  - A blunt hint is displayed right on screen detailing the vulnerable SQL query:
+  - The login portal queries an SQL database:
     `SELECT * FROM admin_users WHERE username = '$user' AND password = '$password'`
-  - Enter `' OR 1=1 --` into the Administrator Username field to bypass authentication and dump the admin flag!
+  - Construct an SQL injection string in the Administrator Username field to evaluate the condition to true and reveal the admin access flag!
 
 ---
 
-### 🔴 LEVEL 4: THE MICRO-VM CORE — BOSS LEVEL (400 PTS)
+### 🔴 LEVEL 4: THE MICRO-VM CORE — BOSS LEVEL (30 PTS)
 * **Objective:** Reverse-engineer a custom 8-bit Micro-Virtual Machine bytecode routine.
 * **Permitted:** 🤖 **ALL GENERATIVE AI / LLMs (ChatGPT, Claude, Gemini) AUTHORIZED!**
 * **Briefing:**
   - Download or copy `citadel_core_engine.py`.
-  - The script executes a 4-stage pipeline (dynamic key XOR, modular affine shift, circular bit rotation, key schedule) per byte.
-  - Prompt your AI assistant to analyze the MicroVM operations, invert each stage step-by-step, and generate a Python solver script that extracts the master key from `TARGET_STATE_REGISTER`!
+  - The script executes a 4-stage pipeline per byte against `TARGET_STATE_REGISTER`.
+  - Prompt your AI assistant to analyze the MicroVM operations, invert each stage, and generate a Python solver script that extracts the master key!
 
 ---
 
-## 🏆 5. Mission Completion & Verification
-When you crack Level 4, the **Victory Screen** will display your official **Mission Completion Dossier** containing:
-* Total Score (`1000 / 1000 PTS`)
-* Final Mission Time
-* All 4 Checkpoint Split Timestamps
-* Tamper-Proof Cryptographic Verification Token
-
-**Raise your hand and present this screen to the judging panel to verify and register your official score!**
+## 🏆 5. Mission Completion & Grand Champion Surprise
+When you crack Level 4, the **Victory Screen** unlocks the **Citadel Grand Champion Honors**, featuring:
+* Total Score (`60 / 60 PTS`)
+* Final Infiltration Time
+* Official Tamper-Proof Cryptographic Token
+* **Exclusive Grand Champion Prize Claim Token** (`AEGIS-0804-CHAMPION-OVERRIDE`) to claim your symposium award!
+* An interactive **Matrix God-Mode** celebration button!

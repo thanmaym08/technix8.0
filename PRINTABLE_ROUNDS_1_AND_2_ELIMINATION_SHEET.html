@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operation Ultron — Rounds 1 & 2 Team Evaluation & Elimination Score Sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 8mm 10mm;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body {
+    background-color: #ffffff;
+    color: #0f172a;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.35;
+    font-size: 10px;
+  }
+
+  .header-card {
+    background: linear-gradient(135deg, #090d16 0%, #1e1b4b 100%);
+    color: #ffffff;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    border-left: 5px solid #e11d48;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+
+  .badge-confidential {
+    background: #e11d48;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .doc-id {
+    font-family: 'Fira Code', monospace;
+    font-size: 9px;
+    color: #94a3b8;
+  }
+
+  .header-title {
+    font-size: 17px;
+    font-weight: 900;
+    color: #ffffff;
+    margin-bottom: 3px;
+  }
+
+  .header-subtitle {
+    font-size: 10.5px;
+    color: #cbd5e1;
+    font-weight: 500;
+  }
+
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 8px 12px;
+    gap: 8px;
+    margin-bottom: 12px;
+    font-size: 9.5px;
+  }
+
+  .section-heading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 14px 0 8px 0;
+    padding-bottom: 4px;
+    border-bottom: 2px solid #e2e8f0;
+  }
+
+  .section-heading h2 {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #0f172a;
+  }
+
+  table.master-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 12px;
+    font-size: 9px;
+  }
+
+  table.master-table th {
+    background: #0f172a;
+    color: #ffffff;
+    text-align: center;
+    padding: 6px 6px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 8px;
+  }
+
+  table.master-table td {
+    padding: 6px 6px;
+    border: 1px solid #e2e8f0;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  table.master-table tr:nth-child(even) td {
+    background-color: #f8fafc;
+  }
+
+  .team-card {
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    page-break-inside: avoid;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+  }
+
+  .team-card-header {
+    background: #f1f5f9;
+    padding: 6px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #cbd5e1;
+  }
+
+  .team-badge {
+    background: #0f172a;
+    color: #ffffff;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: 800;
+    font-size: 9px;
+    font-family: 'Fira Code', monospace;
+  }
+
+  .team-card-body {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    padding: 8px 10px;
+    gap: 10px;
+    background: #ffffff;
+    border-bottom: 1px dashed #e2e8f0;
+  }
+
+  .stat-block {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    padding: 6px;
+    text-align: center;
+  }
+
+  .stat-label {
+    font-size: 7.5px;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    margin-bottom: 3px;
+  }
+
+  .stat-input {
+    font-family: 'Fira Code', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  .team-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 10px;
+    background: #ffffff;
+    font-size: 9px;
+  }
+
+  .decision-box {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .chk-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 700;
+  }
+
+  .chk-box {
+    width: 14px;
+    height: 14px;
+    border: 1.5px solid #64748b;
+    border-radius: 3px;
+    display: inline-block;
+  }
+
+  .chk-qual { color: #15803d; }
+  .chk-elim { color: #b91c1c; }
+
+  .page-break {
+    page-break-after: always;
+  }
+</style>
+</head>
+<body>
+
+  <!-- Masthead -->
+  <div class="header-card">
+    <div class="header-top">
+      <span class="badge-confidential">Official Evaluator Elimination Roster</span>
+      <span class="doc-id">FORM: STARK-EVAL-R1-R2-30M</span>
+    </div>
+    <h1 class="header-title">OPERATION ULTRON // ROUNDS 1 & 2 CONSOLIDATED SCORE SHEET</h1>
+    <p class="header-subtitle">Official Score Compilation, Tiebreaker Verification & Team Selection for Round 3 Elimination Cut-off (30 Marks per Round &bull; 60 Marks Total)</p>
+  </div>
+
+  <!-- Event Meta Block -->
+  <div class="meta-grid">
+    <div><strong>Evaluation Date:</strong> ____________________</div>
+    <div><strong>Venue / Cyber Lab:</strong> ____________________</div>
+    <div><strong>Lead Evaluator:</strong> ____________________</div>
+    <div><strong>Round 1:</strong> 30 Questions = <strong>30 Marks</strong> (1 Mark/Q)</div>
+    <div><strong>Round 2:</strong> 30 Emails = <strong>30 Marks</strong> (10E + 10M + 10H)</div>
+    <div><strong>Advancing Selection Target:</strong> [ &nbsp; ] Top 4 &nbsp; [ &nbsp; ] Top 5 &nbsp; [ &nbsp; ] Top 6</div>
+  </div>
+
+  <div class="section-heading">
+    <h2>1. Master 10-Team Consolidated Leaderboard & Elimination Table</h2>
+  </div>
+
+  <table class="master-table">
+    <thead>
+      <tr>
+        <th style="width: 32px;">Rank</th>
+        <th style="width: 50px;">Team ID</th>
+        <th style="text-align: left; width: 170px;">Team Name & Leader</th>
+        <th style="width: 65px;">Round 1<br>(Recon /30)</th>
+        <th style="width: 65px;">Round 2<br>(Phish /30)</th>
+        <th style="width: 65px;">Combined<br>Total (/60)</th>
+        <th style="width: 60px;">Tiebreaker<br>Latency</th>
+        <th style="width: 120px;">Elimination Verdict</th>
+        <th style="width: 50px;">Judge Init</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>#1</strong></td>
+        <td><strong>T-01</strong></td>
+        <td style="text-align: left;">_________________________________</td>
+        <td>[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 30 ]</td>
+        <td>[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 30 ]</td>
+        <td><strong>[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 60 ]</strong></td>
+        <td>____:____</td>
+        <td style="text-align: left;">[ &nbsp; ] ADVANCE &nbsp;&nbsp; [ &nbsp; ] ELIM</td>
+        <td>______</td>
+      </tr>
+      <tr>
+        <td><strong>#2</strong></td>
+        <td><strong>T-02</strong></td>
+        <td style="text-align: left;">_________________________________</td>
+        <td>[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 30 ]</td>
+        <td>[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 30 ]</td>
+        <td><strong>[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 60 ]</strong></td>
+        <td>____:____</td>
+        <td style="text-align: left;">[ &nbsp; ] ADVANCE &nbsp;&nbsp; [ &nbsp; ] ELIM</td>
+        <td>______</td>
+      </tr>
+      <tr>
+        <td><strong>#3</strong></td>
+        <td><strong>T-03</strong></td>
+        <td style="text-align: left;">_________________________________</td>
+        <td>[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 30 ]</td>
+        <td>[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 30 ]</td>
+        <td><strong>[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 60 ]</strong></td>
+        <td>____:____</td>
+        <td style="text-align: left;">[ &nbsp; ] ADVANCE &nbsp;&nbsp; [ &nbsp; ] ELIM</td>
+        <td>______</td>
+      </tr>
+      <tr>
+        <td><strong>#4</strong></td>
+        <td><strong>T-04</strong></td>
+        <td style="text-align: left;">_________________________________</td>
+        <td>[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 30 ]</td>
+        <td>[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 30 ]</td>
+        <td><strong>[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 60 ]</strong></td>
+        <td>____:____</td>
+        <td style="text-align: left;">[ &nbsp; ] ADVANCE &nbsp;&nbsp; [ &nbsp; ] ELIM</td>
+        <td>______</td>
+      </tr>
+      <tr>
+        <td><strong>#5</strong></td>
+        <td><strong>T-05</strong></td>
+        <td style="text-align: left;">_________________________________</td>
+        <td>[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 30 ]</td>
+        <td>[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 30 ]</td>
+        <td><strong>[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 60 ]</strong></td>
+        <td>____:____</td>
+        <td style="text-align: left;">[ &nbsp; ] ADVANCE &nbsp;&nbsp; [ &nbsp; ] ELIM</td>
+        <td>______</td>
+      </tr>
+      <tr>
+        <td><strong>#6</strong></td>
+        <td><strong>T-06</strong></td>
+        <td style="text-align: left;">_________________________________</td>
+        <td>[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 30 ]</td>
+        <td>[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 30 ]</td>
+        <td><strong>[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 60 ]</strong></td>
+        <td>____:____</td>
+        <td style="text-align: left;">[ &nbsp; ] ADVANCE &nbsp;&nbsp; [ &nbsp; ] ELIM</td>
+        <td>______</td>
+      </tr>
+      <tr>
+        <td><strong>#7</strong></td>
+        <td><strong>T-07</strong></td>
+        <td style="text-align: left;">_________________________________</td>
+        <td>[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 30 ]</td>
+        <td>[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 30 ]</td>
+        <td><strong>[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 60 ]</strong></td>
+        <td>____:____</td>
+        <td style="text-align: left;">[ &nbsp; ] ADVANCE &nbsp;&nbsp; [ &nbsp; ] ELIM</td>
+        <td>______</td>
+      </tr>
+      <tr>
+        <td><strong>#8</strong></td>
+        <td><strong>T-08</strong></td>
+        <td style="text-align: left;">_________________________________</td>
+        <td>[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 30 ]</td>
+        <td>[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 30 ]</td>
+        <td><strong>[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 60 ]</strong></td>
+        <td>____:____</td>
+        <td style="text-align: left;">[ &nbsp; ] ADVANCE &nbsp;&nbsp; [ &nbsp; ] ELIM</td>
+        <td>______</td>
+      </tr>
+      <tr>
+        <td><strong>#9</strong></td>
+        <td><strong>T-09</strong></td>
+        <td style="text-align: left;">_________________________________</td>
+        <td>[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 30 ]</td>
+        <td>[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 30 ]</td>
+        <td><strong>[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 60 ]</strong></td>
+        <td>____:____</td>
+        <td style="text-align: left;">[ &nbsp; ] ADVANCE &nbsp;&nbsp; [ &nbsp; ] ELIM</td>
+        <td>______</td>
+      </tr>
+      <tr>
+        <td><strong>#10</strong></td>
+        <td><strong>T-10</strong></td>
+        <td style="text-align: left;">_________________________________</td>
+        <td>[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 30 ]</td>
+        <td>[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 30 ]</td>
+        <td><strong>[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 60 ]</strong></td>
+        <td>____:____</td>
+        <td style="text-align: left;">[ &nbsp; ] ADVANCE &nbsp;&nbsp; [ &nbsp; ] ELIM</td>
+        <td>______</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div style="background: #fff1f2; border: 1px solid #fecdd3; border-left: 4px solid #e11d48; border-radius: 6px; padding: 8px 12px; margin-bottom: 14px; font-size: 9px;">
+    <strong>ELIMINATION CRITERIA & OFFICIAL STAMP:</strong>
+    1. Teams ranked above the cutoff line advance to Round 3: Cryptographic Decryption. 
+    2. Primary tiebreaker is Round 2 Hard Tier (Emails 21–30) score. 
+    3. Final tiebreaker is fastest verified submission timestamp.<br>
+    <strong>Advancement Line:</strong> Top _____ Teams Advance &nbsp;&bull;&nbsp; <strong>Total Advanced:</strong> _____ &nbsp;&bull;&nbsp; <strong>Total Eliminated:</strong> _____
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- Detailed Cards 1-5 -->
+  <div class="section-heading">
+    <h2>2. Individual 10-Team Detailed Evaluation Cards (Teams 01–05)</h2>
+  </div>
+
+  <!-- Repeatable Team Card Component -->
+  <div class="team-card">
+    <div class="team-card-header">
+      <span class="team-badge">TEAM 01</span>
+      <span><strong>Team Name:</strong> ____________________________________________________</span>
+      <span><strong>Seat:</strong> ________</span>
+    </div>
+    <div class="team-card-body">
+      <div class="stat-block">
+        <div class="stat-label">Round 1 (Recon Quiz)</div>
+        <div class="stat-input">[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 30 ]</div>
+        <div style="font-size: 7px; color: #64748b; margin-top: 2px;">30 Questions &bull; 1 Mark/Q</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-label">Round 2 Breakdown (30 Emails: Easy / Med / Hard)</div>
+        <div class="stat-input">Easy: [ &nbsp;&nbsp; / 10 ] &bull; Med: [ &nbsp;&nbsp; / 10 ] &bull; Hard: [ &nbsp;&nbsp; / 10 ]</div>
+        <div style="font-size: 7px; color: #64748b; margin-top: 2px;">30 Emails &bull; 1 Mark/Email</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-label">Round 2 Subtotal</div>
+        <div class="stat-input">[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 30 ]</div>
+        <div style="font-size: 7px; color: #64748b; margin-top: 2px;">Max 30 Marks</div>
+      </div>
+    </div>
+    <div class="team-card-footer">
+      <div><strong>COMBINED SCORE: [ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 60 ]</strong> &nbsp;&bull;&nbsp; <strong>FINAL RANK: [ # ______ ]</strong></div>
+      <div class="decision-box">
+        <span class="chk-label chk-qual"><span class="chk-box"></span> QUALIFIED FOR ROUND 3</span>
+        <span class="chk-label chk-elim"><span class="chk-box"></span> ELIMINATED</span>
+      </div>
+      <div>Judge: _________</div>
+    </div>
+  </div>
+
+  <div class="team-card">
+    <div class="team-card-header">
+      <span class="team-badge">TEAM 02</span>
+      <span><strong>Team Name:</strong> ____________________________________________________</span>
+      <span><strong>Seat:</strong> ________</span>
+    </div>
+    <div class="team-card-body">
+      <div class="stat-block">
+        <div class="stat-label">Round 1 (Recon Quiz)</div>
+        <div class="stat-input">[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 30 ]</div>
+        <div style="font-size: 7px; color: #64748b; margin-top: 2px;">30 Questions &bull; 1 Mark/Q</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-label">Round 2 Breakdown (30 Emails: Easy / Med / Hard)</div>
+        <div class="stat-input">Easy: [ &nbsp;&nbsp; / 10 ] &bull; Med: [ &nbsp;&nbsp; / 10 ] &bull; Hard: [ &nbsp;&nbsp; / 10 ]</div>
+        <div style="font-size: 7px; color: #64748b; margin-top: 2px;">30 Emails &bull; 1 Mark/Email</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-label">Round 2 Subtotal</div>
+        <div class="stat-input">[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 30 ]</div>
+        <div style="font-size: 7px; color: #64748b; margin-top: 2px;">Max 30 Marks</div>
+      </div>
+    </div>
+    <div class="team-card-footer">
+      <div><strong>COMBINED SCORE: [ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 60 ]</strong> &nbsp;&bull;&nbsp; <strong>FINAL RANK: [ # ______ ]</strong></div>
+      <div class="decision-box">
+        <span class="chk-label chk-qual"><span class="chk-box"></span> QUALIFIED FOR ROUND 3</span>
+        <span class="chk-label chk-elim"><span class="chk-box"></span> ELIMINATED</span>
+      </div>
+      <div>Judge: _________</div>
+    </div>
+  </div>
+
+  <div class="team-card">
+    <div class="team-card-header">
+      <span class="team-badge">TEAM 03</span>
+      <span><strong>Team Name:</strong> ____________________________________________________</span>
+      <span><strong>Seat:</strong> ________</span>
+    </div>
+    <div class="team-card-body">
+      <div class="stat-block">
+        <div class="stat-label">Round 1 (Recon Quiz)</div>
+        <div class="stat-input">[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 30 ]</div>
+        <div style="font-size: 7px; color: #64748b; margin-top: 2px;">30 Questions &bull; 1 Mark/Q</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-label">Round 2 Breakdown (30 Emails: Easy / Med / Hard)</div>
+        <div class="stat-input">Easy: [ &nbsp;&nbsp; / 10 ] &bull; Med: [ &nbsp;&nbsp; / 10 ] &bull; Hard: [ &nbsp;&nbsp; / 10 ]</div>
+        <div style="font-size: 7px; color: #64748b; margin-top: 2px;">30 Emails &bull; 1 Mark/Email</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-label">Round 2 Subtotal</div>
+        <div class="stat-input">[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 30 ]</div>
+        <div style="font-size: 7px; color: #64748b; margin-top: 2px;">Max 30 Marks</div>
+      </div>
+    </div>
+    <div class="team-card-footer">
+      <div><strong>COMBINED SCORE: [ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 60 ]</strong> &nbsp;&bull;&nbsp; <strong>FINAL RANK: [ # ______ ]</strong></div>
+      <div class="decision-box">
+        <span class="chk-label chk-qual"><span class="chk-box"></span> QUALIFIED FOR ROUND 3</span>
+        <span class="chk-label chk-elim"><span class="chk-box"></span> ELIMINATED</span>
+      </div>
+      <div>Judge: _________</div>
+    </div>
+  </div>
+
+  <div class="team-card">
+    <div class="team-card-header">
+      <span class="team-badge">TEAM 04</span>
+      <span><strong>Team Name:</strong> ____________________________________________________</span>
+      <span><strong>Seat:</strong> ________</span>
+    </div>
+    <div class="team-card-body">
+      <div class="stat-block">
+        <div class="stat-label">Round 1 (Recon Quiz)</div>
+        <div class="stat-input">[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 30 ]</div>
+        <div style="font-size: 7px; color: #64748b; margin-top: 2px;">30 Questions &bull; 1 Mark/Q</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-label">Round 2 Breakdown (30 Emails: Easy / Med / Hard)</div>
+        <div class="stat-input">Easy: [ &nbsp;&nbsp; / 10 ] &bull; Med: [ &nbsp;&nbsp; / 10 ] &bull; Hard: [ &nbsp;&nbsp; / 10 ]</div>
+        <div style="font-size: 7px; color: #64748b; margin-top: 2px;">30 Emails &bull; 1 Mark/Email</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-label">Round 2 Subtotal</div>
+        <div class="stat-input">[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 30 ]</div>
+        <div style="font-size: 7px; color: #64748b; margin-top: 2px;">Max 30 Marks</div>
+      </div>
+    </div>
+    <div class="team-card-footer">
+      <div><strong>COMBINED SCORE: [ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 60 ]</strong> &nbsp;&bull;&nbsp; <strong>FINAL RANK: [ # ______ ]</strong></div>
+      <div class="decision-box">
+        <span class="chk-label chk-qual"><span class="chk-box"></span> QUALIFIED FOR ROUND 3</span>
+        <span class="chk-label chk-elim"><span class="chk-box"></span> ELIMINATED</span>
+      </div>
+      <div>Judge: _________</div>
+    </div>
+  </div>
+
+  <div class="team-card">
+    <div class="team-card-header">
+      <span class="team-badge">TEAM 05</span>
+      <span><strong>Team Name:</strong> ____________________________________________________</span>
+      <span><strong>Seat:</strong> ________</span>
+    </div>
+    <div class="team-card-body">
+      <div class="stat-block">
+        <div class="stat-label">Round 1 (Recon Quiz)</div>
+        <div class="stat-input">[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 30 ]</div>
+        <div style="font-size: 7px; color: #64748b; margin-top: 2px;">30 Questions &bull; 1 Mark/Q</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-label">Round 2 Breakdown (30 Emails: Easy / Med / Hard)</div>
+        <div class="stat-input">Easy: [ &nbsp;&nbsp; / 10 ] &bull; Med: [ &nbsp;&nbsp; / 10 ] &bull; Hard: [ &nbsp;&nbsp; / 10 ]</div>
+        <div style="font-size: 7px; color: #64748b; margin-top: 2px;">30 Emails &bull; 1 Mark/Email</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-label">Round 2 Subtotal</div>
+        <div class="stat-input">[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 30 ]</div>
+        <div style="font-size: 7px; color: #64748b; margin-top: 2px;">Max 30 Marks</div>
+      </div>
+    </div>
+    <div class="team-card-footer">
+      <div><strong>COMBINED SCORE: [ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 60 ]</strong> &nbsp;&bull;&nbsp; <strong>FINAL RANK: [ # ______ ]</strong></div>
+      <div class="decision-box">
+        <span class="chk-label chk-qual"><span class="chk-box"></span> QUALIFIED FOR ROUND 3</span>
+        <span class="chk-label chk-elim"><span class="chk-box"></span> ELIMINATED</span>
+      </div>
+      <div>Judge: _________</div>
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- Detailed Cards 6-10 -->
+  <div class="section-heading">
+    <h2>3. Individual 10-Team Detailed Evaluation Cards (Teams 06–10)</h2>
+  </div>
+
+  <div class="team-card">
+    <div class="team-card-header">
+      <span class="team-badge">TEAM 06</span>
+      <span><strong>Team Name:</strong> ____________________________________________________</span>
+      <span><strong>Seat:</strong> ________</span>
+    </div>
+    <div class="team-card-body">
+      <div class="stat-block">
+        <div class="stat-label">Round 1 (Recon Quiz)</div>
+        <div class="stat-input">[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 30 ]</div>
+        <div style="font-size: 7px; color: #64748b; margin-top: 2px;">30 Questions &bull; 1 Mark/Q</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-label">Round 2 Breakdown (30 Emails: Easy / Med / Hard)</div>
+        <div class="stat-input">Easy: [ &nbsp;&nbsp; / 10 ] &bull; Med: [ &nbsp;&nbsp; / 10 ] &bull; Hard: [ &nbsp;&nbsp; / 10 ]</div>
+        <div style="font-size: 7px; color: #64748b; margin-top: 2px;">30 Emails &bull; 1 Mark/Email</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-label">Round 2 Subtotal</div>
+        <div class="stat-input">[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 30 ]</div>
+        <div style="font-size: 7px; color: #64748b; margin-top: 2px;">Max 30 Marks</div>
+      </div>
+    </div>
+    <div class="team-card-footer">
+      <div><strong>COMBINED SCORE: [ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 60 ]</strong> &nbsp;&bull;&nbsp; <strong>FINAL RANK: [ # ______ ]</strong></div>
+      <div class="decision-box">
+        <span class="chk-label chk-qual"><span class="chk-box"></span> QUALIFIED FOR ROUND 3</span>
+        <span class="chk-label chk-elim"><span class="chk-box"></span> ELIMINATED</span>
+      </div>
+      <div>Judge: _________</div>
+    </div>
+  </div>
+
+  <div class="team-card">
+    <div class="team-card-header">
+      <span class="team-badge">TEAM 07</span>
+      <span><strong>Team Name:</strong> ____________________________________________________</span>
+      <span><strong>Seat:</strong> ________</span>
+    </div>
+    <div class="team-card-body">
+      <div class="stat-block">
+        <div class="stat-label">Round 1 (Recon Quiz)</div>
+        <div class="stat-input">[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 30 ]</div>
+        <div style="font-size: 7px; color: #64748b; margin-top: 2px;">30 Questions &bull; 1 Mark/Q</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-label">Round 2 Breakdown (30 Emails: Easy / Med / Hard)</div>
+        <div class="stat-input">Easy: [ &nbsp;&nbsp; / 10 ] &bull; Med: [ &nbsp;&nbsp; / 10 ] &bull; Hard: [ &nbsp;&nbsp; / 10 ]</div>
+        <div style="font-size: 7px; color: #64748b; margin-top: 2px;">30 Emails &bull; 1 Mark/Email</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-label">Round 2 Subtotal</div>
+        <div class="stat-input">[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 30 ]</div>
+        <div style="font-size: 7px; color: #64748b; margin-top: 2px;">Max 30 Marks</div>
+      </div>
+    </div>
+    <div class="team-card-footer">
+      <div><strong>COMBINED SCORE: [ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 60 ]</strong> &nbsp;&bull;&nbsp; <strong>FINAL RANK: [ # ______ ]</strong></div>
+      <div class="decision-box">
+        <span class="chk-label chk-qual"><span class="chk-box"></span> QUALIFIED FOR ROUND 3</span>
+        <span class="chk-label chk-elim"><span class="chk-box"></span> ELIMINATED</span>
+      </div>
+      <div>Judge: _________</div>
+    </div>
+  </div>
+
+  <div class="team-card">
+    <div class="team-card-header">
+      <span class="team-badge">TEAM 08</span>
+      <span><strong>Team Name:</strong> ____________________________________________________</span>
+      <span><strong>Seat:</strong> ________</span>
+    </div>
+    <div class="team-card-body">
+      <div class="stat-block">
+        <div class="stat-label">Round 1 (Recon Quiz)</div>
+        <div class="stat-input">[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 30 ]</div>
+        <div style="font-size: 7px; color: #64748b; margin-top: 2px;">30 Questions &bull; 1 Mark/Q</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-label">Round 2 Breakdown (30 Emails: Easy / Med / Hard)</div>
+        <div class="stat-input">Easy: [ &nbsp;&nbsp; / 10 ] &bull; Med: [ &nbsp;&nbsp; / 10 ] &bull; Hard: [ &nbsp;&nbsp; / 10 ]</div>
+        <div style="font-size: 7px; color: #64748b; margin-top: 2px;">30 Emails &bull; 1 Mark/Email</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-label">Round 2 Subtotal</div>
+        <div class="stat-input">[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 30 ]</div>
+        <div style="font-size: 7px; color: #64748b; margin-top: 2px;">Max 30 Marks</div>
+      </div>
+    </div>
+    <div class="team-card-footer">
+      <div><strong>COMBINED SCORE: [ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 60 ]</strong> &nbsp;&bull;&nbsp; <strong>FINAL RANK: [ # ______ ]</strong></div>
+      <div class="decision-box">
+        <span class="chk-label chk-qual"><span class="chk-box"></span> QUALIFIED FOR ROUND 3</span>
+        <span class="chk-label chk-elim"><span class="chk-box"></span> ELIMINATED</span>
+      </div>
+      <div>Judge: _________</div>
+    </div>
+  </div>
+
+  <div class="team-card">
+    <div class="team-card-header">
+      <span class="team-badge">TEAM 09</span>
+      <span><strong>Team Name:</strong> ____________________________________________________</span>
+      <span><strong>Seat:</strong> ________</span>
+    </div>
+    <div class="team-card-body">
+      <div class="stat-block">
+        <div class="stat-label">Round 1 (Recon Quiz)</div>
+        <div class="stat-input">[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 30 ]</div>
+        <div style="font-size: 7px; color: #64748b; margin-top: 2px;">30 Questions &bull; 1 Mark/Q</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-label">Round 2 Breakdown (30 Emails: Easy / Med / Hard)</div>
+        <div class="stat-input">Easy: [ &nbsp;&nbsp; / 10 ] &bull; Med: [ &nbsp;&nbsp; / 10 ] &bull; Hard: [ &nbsp;&nbsp; / 10 ]</div>
+        <div style="font-size: 7px; color: #64748b; margin-top: 2px;">30 Emails &bull; 1 Mark/Email</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-label">Round 2 Subtotal</div>
+        <div class="stat-input">[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 30 ]</div>
+        <div style="font-size: 7px; color: #64748b; margin-top: 2px;">Max 30 Marks</div>
+      </div>
+    </div>
+    <div class="team-card-footer">
+      <div><strong>COMBINED SCORE: [ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 60 ]</strong> &nbsp;&bull;&nbsp; <strong>FINAL RANK: [ # ______ ]</strong></div>
+      <div class="decision-box">
+        <span class="chk-label chk-qual"><span class="chk-box"></span> QUALIFIED FOR ROUND 3</span>
+        <span class="chk-label chk-elim"><span class="chk-box"></span> ELIMINATED</span>
+      </div>
+      <div>Judge: _________</div>
+    </div>
+  </div>
+
+  <div class="team-card">
+    <div class="team-card-header">
+      <span class="team-badge">TEAM 10</span>
+      <span><strong>Team Name:</strong> ____________________________________________________</span>
+      <span><strong>Seat:</strong> ________</span>
+    </div>
+    <div class="team-card-body">
+      <div class="stat-block">
+        <div class="stat-label">Round 1 (Recon Quiz)</div>
+        <div class="stat-input">[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 30 ]</div>
+        <div style="font-size: 7px; color: #64748b; margin-top: 2px;">30 Questions &bull; 1 Mark/Q</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-label">Round 2 Breakdown (30 Emails: Easy / Med / Hard)</div>
+        <div class="stat-input">Easy: [ &nbsp;&nbsp; / 10 ] &bull; Med: [ &nbsp;&nbsp; / 10 ] &bull; Hard: [ &nbsp;&nbsp; / 10 ]</div>
+        <div style="font-size: 7px; color: #64748b; margin-top: 2px;">30 Emails &bull; 1 Mark/Email</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-label">Round 2 Subtotal</div>
+        <div class="stat-input">[ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 30 ]</div>
+        <div style="font-size: 7px; color: #64748b; margin-top: 2px;">Max 30 Marks</div>
+      </div>
+    </div>
+    <div class="team-card-footer">
+      <div><strong>COMBINED SCORE: [ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / 60 ]</strong> &nbsp;&bull;&nbsp; <strong>FINAL RANK: [ # ______ ]</strong></div>
+      <div class="decision-box">
+        <span class="chk-label chk-qual"><span class="chk-box"></span> QUALIFIED FOR ROUND 3</span>
+        <span class="chk-label chk-elim"><span class="chk-box"></span> ELIMINATED</span>
+      </div>
+      <div>Judge: _________</div>
+    </div>
+  </div>
+
+  <!-- Certification Footer -->
+  <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-left: 4px solid #0f172a; border-radius: 6px; padding: 8px 12px; margin-top: 10px; font-size: 8.5px; display: flex; justify-content: space-between; align-items: center;">
+    <div>
+      <strong>OFFICIAL ELIMINATION AUDIT CERTIFICATION:</strong><br/>
+      We certify that the scores for Rounds 1 and 2 (30 Marks each &bull; 60 Marks Combined) were computed and verified according to Operation Ultron event standards.
+    </div>
+    <div style="text-align: right; line-height: 1.4;">
+      Lead Evaluator Signature: _______________________<br>
+      Scoring Master Signature: _______________________
+    </div>
+  </div>
+
+</body>
+</html>

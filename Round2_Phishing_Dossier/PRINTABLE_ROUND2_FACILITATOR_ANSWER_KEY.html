@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operation Ultron — Round 2 Facilitator Master Answer Key</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 8mm 10mm;
+    @bottom-right {
+      content: "Page " counter(page) " of " counter(pages);
+      font-family: 'Inter', sans-serif;
+      font-size: 8px;
+      color: #64748b;
+    }
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body {
+    background-color: #ffffff;
+    color: #0f172a;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.35;
+    font-size: 10px;
+  }
+
+  .header-card {
+    background: linear-gradient(135deg, #090d16 0%, #1e1b4b 100%);
+    color: #ffffff;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    border-left: 5px solid #e11d48;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+
+  .badge-confidential {
+    background: #e11d48;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .doc-id {
+    font-family: 'Fira Code', monospace;
+    font-size: 9px;
+    color: #94a3b8;
+  }
+
+  .header-title {
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: -0.3px;
+    color: #ffffff;
+    margin-bottom: 3px;
+  }
+
+  .header-subtitle {
+    font-size: 11px;
+    color: #cbd5e1;
+    font-weight: 500;
+  }
+
+  .section-heading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 14px 0 8px 0;
+    padding-bottom: 4px;
+    border-bottom: 2px solid #e2e8f0;
+  }
+
+  .section-heading h2 {
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #0f172a;
+  }
+
+  .badge-tier {
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+
+  .tier-easy { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+  .tier-med { background: #fef3c7; color: #b45309; border: 1px solid #fde68a; }
+  .tier-hard { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; }
+
+  /* Master Table */
+  table.matrix-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 12px;
+    font-size: 9px;
+  }
+
+  table.matrix-table th {
+    background: #0f172a;
+    color: #ffffff;
+    text-align: left;
+    padding: 5px 7px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    font-size: 8.5px;
+  }
+
+  table.matrix-table td {
+    padding: 4.5px 7px;
+    border-bottom: 1px solid #e2e8f0;
+    vertical-align: middle;
+  }
+
+  table.matrix-table tr:nth-child(even) td {
+    background-color: #f8fafc;
+  }
+
+  .verdict-tag {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 800;
+    font-size: 8.5px;
+    text-align: center;
+    min-width: 72px;
+  }
+
+  .verdict-malicious {
+    background: #ffe4e6;
+    color: #be123c;
+    border: 1px solid #fecdd3;
+  }
+
+  .verdict-legitimate {
+    background: #dcfce7;
+    color: #15803d;
+    border: 1px solid #bbf7d0;
+  }
+
+  .mono-code {
+    font-family: 'Fira Code', monospace;
+    font-size: 8px;
+    background: #f1f5f9;
+    padding: 1px 4px;
+    border-radius: 3px;
+    color: #334155;
+    border: 1px solid #e2e8f0;
+  }
+
+  /* Detailed Cards Grid */
+  .email-card {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 8px 10px;
+    margin-bottom: 8px;
+    page-break-inside: avoid;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+    padding-bottom: 4px;
+    border-bottom: 1px dashed #e2e8f0;
+  }
+
+  .card-id-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .email-num {
+    background: #0f172a;
+    color: #ffffff;
+    font-size: 9px;
+    font-weight: 800;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Fira Code', monospace;
+  }
+
+  .email-subject {
+    font-weight: 700;
+    font-size: 10px;
+    color: #0f172a;
+  }
+
+  .card-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4px;
+    margin-top: 4px;
+  }
+
+  .data-row {
+    display: flex;
+    gap: 6px;
+    font-size: 9.5px;
+    line-height: 1.3;
+  }
+
+  .data-label {
+    font-weight: 700;
+    color: #475569;
+    min-width: 95px;
+    flex-shrink: 0;
+  }
+
+  .data-value {
+    color: #0f172a;
+    flex-grow: 1;
+  }
+
+  .data-value.threat {
+    color: #b91c1c;
+    font-weight: 600;
+  }
+
+  .data-value.clean {
+    color: #15803d;
+    font-weight: 600;
+  }
+
+  .osint-box {
+    background: #f8fafc;
+    border-left: 3px solid #6366f1;
+    padding: 3px 6px;
+    margin-top: 3px;
+    font-size: 8.5px;
+    color: #334155;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .osint-title {
+    font-weight: 700;
+    color: #4338ca;
+    text-transform: uppercase;
+    font-size: 8px;
+  }
+
+  .page-break {
+    page-break-after: always;
+  }
+
+  .rubric-card {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin-top: 10px;
+    page-break-inside: avoid;
+  }
+
+  .rubric-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 6px;
+  }
+
+  .rubric-item {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    padding: 8px;
+    text-align: center;
+  }
+
+  .rubric-points {
+    font-size: 16px;
+    font-weight: 900;
+    color: #0f172a;
+    font-family: 'Fira Code', monospace;
+  }
+
+  .rubric-label {
+    font-size: 8.5px;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+</style>
+</head>
+<body>
+
+  <!-- Masthead Header -->
+  <div class="header-card">
+    <div class="header-top">
+      <span class="badge-confidential">⚠️ Evaluator Eyes Only // Confidential</span>
+      <span class="doc-id">DOC-REF: STARK-SOC-R2-KEY-2026</span>
+    </div>
+    <h1 class="header-title">OPERATION ULTRON // ROUND 2 ANSWER KEY</h1>
+    <p class="header-subtitle">The Social Engineering Breach — Phishing Webmail Forensic Verification Manual</p>
+  </div>
+
+  <!-- Master Table -->
+  <div class="section-heading">
+    <h2>1. Executive Classification & Verdict Matrix (Emails 1–30)</h2>
+  </div>
+
+  <table class="matrix-table">
+    <thead>
+      <tr>
+        <th style="width: 28px;">#</th>
+        <th style="width: 55px;">Tier</th>
+        <th style="width: 170px;">Subject Line</th>
+        <th style="width: 90px;">Verdict</th>
+        <th style="width: 110px;">Authentication</th>
+        <th>Primary Forensic Reason</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1</strong></td>
+        <td><span class="badge-tier tier-easy">Easy</span></td>
+        <td>CRITICAL: Password Reset Required</td>
+        <td><span class="verdict-tag verdict-malicious">🚩 MALICIOUS</span></td>
+        <td><span class="mono-code">spf=fail, dmarc=fail</span></td>
+        <td>Russian relay <span class="mono-code">185.220.101.34</span> spoofing Stark; links to bare IP</td>
+      </tr>
+      <tr>
+        <td><strong>2</strong></td>
+        <td><span class="badge-tier tier-easy">Easy</span></td>
+        <td>Open Enrollment: 2027 Medical</td>
+        <td><span class="verdict-tag verdict-legitimate">✅ LEGITIMATE</span></td>
+        <td><span class="mono-code">spf/dkim/dmarc=pass</span></td>
+        <td>Authentic Workday HCM relay (<span class="mono-code">216.58.214.195</span>); legitimate tenant</td>
+      </tr>
+      <tr>
+        <td><strong>3</strong></td>
+        <td><span class="badge-tier tier-easy">Easy</span></td>
+        <td>Suspicious Transaction - $1,499 USD</td>
+        <td><span class="verdict-tag verdict-malicious">🚩 MALICIOUS</span></td>
+        <td><span class="mono-code">spf=softfail, dmarc=fail</span></td>
+        <td>Bulkmail server (<span class="mono-code">194.147.140.29</span>) spoofing PayPal; dispute lure</td>
+      </tr>
+      <tr>
+        <td><strong>4</strong></td>
+        <td><span class="badge-tier tier-easy">Easy</span></td>
+        <td>Planned Maintenance: VPN Gateway</td>
+        <td><span class="verdict-tag verdict-legitimate">✅ LEGITIMATE</span></td>
+        <td><span class="mono-code">auth=pass (internal)</span></td>
+        <td>Internal private relay (<span class="mono-code">10.0.10.5</span>); trusted network; no links</td>
+      </tr>
+      <tr>
+        <td><strong>5</strong></td>
+        <td><span class="badge-tier tier-easy">Easy</span></td>
+        <td>Completed: Review and Sign NDA</td>
+        <td><span class="verdict-tag verdict-malicious">🚩 MALICIOUS</span></td>
+        <td><span class="mono-code">spf=fail, dmarc=fail</span></td>
+        <td>Return-Path is <span class="mono-code">marketinghost.net</span> (<span class="mono-code">185.143.223.89</span>); fake DocuSign</td>
+      </tr>
+      <tr>
+        <td><strong>6</strong></td>
+        <td><span class="badge-tier tier-easy">Easy</span></td>
+        <td>AWS Monthly Billing Statement</td>
+        <td><span class="verdict-tag verdict-legitimate">✅ LEGITIMATE</span></td>
+        <td><span class="mono-code">spf/dkim/dmarc=pass</span></td>
+        <td>Amazon SES (<span class="mono-code">54.240.27.88</span>); signed by amazonaws.com; legit link</td>
+      </tr>
+      <tr>
+        <td><strong>7</strong></td>
+        <td><span class="badge-tier tier-easy">Easy</span></td>
+        <td>Unusual Sign-In Blocked (Lagos)</td>
+        <td><span class="verdict-tag verdict-malicious">🚩 MALICIOUS</span></td>
+        <td><span class="mono-code">spf=pass, dmarc=fail</span></td>
+        <td>DMARC alignment fails: From is Microsoft but Return-Path is <span class="mono-code">cheaphoster.xyz</span></td>
+      </tr>
+      <tr>
+        <td><strong>8</strong></td>
+        <td><span class="badge-tier tier-easy">Easy</span></td>
+        <td>GitHub Dependabot Advisory</td>
+        <td><span class="verdict-tag verdict-legitimate">✅ LEGITIMATE</span></td>
+        <td><span class="mono-code">spf/dkim/dmarc=pass</span></td>
+        <td>Valid GitHub IP (<span class="mono-code">192.30.252.195</span>); DKIM signed; authentic repo link</td>
+      </tr>
+      <tr>
+        <td><strong>9</strong></td>
+        <td><span class="badge-tier tier-easy">Easy</span></td>
+        <td>Delivery Exception: Package #7849</td>
+        <td><span class="verdict-tag verdict-malicious">🚩 MALICIOUS</span></td>
+        <td><span class="mono-code">spf=fail, dmarc=fail</span></td>
+        <td>Return-Path <span class="mono-code">delivery-service-pro.com</span> (<span class="mono-code">176.111.174.26</span>) spoofing FedEx</td>
+      </tr>
+      <tr>
+        <td><strong>10</strong></td>
+        <td><span class="badge-tier tier-easy">Easy</span></td>
+        <td>3 unread mentions in #project-avengers</td>
+        <td><span class="verdict-tag verdict-legitimate">✅ LEGITIMATE</span></td>
+        <td><span class="mono-code">spf/dkim/dmarc=pass</span></td>
+        <td>Authentic Slack automated digest (<span class="mono-code">54.240.27.50</span>); legitimate workspace</td>
+      </tr>
+      <tr>
+        <td><strong>11</strong></td>
+        <td><span class="badge-tier tier-med">Medium</span></td>
+        <td>OVERDUE INVOICE #HAM-2026-9041</td>
+        <td><span class="verdict-tag verdict-malicious">🚩 MALICIOUS</span></td>
+        <td><span class="mono-code">dmarc=fail (p=none)</span></td>
+        <td>From is Hammer Mfg but Reply-To diverts to rogue portal on <span class="mono-code">185.191.34.12</span></td>
+      </tr>
+      <tr>
+        <td><strong>12</strong></td>
+        <td><span class="badge-tier tier-med">Medium</span></td>
+        <td>[P1] Database Latency Spike on Vault</td>
+        <td><span class="verdict-tag verdict-legitimate">✅ LEGITIMATE</span></td>
+        <td><span class="mono-code">spf/dkim/dmarc=pass</span></td>
+        <td>PagerDuty official CIDR (<span class="mono-code">199.193.115.12</span>); valid monitoring incident</td>
+      </tr>
+      <tr>
+        <td><strong>13</strong></td>
+        <td><span class="badge-tier tier-med">Medium</span></td>
+        <td>Update on Support Ticket #48291</td>
+        <td><span class="verdict-tag verdict-malicious">🚩 MALICIOUS</span></td>
+        <td><span class="mono-code">auth=pass (abused)</span></td>
+        <td><strong>Open Redirect:</strong> Zendesk logout bounces to <span class="mono-code">ultron-c2-harvest.cc</span></td>
+      </tr>
+      <tr>
+        <td><strong>14</strong></td>
+        <td><span class="badge-tier tier-med">Medium</span></td>
+        <td>Q4 Security Awareness Assessment</td>
+        <td><span class="verdict-tag verdict-legitimate">✅ LEGITIMATE</span></td>
+        <td><span class="mono-code">spf/dkim/dmarc=pass</span></td>
+        <td>Authorized internal phishing drill: carries <span class="mono-code">X-PHISHTEST: KnowBe4</span></td>
+      </tr>
+      <tr>
+        <td><strong>15</strong></td>
+        <td><span class="badge-tier tier-med">Medium</span></td>
+        <td>ACTION: Migrate to FIDO2 Token</td>
+        <td><span class="verdict-tag verdict-malicious">🚩 MALICIOUS</span></td>
+        <td><span class="mono-code">dmarc=fail, dkim=none</span></td>
+        <td><strong>Quishing:</strong> Phishing URL embedded inside QR code (<span class="mono-code">185.143.223.89</span>)</td>
+      </tr>
+      <tr>
+        <td><strong>16</strong></td>
+        <td><span class="badge-tier tier-med">Medium</span></td>
+        <td>Deposition Transcript: US ITC</td>
+        <td><span class="verdict-tag verdict-legitimate">✅ LEGITIMATE</span></td>
+        <td><span class="mono-code">spf/dkim/dmarc=pass</span></td>
+        <td>Hogan Lovells gateway (<span class="mono-code">165.225.198.44</span>); authentic Citrix ShareFile vault</td>
+      </tr>
+      <tr>
+        <td><strong>17</strong></td>
+        <td><span class="badge-tier tier-med">Medium</span></td>
+        <td>Calendar: Emergency Review</td>
+        <td><span class="verdict-tag verdict-malicious">🚩 MALICIOUS</span></td>
+        <td><span class="mono-code">dmarc=fail, dkim=none</span></td>
+        <td><strong>.ics Injection:</strong> WebRTC harvester hidden in calendar VEVENT description</td>
+      </tr>
+      <tr>
+        <td><strong>18</strong></td>
+        <td><span class="badge-tier tier-med">Medium</span></td>
+        <td>Security Alert: App Password Created</td>
+        <td><span class="verdict-tag verdict-legitimate">✅ LEGITIMATE</span></td>
+        <td><span class="mono-code">spf/dkim/dmarc=pass</span></td>
+        <td>Authentic Google admin alert (<span class="mono-code">209.85.220.69</span>); links to admin.google.com</td>
+      </tr>
+      <tr>
+        <td><strong>19</strong></td>
+        <td><span class="badge-tier tier-med">Medium</span></td>
+        <td>Monthly Cloud Cost Report Ready</td>
+        <td><span class="verdict-tag verdict-malicious">🚩 MALICIOUS</span></td>
+        <td><span class="mono-code">spf=pass, dmarc=pass</span></td>
+        <td><strong>Subdomain Takeover:</strong> CNAME points to deleted S3 bucket registered by Ultron</td>
+      </tr>
+      <tr>
+        <td><strong>20</strong></td>
+        <td><span class="badge-tier tier-med">Medium</span></td>
+        <td>Threat Assessment: Sokovia Accords</td>
+        <td><span class="verdict-tag verdict-legitimate">✅ LEGITIMATE</span></td>
+        <td><span class="mono-code">spf/dkim/dmarc=pass</span></td>
+        <td>Inter-agency brief from S.H.I.E.L.D. (<span class="mono-code">204.141.42.10</span>); valid gov DKIM</td>
+      </tr>
+      <tr>
+        <td><strong>21</strong></td>
+        <td><span class="badge-tier tier-hard">Hard</span></td>
+        <td>Urgent Escrow Wire Transfer</td>
+        <td><span class="verdict-tag verdict-malicious">🚩 MALICIOUS</span></td>
+        <td><span class="mono-code">auth=pass (punycode)</span></td>
+        <td><strong>IDN Punycode Homoglyph:</strong> Cyrillic 'і' in <span class="mono-code">xn--starkndustries-ilc.com</span></td>
+      </tr>
+      <tr>
+        <td><strong>22</strong></td>
+        <td><span class="badge-tier tier-hard">Hard</span></td>
+        <td>BUILD FAILED: JARVIS-Firmware-V4</td>
+        <td><span class="verdict-tag verdict-legitimate">✅ LEGITIMATE</span></td>
+        <td><span class="mono-code">dmarc=none (internal)</span></td>
+        <td>Internal CI daemon on <span class="mono-code">10.0.50.45</span>; genuine Linux OOM crash dump</td>
+      </tr>
+      <tr>
+        <td><strong>23</strong></td>
+        <td><span class="badge-tier tier-hard">Hard</span></td>
+        <td>Authorization: Tactical CAD Tool</td>
+        <td><span class="verdict-tag verdict-malicious">🚩 MALICIOUS</span></td>
+        <td><span class="mono-code">auth=pass (MS abused)</span></td>
+        <td><strong>OAuth Consent Phishing:</strong> Abuses login.microsoftonline.com for Mail API</td>
+      </tr>
+      <tr>
+        <td><strong>24</strong></td>
+        <td><span class="badge-tier tier-hard">Hard</span></td>
+        <td>Vulnerability Note VU#892104</td>
+        <td><span class="verdict-tag verdict-legitimate">✅ LEGITIMATE</span></td>
+        <td><span class="mono-code">dkim=fail, arc=pass</span></td>
+        <td>IETF list footer broke DKIM body hash, but <strong>ARC-Seal</strong> validates authenticity</td>
+      </tr>
+      <tr>
+        <td><strong>25</strong></td>
+        <td><span class="badge-tier tier-hard">Hard</span></td>
+        <td>Session Revoked: SAML Re-Auth</td>
+        <td><span class="verdict-tag verdict-malicious">🚩 MALICIOUS</span></td>
+        <td><span class="mono-code">dmarc=fail</span></td>
+        <td><strong>AiTM Proxy:</strong> Cloudflare Worker reverse-proxying login to steal 2FA cookies</td>
+      </tr>
+      <tr>
+        <td><strong>26</strong></td>
+        <td><span class="badge-tier tier-hard">Hard</span></td>
+        <td>Confidential: Executive Stipend Wire</td>
+        <td><span class="verdict-tag verdict-malicious">🚩 MALICIOUS</span></td>
+        <td><span class="mono-code">spf/dkim/dmarc=pass</span></td>
+        <td><strong>BEC / Account Takeover:</strong> Internal mailbox hijacked; IP is <span class="mono-code">104.28.192.44</span></td>
+      </tr>
+      <tr>
+        <td><strong>27</strong></td>
+        <td><span class="badge-tier tier-hard">Hard</span></td>
+        <td>RE: Arc-Reactor Lens Delivery</td>
+        <td><span class="verdict-tag verdict-malicious">🚩 MALICIOUS</span></td>
+        <td><span class="mono-code">spf/dkim/dmarc=pass</span></td>
+        <td><strong>Thread Hijacking:</strong> Compromised supplier mailbox drops weaponized <span class="mono-code">.iso</span></td>
+      </tr>
+      <tr>
+        <td><strong>28</strong></td>
+        <td><span class="badge-tier tier-hard">Hard</span></td>
+        <td>Legal Subpoena Compliance Notice</td>
+        <td><span class="verdict-tag verdict-malicious">🚩 MALICIOUS</span></td>
+        <td><span class="mono-code">dmarc=fail, dkim=none</span></td>
+        <td><strong>Zero-Font Obfuscation:</strong> Invisible CSS words between letters to fool NLP filters</td>
+      </tr>
+      <tr>
+        <td><strong>29</strong></td>
+        <td><span class="badge-tier tier-hard">Hard</span></td>
+        <td>Authenticate Azure CLI Session</td>
+        <td><span class="verdict-tag verdict-malicious">🚩 MALICIOUS</span></td>
+        <td><span class="mono-code">auth=fail (relay)</span></td>
+        <td><strong>Device Code Phishing:</strong> Abuses microsoft.com/devicelogin to hijack admin CLI</td>
+      </tr>
+      <tr>
+        <td><strong>30</strong></td>
+        <td><span class="badge-tier tier-hard">Hard</span></td>
+        <td>CISA Alert AA26-321A: VPN Exploits</td>
+        <td><span class="verdict-tag verdict-legitimate">✅ LEGITIMATE</span></td>
+        <td><span class="mono-code">spf/dkim/dmarc=pass</span></td>
+        <td>Official CISA advisory from <span class="mono-code">204.141.42.50</span>; authentic KEV catalog links</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-break"></div>
+
+  <!-- Detailed Forensic Breakdown Section -->
+  <div class="section-heading">
+    <h2>2. Deep Technical Breakdown & Evidence Guide</h2>
+  </div>
+
+  <!-- Section A Cards -->
+  <div style="margin-bottom: 6px;"><span class="badge-tier tier-easy">Tier 1: Textbook Analysis (Emails 1–10)</span></div>
+
+  <div class="email-card">
+    <div class="card-top">
+      <div class="card-id-title"><span class="email-num">#01</span> <span class="email-subject">CRITICAL: Immediate Password Reset Required</span></div>
+      <span class="verdict-tag verdict-malicious">🚩 MALICIOUS</span>
+    </div>
+    <div class="card-content">
+      <div class="data-row"><span class="data-label">Authentication:</span> <span class="data-value threat">spf=fail, dmarc=fail</span> (185.220.101.34 not authorized by starkindustries.com)</div>
+      <div class="data-row"><span class="data-label">RFC Alignment:</span> From: <span class="mono-code">support@starkindustries.com</span> vs Return-Path: <span class="mono-code">attacker@unknown-relay.serverhost.ru</span></div>
+      <div class="data-row"><span class="data-label">Technical Reason:</span> Direct IP link credential harvester (<span class="mono-code">http://185.220.101.34/reset-password.php</span>) sent from a known Tor exit node in Russia.</div>
+    </div>
+  </div>
+
+  <div class="email-card">
+    <div class="card-top">
+      <div class="card-id-title"><span class="email-num">#02</span> <span class="email-subject">Open Enrollment Notification: 2027 Medical Benefits</span></div>
+      <span class="verdict-tag verdict-legitimate">✅ LEGITIMATE</span>
+    </div>
+    <div class="card-content">
+      <div class="data-row"><span class="data-label">Authentication:</span> <span class="data-value clean">spf=pass, dkim=pass (s=wd2024), dmarc=pass</span></div>
+      <div class="data-row"><span class="data-label">Origin & Links:</span> Dispatched by Workday HCM IP <span class="mono-code">216.58.214.195</span>. Action link routes to authentic enterprise tenant <span class="mono-code">https://wd5.myworkday.com/starkindustries/login</span>.</div>
+    </div>
+  </div>
+
+  <div class="email-card">
+    <div class="card-top">
+      <div class="card-id-title"><span class="email-num">#03</span> <span class="email-subject">Notice: Suspicious Transaction - $1,499.00 USD</span></div>
+      <span class="verdict-tag verdict-malicious">🚩 MALICIOUS</span>
+    </div>
+    <div class="card-content">
+      <div class="data-row"><span class="data-label">Authentication:</span> <span class="data-value threat">spf=softfail, dkim=fail, dmarc=fail</span></div>
+      <div class="data-row"><span class="data-label">Technical Reason:</span> Spoofer claims to be PayPal but sends through bulk relay <span class="mono-code">194.147.140.29</span>. Dispute link routes to typosquatted harvester <span class="mono-code">paypal-dispute-resolution-portal.net</span>.</div>
+    </div>
+  </div>
+
+  <div class="email-card">
+    <div class="card-top">
+      <div class="card-id-title"><span class="email-num">#04</span> <span class="email-subject">Planned Maintenance: VPN Gateway Restart Tonight</span></div>
+      <span class="verdict-tag verdict-legitimate">✅ LEGITIMATE</span>
+    </div>
+    <div class="card-content">
+      <div class="data-row"><span class="data-label">Authentication:</span> <span class="data-value clean">auth=pass (internal-domain-authenticated)</span></div>
+      <div class="data-row"><span class="data-label">Technical Reason:</span> Routed internally across 10.0.10.5. Zero external hops, no hyperlinks, informational text with legitimate internal phone extension 4400.</div>
+    </div>
+  </div>
+
+  <div class="email-card">
+    <div class="card-top">
+      <div class="card-id-title"><span class="email-num">#05</span> <span class="email-subject">Completed: Review and Sign Confidential Vendor Agreement</span></div>
+      <span class="verdict-tag verdict-malicious">🚩 MALICIOUS</span>
+    </div>
+    <div class="card-content">
+      <div class="data-row"><span class="data-label">Authentication:</span> <span class="data-value threat">spf=fail, dkim=none, dmarc=fail</span></div>
+      <div class="data-row"><span class="data-label">Technical Reason:</span> DocuSign spoofed from marketing relay <span class="mono-code">185.143.223.89</span>. Directs user to bare IP address disguised as a signing portal.</div>
+    </div>
+  </div>
+
+  <div class="email-card">
+    <div class="card-top">
+      <div class="card-id-title"><span class="email-num">#06</span> <span class="email-subject">Amazon Web Services Invoice Available for Account #4829</span></div>
+      <span class="verdict-tag verdict-legitimate">✅ LEGITIMATE</span>
+    </div>
+    <div class="card-content">
+      <div class="data-row"><span class="data-label">Authentication:</span> <span class="data-value clean">spf=pass, dkim=pass (d=amazonaws.com), dmarc=pass</span></div>
+      <div class="data-row"><span class="data-label">Origin & Links:</span> Amazon SES relay <span class="mono-code">54.240.27.88</span>. All links point directly to authentic <span class="mono-code">console.aws.amazon.com</span>.</div>
+    </div>
+  </div>
+
+  <div class="email-card">
+    <div class="card-top">
+      <div class="card-id-title"><span class="email-num">#07</span> <span class="email-subject">Unusual Sign-In Attempt Blocked from IP 197.210.44.102</span></div>
+      <span class="verdict-tag verdict-malicious">🚩 MALICIOUS</span>
+    </div>
+    <div class="card-content">
+      <div class="data-row"><span class="data-label">Authentication:</span> <span class="data-value threat">dmarc=fail (alignment mismatch)</span></div>
+      <div class="data-row"><span class="data-label">Technical Reason:</span> Spoofer authenticated their own domain <span class="mono-code">cheaphoster.xyz</span>, but display From is <span class="mono-code">account-security@microsoft.com</span>. Phishing link: <span class="mono-code">microsoft365-security-verify.net</span>.</div>
+    </div>
+  </div>
+
+  <div class="email-card">
+    <div class="card-top">
+      <div class="card-id-title"><span class="email-num">#08</span> <span class="email-subject">[Stark-Industries/JARVIS-Core] Critical Security Advisory</span></div>
+      <span class="verdict-tag verdict-legitimate">✅ LEGITIMATE</span>
+    </div>
+    <div class="card-content">
+      <div class="data-row"><span class="data-label">Authentication:</span> <span class="data-value clean">spf=pass, dkim=pass (d=github.com), dmarc=pass</span></div>
+      <div class="data-row"><span class="data-label">Origin & Links:</span> Originates from GitHub mailer <span class="mono-code">192.30.252.195</span>. Directs to authentic repository security advisory.</div>
+    </div>
+  </div>
+
+  <div class="email-card">
+    <div class="card-top">
+      <div class="card-id-title"><span class="email-num">#09</span> <span class="email-subject">Delivery Exception: Package #7849-2038-4721 On Hold</span></div>
+      <span class="verdict-tag verdict-malicious">🚩 MALICIOUS</span>
+    </div>
+    <div class="card-content">
+      <div class="data-row"><span class="data-label">Authentication:</span> <span class="data-value threat">spf=fail, dmarc=fail</span> (176.111.174.26 not authorized by fedex.com)</div>
+      <div class="data-row"><span class="data-label">Technical Reason:</span> Package hold fee scam directing users to enter data on an unauthorized bare IP address in Ukraine.</div>
+    </div>
+  </div>
+
+  <div class="email-card">
+    <div class="card-top">
+      <div class="card-id-title"><span class="email-num">#10</span> <span class="email-subject">3 unread mentions in #project-avengers-defense</span></div>
+      <span class="verdict-tag verdict-legitimate">✅ LEGITIMATE</span>
+    </div>
+    <div class="card-content">
+      <div class="data-row"><span class="data-label">Authentication:</span> <span class="data-value clean">spf=pass, dkim=pass (d=slack.com), dmarc=pass</span></div>
+      <div class="data-row"><span class="data-label">Origin & Links:</span> Dispatched by Slack notification gateway. Resolves to authentic workspace <span class="mono-code">starkindustries.slack.com</span>.</div>
+    </div>
+  </div>
+
+  <!-- Section B Cards -->
+  <div style="margin: 10px 0 6px 0;"><span class="badge-tier tier-med">Tier 2: SOC L1/L2 & OSINT Lookups (Emails 11–20)</span></div>
+
+  <div class="email-card">
+    <div class="card-top">
+      <div class="card-id-title"><span class="email-num">#11</span> <span class="email-subject">OVERDUE INVOICE #HAM-2026-9041 - Titanium Billet Supply</span></div>
+      <span class="verdict-tag verdict-malicious">🚩 MALICIOUS</span>
+    </div>
+    <div class="card-content">
+      <div class="data-row"><span class="data-label">Attack Vector:</span> Supply Chain Invoice Fraud / Reply-To Mismatch</div>
+      <div class="data-row"><span class="data-label">Technical Proof:</span> From claims <span class="mono-code">accounting@hammermfg.com</span> (which has weak policy <span class="mono-code">p=none</span>), but Reply-To diverts replies to <span class="mono-code">justin.hammer@vendor-accounting-portal.com</span>.</div>
+      <div class="osint-box"><span class="osint-title">OSINT Finding:</span> IP 185.191.34.12 belongs to Hostinger rogue VPS in Lithuania (ASN 47583), not Justin Hammer Manufacturing.</div>
+    </div>
+  </div>
+
+  <div class="email-card">
+    <div class="card-top">
+      <div class="card-id-title"><span class="email-num">#12</span> <span class="email-subject">[P1 - CRITICAL] Database Latency Spike on Vault Cluster</span></div>
+      <span class="verdict-tag verdict-legitimate">✅ LEGITIMATE</span>
+    </div>
+    <div class="card-content">
+      <div class="data-row"><span class="data-label">Authentication:</span> <span class="data-value clean">spf=pass, dkim=pass (d=pagerduty.com), dmarc=pass</span></div>
+      <div class="data-row"><span class="data-label">Technical Proof:</span> Sent from official PagerDuty CIDR <span class="mono-code">199.193.115.12</span>. Routes directly to authentic tenant <span class="mono-code">starkindustries.pagerduty.com</span>.</div>
+    </div>
+  </div>
+
+  <div class="email-card">
+    <div class="card-top">
+      <div class="card-id-title"><span class="email-num">#13</span> <span class="email-subject">Update on Support Ticket #48291: Invoicing Inquiries</span></div>
+      <span class="verdict-tag verdict-malicious">🚩 MALICIOUS</span>
+    </div>
+    <div class="card-content">
+      <div class="data-row"><span class="data-label">Attack Vector:</span> <strong>Open Redirect Exploitation</strong> on Trusted Domain</div>
+      <div class="data-row"><span class="data-label">Technical Proof:</span> SPF/DKIM pass because Zendesk sent the email. But the link exploits Zendesk's logout redirect: <span class="mono-code">.../logout?return_to=https://ultron-c2-harvest.cc/auth/stark-potts</span> trampolining user to an attacker C2.</div>
+      <div class="osint-box"><span class="osint-title">OSINT Finding:</span> ultron-c2-harvest.cc registered via NameSilo with WHOIS privacy in Seychelles bulletproof hosting.</div>
+    </div>
+  </div>
+
+  <div class="email-card">
+    <div class="card-top">
+      <div class="card-id-title"><span class="email-num">#14</span> <span class="email-subject">Your Q4 Security Awareness Assessment is Due</span></div>
+      <span class="verdict-tag verdict-legitimate">✅ LEGITIMATE</span>
+    </div>
+    <div class="card-content">
+      <div class="data-row"><span class="data-label">Authentication:</span> <span class="data-value clean">spf=pass, dkim=pass (d=knowbe4.com), dmarc=pass</span></div>
+      <div class="data-row"><span class="data-label">Technical Proof:</span> Authorized internal exercise. Carries authentic bypass headers: <span class="mono-code">X-PHISHTEST: Stark-Security-Authorized-Simulation-Q4</span> and originates from KnowBe4 IP <span class="mono-code">147.160.167.21</span>.</div>
+    </div>
+  </div>
+
+  <div class="email-card">
+    <div class="card-top">
+      <div class="card-id-title"><span class="email-num">#15</span> <span class="email-subject">ACTION MANDATORY: Scan QR Code to Migrate to FIDO2 Token</span></div>
+      <span class="verdict-tag verdict-malicious">🚩 MALICIOUS</span>
+    </div>
+    <div class="card-content">
+      <div class="data-row"><span class="data-label">Attack Vector:</span> <strong>Quishing (QR Code Phishing)</strong></div>
+      <div class="data-row"><span class="data-label">Technical Proof:</span> Body contains no plain hyperlink. QR generator parameter embeds malicious URL: <span class="mono-code">https://mfa-starksecurity-sso.com/enroll?id=clint.barton</span>. Sent from unaligned relay <span class="mono-code">185.143.223.89</span> (<span class="mono-code">dmarc=fail</span>).</div>
+      <div class="osint-box"><span class="osint-title">OSINT Finding:</span> IP 185.143.223.89 traces to FlokiNET (Romania), a notorious bulletproof hoster.</div>
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <div class="email-card">
+    <div class="card-top">
+      <div class="card-id-title"><span class="email-num">#16</span> <span class="email-subject">Executed Deposition Transcript: US ITC vs Stark Industries</span></div>
+      <span class="verdict-tag verdict-legitimate">✅ LEGITIMATE</span>
+    </div>
+    <div class="card-content">
+      <div class="data-row"><span class="data-label">Authentication:</span> <span class="data-value clean">spf=pass, dkim=pass (d=hoganlovells.com), dmarc=pass</span></div>
+      <div class="data-row"><span class="data-label">Technical Proof:</span> Dispatched from Hogan Lovells gateway <span class="mono-code">165.225.198.44</span>. Links to legitimate corporate Citrix ShareFile vault (<span class="mono-code">hoganlovells.sharefile.com</span>).</div>
+    </div>
+  </div>
+
+  <div class="email-card">
+    <div class="card-top">
+      <div class="card-id-title"><span class="email-num">#17</span> <span class="email-subject">Calendar Invitation: Emergency Core Architecture Review</span></div>
+      <span class="verdict-tag verdict-malicious">🚩 MALICIOUS</span>
+    </div>
+    <div class="card-content">
+      <div class="data-row"><span class="data-label">Attack Vector:</span> <strong>iCalendar (.ics) Attachment Injection</strong></div>
+      <div class="data-row"><span class="data-label">Technical Proof:</span> Injects rogue VEVENT into user calendar. Meeting link in DESCRIPTION routes to Russian harvester <span class="mono-code">stark-webrtc-bridge.ru</span>. Sender relay is <span class="mono-code">179.43.187.22</span> (<span class="mono-code">dmarc=fail</span>).</div>
+      <div class="osint-box"><span class="osint-title">OSINT Finding:</span> IP 179.43.187.22 traces to Private Layer / Njalla (Switzerland), known bulletproof privacy proxy.</div>
+    </div>
+  </div>
+
+  <div class="email-card">
+    <div class="card-top">
+      <div class="card-id-title"><span class="email-num">#18</span> <span class="email-subject">Security alert: An App Password was generated</span></div>
+      <span class="verdict-tag verdict-legitimate">✅ LEGITIMATE</span>
+    </div>
+    <div class="card-content">
+      <div class="data-row"><span class="data-label">Authentication:</span> <span class="data-value clean">spf=pass, dkim=pass (d=google.com), dmarc=pass</span></div>
+      <div class="data-row"><span class="data-label">Technical Proof:</span> Genuine Google Workspace notification sent from <span class="mono-code">209.85.220.69</span>. Alerts super-admins to review app passwords at <span class="mono-code">admin.google.com</span>.</div>
+    </div>
+  </div>
+
+  <div class="email-card">
+    <div class="card-top">
+      <div class="card-id-title"><span class="email-num">#19</span> <span class="email-subject">Monthly Cloud Cost Report Ready: analytics.starkindustries.com</span></div>
+      <span class="verdict-tag verdict-malicious">🚩 MALICIOUS</span>
+    </div>
+    <div class="card-content">
+      <div class="data-row"><span class="data-label">Attack Vector:</span> <strong>Subdomain Takeover (Dangling CNAME)</strong></div>
+      <div class="data-row"><span class="data-label">Technical Proof:</span> CNAME for <span class="mono-code">analytics.starkindustries.com</span> pointed to deleted S3 bucket <span class="mono-code">stark-telemetry-dump-legacy</span>. Attacker registered the bucket in AWS and now serves malware from a legitimate Stark subdomain!</div>
+    </div>
+  </div>
+
+  <div class="email-card">
+    <div class="card-top">
+      <div class="card-id-title"><span class="email-num">#20</span> <span class="email-subject">Threat Assessment Briefing: Sokovia Accords Incident Telemetry</span></div>
+      <span class="verdict-tag verdict-legitimate">✅ LEGITIMATE</span>
+    </div>
+    <div class="card-content">
+      <div class="data-row"><span class="data-label">Authentication:</span> <span class="data-value clean">spf=pass, dkim=pass (d=shield.gov), dmarc=pass</span></div>
+      <div class="data-row"><span class="data-label">Technical Proof:</span> Inter-agency intelligence exchange dispatched from S.H.I.E.L.D. edge gateway <span class="mono-code">204.141.42.10</span> with valid government signatures.</div>
+    </div>
+  </div>
+
+  <!-- Section C Cards -->
+  <div style="margin: 10px 0 6px 0;"><span class="badge-tier tier-hard">Tier 3: SOC L3 / Ethical Hacker Tier (Emails 21–30)</span></div>
+
+  <div class="email-card">
+    <div class="card-top">
+      <div class="card-id-title"><span class="email-num">#21</span> <span class="email-subject">Urgent Escrow Transfer: Acquisition of Pym Tech Assets</span></div>
+      <span class="verdict-tag verdict-malicious">🚩 MALICIOUS</span>
+    </div>
+    <div class="card-content">
+      <div class="data-row"><span class="data-label">Attack Vector:</span> <strong>IDN / Punycode Homoglyph Attack</strong></div>
+      <div class="data-row"><span class="data-label">Technical Proof:</span> Display From is <span class="mono-code">pepper.potts@starkіndustries.com</span>. The letter 'і' is <strong>Cyrillic Small Letter Byelorussian-Ukrainian I (U+0456)</strong>. Resolves to <span class="mono-code">xn--starkndustries-ilc.com</span>. All auth passes because attacker purchased the punycode domain!</div>
+      <div class="osint-box"><span class="osint-title">OSINT Finding:</span> IP 89.187.163.42 traces to Datacamp Limited (Czech Republic).</div>
+    </div>
+  </div>
+
+  <div class="email-card">
+    <div class="card-top">
+      <div class="card-id-title"><span class="email-num">#22</span> <span class="email-subject">BUILD FAILED: Project JARVIS-Firmware-V4 #892</span></div>
+      <span class="verdict-tag verdict-legitimate">✅ LEGITIMATE</span>
+    </div>
+    <div class="card-content">
+      <div class="data-row"><span class="data-label">Authentication:</span> <span class="data-value clean">dmarc=none (internal network routing)</span></div>
+      <div class="data-row"><span class="data-label">Technical Proof:</span> Purely internal host-to-host system message (<span class="mono-code">10.0.50.45</span>). Zero external MX traversal. Contains authentic Linux kernel <span class="mono-code">Exit Code: 137 OOMKilled</span> diagnostic logs.</div>
+    </div>
+  </div>
+
+  <div class="email-card">
+    <div class="card-top">
+      <div class="card-id-title"><span class="email-num">#23</span> <span class="email-subject">Enterprise Authorization Request: "Stark Defense Tactical CAD Visualizer"</span></div>
+      <span class="verdict-tag verdict-malicious">🚩 MALICIOUS</span>
+    </div>
+    <div class="card-content">
+      <div class="data-row"><span class="data-label">Attack Vector:</span> <strong>Illicit OAuth 2.0 Consent Grant (OAuth Phishing)</strong></div>
+      <div class="data-row"><span class="data-label">Technical Proof:</span> Link goes to Microsoft's REAL domain <span class="mono-code">login.microsoftonline.com</span>. Tricking user into granting malicious Azure App (<span class="mono-code">client_id=7c94b291...</span>) API scopes <span class="mono-code">Mail.ReadWrite</span> and <span class="mono-code">offline_access</span> to steal tokens.</div>
+    </div>
+  </div>
+
+  <div class="email-card">
+    <div class="card-top">
+      <div class="card-id-title"><span class="email-num">#24</span> <span class="email-subject">[TLS-Security-WG] Vulnerability Note VU#892104: TLS 1.3 Early Data Replay</span></div>
+      <span class="verdict-tag verdict-legitimate">✅ LEGITIMATE</span>
+    </div>
+    <div class="card-content">
+      <div class="data-row"><span class="data-label">Authentication:</span> <span class="data-value clean">dkim=fail, arc=pass</span></div>
+      <div class="data-row"><span class="data-label">Technical Proof:</span> DKIM body hash broke because the IETF mailing list added an unsubscription footer. But <strong>ARC-Seal (Authenticated Received Chain)</strong> validates that the message arrived legitimately at the list server.</div>
+    </div>
+  </div>
+
+  <div class="email-card">
+    <div class="card-top">
+      <div class="card-id-title"><span class="email-num">#25</span> <span class="email-subject">Session Revoked: Mandatory SAML 2.0 Re-Authentication Required</span></div>
+      <span class="verdict-tag verdict-malicious">🚩 MALICIOUS</span>
+    </div>
+    <div class="card-content">
+      <div class="data-row"><span class="data-label">Attack Vector:</span> <strong>Adversary-in-the-Middle (AiTM) Reverse Proxy</strong></div>
+      <div class="data-row"><span class="data-label">Technical Proof:</span> Reverse proxy hosted on Cloudflare Workers (<span class="mono-code">workers.dev</span>). Deploys Evilginx to proxy legitimate SAML SSO logins, capturing session cookies and bypassing TOTP MFA in real time.</div>
+    </div>
+  </div>
+
+  <div class="email-card">
+    <div class="card-top">
+      <div class="card-id-title"><span class="email-num">#26</span> <span class="email-subject">Confidential: Executive Stipend Wire Routing Modification</span></div>
+      <span class="verdict-tag verdict-malicious">🚩 MALICIOUS</span>
+    </div>
+    <div class="card-content">
+      <div class="data-row"><span class="data-label">Attack Vector:</span> <strong>Business Email Compromise (BEC) / Internal Account Takeover</strong></div>
+      <div class="data-row"><span class="data-label">Technical Proof:</span> Sent from Tony Stark's internal mailbox (<span class="mono-code">spf/dkim/dmarc=pass</span>). The clue: <span class="mono-code">X-Originating-IP: [104.28.192.44]</span> is an external Cloudflare VPN IP, requesting an urgent wire transfer to a Swiss bank without callback.</div>
+    </div>
+  </div>
+
+  <div class="email-card">
+    <div class="card-top">
+      <div class="card-id-title"><span class="email-num">#27</span> <span class="email-subject">RE: Precision Arc-Reactor Lens Delivery Schedule — Milestone 4</span></div>
+      <span class="verdict-tag verdict-malicious">🚩 MALICIOUS</span>
+    </div>
+    <div class="card-content">
+      <div class="data-row"><span class="data-label">Attack Vector:</span> <strong>Thread Hijacking (Reply-Chain Phishing)</strong></div>
+      <div class="data-row"><span class="data-label">Technical Proof:</span> Attacker hijacked supplier Carl Creel's mailbox and replied into an ongoing email thread. Drops an <span class="mono-code">.iso</span> container file to bypass Windows Mark-of-the-Web (MOTW) security controls.</div>
+    </div>
+  </div>
+
+  <div class="email-card">
+    <div class="card-top">
+      <div class="card-id-title"><span class="email-num">#28</span> <span class="email-subject">Legal Subpoena Compliance Notice</span></div>
+      <span class="verdict-tag verdict-malicious">🚩 MALICIOUS</span>
+    </div>
+    <div class="card-content">
+      <div class="data-row"><span class="data-label">Attack Vector:</span> <strong>Zero-Font / CSS NLP Filter Obfuscation</strong></div>
+      <div class="data-row"><span class="data-label">Technical Proof:</span> HTML body inserts invisible zero-pixel words between letters (<span class="mono-code">P&lt;span style="font-size:0px;"&gt;lorem ipsum&lt;/span&gt;lease</span>) to evade Bayesian spam models. Sent from bulletproof IP <span class="mono-code">45.133.1.72</span>.</div>
+      <div class="osint-box"><span class="osint-title">OSINT Finding:</span> IP 45.133.1.72 belongs to FranTech Solutions (Netherlands), known bulletproof hosting.</div>
+    </div>
+  </div>
+
+  <div class="email-card">
+    <div class="card-top">
+      <div class="card-id-title"><span class="email-num">#29</span> <span class="email-subject">Authenticate Azure CLI Session for Production Kubernetes Cluster</span></div>
+      <span class="verdict-tag verdict-malicious">🚩 MALICIOUS</span>
+    </div>
+    <div class="card-content">
+      <div class="data-row"><span class="data-label">Attack Vector:</span> <strong>Microsoft Device Code Flow Phishing</strong></div>
+      <div class="data-row"><span class="data-label">Technical Proof:</span> Directs user to real <span class="mono-code">microsoft.com/devicelogin</span>. Entering the attacker's CLI device code <span class="mono-code">WD7G-9K4P</span> binds the victim's authenticated Azure session and MFA token directly to the attacker's remote terminal!</div>
+    </div>
+  </div>
+
+  <div class="email-card">
+    <div class="card-top">
+      <div class="card-id-title"><span class="email-num">#30</span> <span class="email-subject">CISA Alert AA26-321A: Active Exploitation of Perimeter VPN Gateways</span></div>
+      <span class="verdict-tag verdict-legitimate">✅ LEGITIMATE</span>
+    </div>
+    <div class="card-content">
+      <div class="data-row"><span class="data-label">Authentication:</span> <span class="data-value clean">spf=pass, dkim=pass (d=cisa.dhs.gov), dmarc=pass</span></div>
+      <div class="data-row"><span class="data-label">Technical Proof:</span> Official federal cybersecurity alert originating from CISA gateway <span class="mono-code">204.141.42.50</span>. Links directly to genuine Known Exploited Vulnerabilities catalog on <span class="mono-code">cisa.gov</span>.</div>
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- OSINT Shodan Map -->
+  <div class="section-heading">
+    <h2>3. Ultron C2 OSINT & Shodan Threat Intelligence Matrix</h2>
+  </div>
+
+  <p style="font-size: 9px; color: #475569; margin-bottom: 8px;">
+    Use this table to evaluate participant submissions for the <strong>OSINT & C2 Infrastructure Bonus Investigation</strong>. All 10 suspicious IPs correlate with real-world infrastructure classes:
+  </p>
+
+  <table class="matrix-table">
+    <thead>
+      <tr>
+        <th style="width: 85px;">IP Address</th>
+        <th style="width: 65px;">Geo</th>
+        <th style="width: 140px;">ASN & Hosting Provider</th>
+        <th style="width: 95px;">Shodan Profile</th>
+        <th>Campaign Role / Associated Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="mono-code">185.220.101.34</span></td>
+        <td>Germany</td>
+        <td>ASN 208294 (Zwiebelfreunde)</td>
+        <td>Port 9001 open (Tor)</td>
+        <td>Tor Exit Relay used for Password Reset Phish (Email #1)</td>
+      </tr>
+      <tr>
+        <td><span class="mono-code">194.147.140.29</span></td>
+        <td>Ukraine</td>
+        <td>ASN 200019 (Alexhost)</td>
+        <td>Port 80/443 (Nginx)</td>
+        <td>Phishing drop server for PayPal dispute scam (Email #3)</td>
+      </tr>
+      <tr>
+        <td><span class="mono-code">185.143.223.89</span></td>
+        <td>Romania</td>
+        <td>ASN 200651 (FlokiNET)</td>
+        <td>Port 8080 (Cobalt Strike)</td>
+        <td>Bulletproof relay; Quishing QR code & DocuSign spoof (Email #5, #15)</td>
+      </tr>
+      <tr>
+        <td><span class="mono-code">193.238.46.73</span></td>
+        <td>Poland</td>
+        <td>ASN 44050 (Hostinger)</td>
+        <td>Port 25/587 (Postfix)</td>
+        <td>Generic spam pool used for Microsoft alert spoof (Email #7)</td>
+      </tr>
+      <tr>
+        <td><span class="mono-code">176.111.174.26</span></td>
+        <td>Ukraine</td>
+        <td>ASN 49392 (Ukrnames)</td>
+        <td>Port 80 (Apache)</td>
+        <td>FedEx tracking delivery exception scam (Email #9)</td>
+      </tr>
+      <tr>
+        <td><span class="mono-code">185.191.34.12</span></td>
+        <td>Lithuania</td>
+        <td>ASN 47583 (Hostinger VPS)</td>
+        <td>Port 80/443 (PHP 8.2)</td>
+        <td>Fake invoice wire remittance portal (Email #11)</td>
+      </tr>
+      <tr>
+        <td><span class="mono-code">179.43.187.22</span></td>
+        <td>Switzerland</td>
+        <td>ASN 51852 (Private Layer / Njalla)</td>
+        <td>Port 443 (WebRTC proxy)</td>
+        <td>Bulletproof proxy hosting .ics calendar harvest link (Email #17)</td>
+      </tr>
+      <tr>
+        <td><span class="mono-code">89.187.163.42</span></td>
+        <td>Czechia</td>
+        <td>ASN 60068 (Datacamp Ltd)</td>
+        <td>Port 53 (Bind9 DNS)</td>
+        <td>Punycode DNS listener for xn--starkndustries-ilc.com (Email #21)</td>
+      </tr>
+      <tr>
+        <td><span class="mono-code">45.133.1.72</span></td>
+        <td>Netherlands</td>
+        <td>ASN 204655 (FranTech Solutions)</td>
+        <td>Port 443 (OpenResty)</td>
+        <td>Bulletproof hoster delivering zero-font legal lure (Email #28)</td>
+      </tr>
+      <tr>
+        <td><span class="mono-code">185.56.83.41</span></td>
+        <td>Germany</td>
+        <td>ASN 44486 (Root SA)</td>
+        <td>Port 443 (Node.js daemon)</td>
+        <td>Device Code C2 listener intercepting Azure CLI tokens (Email #29)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Facilitator Scoring Rubric -->
+  <div class="section-heading" style="margin-top: 14px;">
+    <h2>4. Official Evaluator Scoring Rubric</h2>
+  </div>
+
+  <div class="rubric-card">
+    <div class="rubric-grid">
+      <div class="rubric-item">
+        <div class="rubric-points">300 pts</div>
+        <div class="rubric-label">Email Classifications</div>
+        <p style="font-size: 8px; color: #64748b; margin-top: 2px;">30 emails &times; 10 pts per correct verdict</p>
+      </div>
+      <div class="rubric-item">
+        <div class="rubric-points">150 pts</div>
+        <div class="rubric-label">Header & Vector Proof</div>
+        <p style="font-size: 8px; color: #64748b; margin-top: 2px;">Easy: +3 pts &bull; Med: +5 pts &bull; Hard: +7 pts</p>
+      </div>
+      <div class="rubric-item">
+        <div class="rubric-points">70 pts</div>
+        <div class="rubric-label">OSINT & Shodan Bonus</div>
+        <p style="font-size: 8px; color: #64748b; margin-top: 2px;">ASN, Country, & C2 infrastructure map</p>
+      </div>
+    </div>
+    <div style="margin-top: 8px; padding-top: 6px; border-top: 1px dashed #cbd5e1; display: flex; justify-content: space-between; align-items: center;">
+      <span style="font-size: 9px; font-weight: 700; color: #0f172a;">MAXIMUM EVALUATION SCORE: 520 POINTS</span>
+      <span style="font-size: 8.5px; color: #64748b; font-style: italic;">Tiebreaker: Earliest verified timestamp on submitted answer sheet.</span>
+    </div>
+  </div>
+
+</body>
+</html>
