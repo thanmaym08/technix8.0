@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Technix 8.0 — All-Rounds Consolidated Master Scorecard & Final Rankings (165 Marks)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 8mm 10mm;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body {
+    background-color: #f1f5f9;
+    color: #0f172a;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.35;
+    font-size: 11px;
+    padding: 20px;
+  }
+
+  .no-print-bar {
+    max-width: 1000px;
+    margin: 0 auto 16px auto;
+    background: #0f172a;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  .btn {
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 11px;
+    cursor: pointer;
+    transition: 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .btn:hover { background: #1d4ed8; }
+  .btn-green { background: #059669; }
+  .btn-green:hover { background: #047857; }
+  .btn-outline { background: transparent; border: 1px solid #475569; color: #cbd5e1; }
+  .btn-outline:hover { background: #1e293b; color: #fff; }
+
+  .page-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  }
+
+  .header-card {
+    background: linear-gradient(135deg, #090d16 0%, #1e1b4b 100%);
+    color: #ffffff;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    border-left: 5px solid #2563eb;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  }
+
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+
+  .badge-confidential {
+    background: #2563eb;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .doc-id {
+    font-family: 'Fira Code', monospace;
+    font-size: 9px;
+    color: #94a3b8;
+  }
+
+  .header-title {
+    font-size: 16px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+    text-transform: uppercase;
+  }
+
+  .header-subtitle {
+    font-size: 9.5px;
+    color: #cbd5e1;
+    font-weight: 500;
+  }
+
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+    font-size: 10px;
+  }
+
+  .meta-item b {
+    color: #0f172a;
+  }
+
+  .section-title {
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1.5px solid #0f172a;
+    padding-bottom: 4px;
+  }
+
+  table.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 14px;
+    font-size: 9.5px;
+  }
+
+  table.data-table th {
+    background: #0f172a;
+    color: #fff;
+    padding: 6px 4px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 8.5px;
+    border: 1px solid #334155;
+  }
+
+  table.data-table td {
+    padding: 6px 4px;
+    text-align: center;
+    border: 1px solid #cbd5e1;
+    vertical-align: middle;
+  }
+
+  table.data-table tr:nth-child(even) td {
+    background: #f8fafc;
+  }
+
+  .text-left { text-align: left !important; }
+  .text-bold { font-weight: 700; }
+  .font-mono { font-family: 'Fira Code', monospace; }
+
+  .score-input {
+    width: 48px;
+    padding: 3px 2px;
+    text-align: center;
+    font-family: 'Fira Code', monospace;
+    font-weight: 700;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    background: #fff;
+    font-size: 9.5px;
+  }
+
+  .total-cell {
+    font-family: 'Fira Code', monospace;
+    font-weight: 800;
+    font-size: 10px;
+    color: #1e3a8a;
+    background: #eff6ff !important;
+  }
+
+  .rank-badge {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 800;
+    font-size: 9px;
+  }
+  .rank-1 { background: #fef08a; color: #854d0e; border: 1px solid #facc15; }
+  .rank-2 { background: #e2e8f0; color: #334155; border: 1px solid #cbd5e1; }
+  .rank-3 { background: #fed7aa; color: #9a3412; border: 1px solid #fb923c; }
+
+  .protocol-box {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-left: 4px solid #2563eb;
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin-bottom: 16px;
+    font-size: 9.5px;
+    display: grid;
+    grid-template-columns: 1.6fr 1.2fr;
+    gap: 14px;
+  }
+
+  .protocol-box h4 {
+    font-size: 10.5px;
+    font-weight: 800;
+    color: #1e3a8a;
+    margin-bottom: 4px;
+  }
+
+  .protocol-box ol {
+    padding-left: 14px;
+    line-height: 1.4;
+  }
+
+  .team-card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .team-card {
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #fff;
+    font-size: 9px;
+    page-break-inside: avoid;
+  }
+
+  .team-card-header {
+    background: #0f172a;
+    color: #fff;
+    padding: 4px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 700;
+  }
+
+  .team-card-badge {
+    background: #2563eb;
+    color: #fff;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 8px;
+    font-weight: 800;
+  }
+
+  .team-card-body {
+    padding: 8px;
+  }
+
+  .subscore-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    margin-bottom: 6px;
+    text-align: center;
+  }
+
+  .subscore-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    padding: 4px 2px;
+  }
+
+  .subscore-title {
+    font-size: 7.5px;
+    color: #64748b;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .subscore-val {
+    font-family: 'Fira Code', monospace;
+    font-weight: 700;
+    font-size: 9.5px;
+    color: #0f172a;
+  }
+
+  .card-total-row {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 4px;
+    padding: 5px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .award-checks {
+    display: flex;
+    gap: 8px;
+    font-size: 8.5px;
+    color: #334155;
+    align-items: center;
+  }
+
+  .cert-box {
+    border: 1px solid #cbd5e1;
+    background: #f8fafc;
+    border-left: 4px solid #0f172a;
+    border-radius: 6px;
+    padding: 10px 14px;
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 14px;
+    font-size: 9.5px;
+  }
+
+  .page-break {
+    page-break-before: always;
+    margin-top: 20px;
+  }
+
+  @media print {
+    body {
+      background-color: #fff;
+      padding: 0;
+    }
+    .no-print-bar {
+      display: none !important;
+    }
+    .page-container {
+      box-shadow: none;
+      padding: 0;
+      max-width: 100%;
+    }
+    .score-input {
+      border: none;
+      background: transparent;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="no-print-bar">
+  <div>
+    <span style="font-weight: 800; letter-spacing: 0.5px;">TECHNIX 8.0 // MASTER ALL-ROUNDS SCORECARD</span>
+    <span style="color: #94a3b8; font-size: 10px; margin-left: 10px;">R1 (30M) + R2 (30M) + R3 (45M) + R4 (60M) = 165M</span>
+  </div>
+  <div style="display: flex; gap: 8px;">
+    <button class="btn btn-outline" onclick="resetForm()">↺ Reset Sheet</button>
+    <button class="btn btn-green" onclick="autoCalculateAndRank()">⚡ Auto-Calculate & Rank</button>
+    <button class="btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
+  </div>
+</div>
+
+<div class="page-container">
+
+  <!-- Header Card -->
+  <div class="header-card">
+    <div class="header-top">
+      <div class="badge-confidential">Official Final Adjudication Roster</div>
+      <div class="doc-id">FORM: TECHNIX8-GRAND-ALL-ROUNDS-165M</div>
+    </div>
+    <div class="header-title">TECHNIX 8.0 // ALL-ROUND CONSOLIDATED MASTER SCORECARD & FINAL RANKINGS</div>
+    <div class="header-subtitle">Grand Tournament Evaluation Across All 4 Rounds • Total Marks: 165 (R1: 30M • R2: 30M • R3: 45M • R4: 60M)</div>
+  </div>
+
+  <!-- Meta Grid -->
+  <div class="meta-grid">
+    <div class="meta-item"><b>Date:</b> ____________________</div>
+    <div class="meta-item"><b>Venue / Lab:</b> ____________________</div>
+    <div class="meta-item"><b>Lead Evaluator:</b> ____________________</div>
+    <div class="meta-item"><b>Scoring Audit:</b> 10 Teams Verified</div>
+    <div class="meta-item"><b>R1: Recon Quiz:</b> 30 M (1M/Q)</div>
+    <div class="meta-item"><b>R2: Phishing Triage:</b> 30 M (30 Emails)</div>
+    <div class="meta-item"><b>R3: Crypto Breach:</b> 45 M (15M Q + 30M Chits)</div>
+    <div class="meta-item"><b>R4: Citadel CTF:</b> 60 M (5+10+15+30)</div>
+  </div>
+
+  <!-- Section 1: Master Table -->
+  <div class="section-title">
+    <span>1. Master 10-Team Consolidated Leaderboard & Rankings</span>
+    <span style="font-size: 9px; color: #64748b; font-weight: normal;">Max Total: 165 Marks</span>
+  </div>
+
+  <table class="data-table" id="masterTable">
+    <thead>
+      <tr>
+        <th style="width: 32px;">Rank</th>
+        <th style="width: 44px;">Team ID</th>
+        <th style="width: 170px;" class="text-left">Team Designation & Members</th>
+        <th style="width: 58px;">R-1<br>Recon<br>(/30)</th>
+        <th style="width: 58px;">R-2<br>Phish<br>(/30)</th>
+        <th style="width: 58px;">Subtotal<br>R1+R2<br>(/60)</th>
+        <th style="width: 64px;">R-3<br>Crypto<br>(/45)</th>
+        <th style="width: 64px;">Subtotal<br>R1–R3<br>(/105)</th>
+        <th style="width: 58px;">R-4<br>CTF<br>(/60)</th>
+        <th style="width: 72px;">GRAND<br>TOTAL<br>(/165)</th>
+        <th style="width: 52px;">CTF<br>Time</th>
+        <th style="width: 45px;">Final<br>Rank</th>
+        <th style="width: 120px;" class="text-left">Podium & Award Standing</th>
+      </tr>
+    </thead>
+    <tbody id="masterTableBody">
+      <!-- Generated rows for T-01 to T-10 -->
+    </tbody>
+  </table>
+
+  <!-- Protocol Box -->
+  <div class="protocol-box">
+    <div>
+      <h4>OFFICIAL TIE-BREAKER PROTOCOL (165 MARKS TOTAL)</h4>
+      <ol>
+        <li><b>Primary Standard:</b> Highest overall Grand Total (/165 Marks).</li>
+        <li><b>Tiebreaker 1:</b> Highest marks obtained in <b>Round 4: Citadel CTF</b> (/60 Marks).</li>
+        <li><b>Tiebreaker 2:</b> Shortest verified completion split time for highest cleared level in Round 4 (verified via Judge HUD PIN <code>0804</code>).</li>
+        <li><b>Tiebreaker 3:</b> Highest marks in <b>Round 3: Phase 2 Hard Decryption Chit</b> (/20 Marks).</li>
+        <li><b>Tiebreaker 4:</b> Highest marks in <b>Round 2: Hard Phishing Triage</b> (/10 Marks).</li>
+      </ol>
+    </div>
+    <div>
+      <h4>OFFICIAL PODIUM ALLOCATION</h4>
+      <p style="margin-bottom: 2px;">• <b>1st Place (Champion):</b> ___________________________</p>
+      <p style="margin-bottom: 2px;">• <b>2nd Place (1st Runner-Up):</b> _____________________</p>
+      <p style="margin-bottom: 2px;">• <b>3rd Place (2nd Runner-Up):</b> _____________________</p>
+      <p style="margin-bottom: 2px;">• <b>Best Cryptographer (R3):</b> _____________________</p>
+      <p>• <b>Fastest CTF Infiltrator (R4):</b> __________________</p>
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- Section 2: Individual Team Cards -->
+  <div class="section-title">
+    <span>2. Individual Team Performance & Adjudication Cards (Teams 01 – 10)</span>
+    <span style="font-size: 9px; color: #64748b; font-weight: normal;">165 Marks Max per Team</span>
+  </div>
+
+  <div class="team-card-grid" id="teamCardsGrid">
+    <!-- 10 Detailed Team Cards Generated by JavaScript -->
+  </div>
+
+  <!-- Certification Box -->
+  <div class="cert-box">
+    <div>
+      <b>FINAL TOURNAMENT ADJUDICATION & PODIUM CERTIFICATION</b><br>
+      We, the undersigned Lead Judges and Event Directors, hereby certify that scores across all 4 operational rounds 
+      (Round 1: 30M, Round 2: 30M, Round 3: 45M, Round 4: 60M — Cumulative Total 165 Marks) have been strictly audited, 
+      calculated, and verified. Official ranks and podium awards recorded herein are final, binding, and conclusive.
+    </div>
+    <div>
+      <b>EVALUATOR SIGNATURES & STAMP:</b><br><br>
+      Lead Judge: _______________________________<br>
+      Technical Chair: ___________________________<br>
+      Symposium Convenor: ____________________<br>
+      Date & Time: ______________________________
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const TEAMS_COUNT = 10;
+
+  function renderTableRows() {
+    const tbody = document.getElementById('masterTableBody');
+    tbody.innerHTML = '';
+
+    for (let i = 1; i <= TEAMS_COUNT; i++) {
+      const padId = String(i).padStart(2, '0');
+      const tr = document.createElement('tr');
+      tr.id = `row-team-${i}`;
+      tr.innerHTML = `
+        <td class="font-mono text-bold" id="rank-display-${i}">#${i}</td>
+        <td class="font-mono text-bold"><span class="badge-confidential" style="padding: 1px 4px; font-size: 8px;">T-${padId}</span></td>
+        <td class="text-left">
+          <input type="text" placeholder="Team ${i} Designation & Members" style="width: 100%; border: none; background: transparent; font-size: 9.5px; font-family: inherit;" id="team-name-${i}">
+        </td>
+        <td><input type="number" min="0" max="30" class="score-input" id="r1-${i}" placeholder="/30" oninput="calculateRow(${i})"></td>
+        <td><input type="number" min="0" max="30" class="score-input" id="r2-${i}" placeholder="/30" oninput="calculateRow(${i})"></td>
+        <td class="font-mono text-bold" id="sub-1-2-${i}">[ -- / 60 ]</td>
+        <td><input type="number" min="0" max="45" class="score-input" id="r3-${i}" placeholder="/45" oninput="calculateRow(${i})"></td>
+        <td class="font-mono text-bold" id="sub-1-3-${i}">[ -- / 105 ]</td>
+        <td><input type="number" min="0" max="60" class="score-input" id="r4-${i}" placeholder="/60" oninput="calculateRow(${i})"></td>
+        <td class="total-cell" id="grand-total-${i}">[ -- / 165 ]</td>
+        <td><input type="text" placeholder="mm:ss" style="width: 44px; text-align: center; font-family: monospace; font-size: 9px; border: 1px solid #cbd5e1; border-radius: 3px;" id="time-${i}"></td>
+        <td class="font-mono text-bold" id="final-rank-${i}"># --</td>
+        <td class="text-left" id="award-col-${i}">
+          <label style="margin-right: 4px;"><input type="radio" name="award-${i}" value="1st"> 1st</label>
+          <label style="margin-right: 4px;"><input type="radio" name="award-${i}" value="2nd"> 2nd</label>
+          <label style="margin-right: 4px;"><input type="radio" name="award-${i}" value="3rd"> 3rd</label>
+          <label><input type="radio" name="award-${i}" value="Fin"> Fin</label>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    }
+  }
+
+  function renderTeamCards() {
+    const grid = document.getElementById('teamCardsGrid');
+    grid.innerHTML = '';
+
+    for (let i = 1; i <= TEAMS_COUNT; i++) {
+      const padId = String(i).padStart(2, '0');
+      const card = document.createElement('div');
+      card.className = 'team-card';
+      card.id = `card-${i}`;
+      card.innerHTML = `
+        <div class="team-card-header">
+          <div><span class="team-card-badge">TEAM ${padId}</span> <span id="card-name-${i}">Team ${i} Designation</span></div>
+          <div>Station: <span class="font-mono">#${padId}</span></div>
+        </div>
+        <div class="team-card-body">
+          <div class="subscore-grid">
+            <div class="subscore-box">
+              <div class="subscore-title">R1: Recon</div>
+              <div class="subscore-val" id="card-r1-${i}">-- / 30</div>
+            </div>
+            <div class="subscore-box">
+              <div class="subscore-title">R2: Phish</div>
+              <div class="subscore-val" id="card-r2-${i}">-- / 30</div>
+            </div>
+            <div class="subscore-box">
+              <div class="subscore-title">R3: Crypto</div>
+              <div class="subscore-val" id="card-r3-${i}">-- / 45</div>
+            </div>
+            <div class="subscore-box">
+              <div class="subscore-title">R4: CTF</div>
+              <div class="subscore-val" id="card-r4-${i}">-- / 60</div>
+            </div>
+          </div>
+          <div class="card-total-row">
+            <div>GRAND TOTAL: <span class="font-mono" style="font-size: 11px; color: #1e3a8a;" id="card-total-${i}">[ -- / 165 ]</span></div>
+            <div>Rank: <span class="font-mono text-bold" id="card-rank-${i}"># --</span></div>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 4px;">
+            <div class="award-checks">
+              <label><input type="radio" name="card-award-${i}" value="1st"> 1st (Champ)</label>
+              <label><input type="radio" name="card-award-${i}" value="2nd"> 2nd</label>
+              <label><input type="radio" name="card-award-${i}" value="3rd"> 3rd</label>
+              <label><input type="radio" name="card-award-${i}" value="Fin"> Finalist</label>
+            </div>
+            <div style="color: #64748b; font-size: 8px;">Sign: ____________</div>
+          </div>
+        </div>
+      `;
+      grid.appendChild(card);
+    }
+  }
+
+  function calculateRow(i) {
+    const r1 = parseFloat(document.getElementById(`r1-${i}`).value) || 0;
+    const r2 = parseFloat(document.getElementById(`r2-${i}`).value) || 0;
+    const r3 = parseFloat(document.getElementById(`r3-${i}`).value) || 0;
+    const r4 = parseFloat(document.getElementById(`r4-${i}`).value) || 0;
+
+    const sub12 = r1 + r2;
+    const sub13 = r1 + r2 + r3;
+    const grand = r1 + r2 + r3 + r4;
+
+    document.getElementById(`sub-1-2-${i}`).innerText = `[ ${sub12} / 60 ]`;
+    document.getElementById(`sub-1-3-${i}`).innerText = `[ ${sub13} / 105 ]`;
+    document.getElementById(`grand-total-${i}`).innerText = `[ ${grand} / 165 ]`;
+
+    // Sync to card
+    document.getElementById(`card-r1-${i}`).innerText = `${r1} / 30`;
+    document.getElementById(`card-r2-${i}`).innerText = `${r2} / 30`;
+    document.getElementById(`card-r3-${i}`).innerText = `${r3} / 45`;
+    document.getElementById(`card-r4-${i}`).innerText = `${r4} / 60`;
+    document.getElementById(`card-total-${i}`).innerText = `[ ${grand} / 165 ]`;
+
+    const nameInput = document.getElementById(`team-name-${i}`).value;
+    if (nameInput) {
+      document.getElementById(`card-name-${i}`).innerText = nameInput;
+    }
+  }
+
+  function autoCalculateAndRank() {
+    let teams = [];
+    for (let i = 1; i <= TEAMS_COUNT; i++) {
+      calculateRow(i);
+      const r1 = parseFloat(document.getElementById(`r1-${i}`).value) || 0;
+      const r2 = parseFloat(document.getElementById(`r2-${i}`).value) || 0;
+      const r3 = parseFloat(document.getElementById(`r3-${i}`).value) || 0;
+      const r4 = parseFloat(document.getElementById(`r4-${i}`).value) || 0;
+      const total = r1 + r2 + r3 + r4;
+      const timeStr = document.getElementById(`time-${i}`).value || "99:99";
+
+      teams.push({ id: i, total: total, r4: r4, r3: r3, r2: r2, time: timeStr });
+    }
+
+    // Sort descending by total, then r4, then time
+    teams.sort((a, b) => {
+      if (b.total !== a.total) return b.total - a.total;
+      if (b.r4 !== a.r4) return b.r4 - a.r4;
+      return a.time.localeCompare(b.time);
+    });
+
+    // Assign ranks
+    teams.forEach((t, idx) => {
+      const rank = idx + 1;
+      const rankStr = `#${rank}`;
+      document.getElementById(`final-rank-${t.id}`).innerText = rankStr;
+      document.getElementById(`card-rank-${t.id}`).innerText = rankStr;
+
+      // Auto select awards for top 3
+      if (rank === 1) {
+        checkRadio(`award-${t.id}`, '1st');
+        checkRadio(`card-award-${t.id}`, '1st');
+      } else if (rank === 2) {
+        checkRadio(`award-${t.id}`, '2nd');
+        checkRadio(`card-award-${t.id}`, '2nd');
+      } else if (rank === 3) {
+        checkRadio(`award-${t.id}`, '3rd');
+        checkRadio(`card-award-${t.id}`, '3rd');
+      } else {
+        checkRadio(`award-${t.id}`, 'Fin');
+        checkRadio(`card-award-${t.id}`, 'Fin');
+      }
+    });
+
+    alert("✅ All team scores calculated and ranks assigned according to official tournament tiebreaker rules!");
+  }
+
+  function checkRadio(name, val) {
+    const el = document.querySelector(`input[name="${name}"][value="${val}"]`);
+    if (el) el.checked = true;
+  }
+
+  function resetForm() {
+    if (confirm("Reset all scores and names on this sheet?")) {
+      renderTableRows();
+      renderTeamCards();
+    }
+  }
+
+  // Initial load
+  renderTableRows();
+  renderTeamCards();
+</script>
+
+</body>
+</html>
