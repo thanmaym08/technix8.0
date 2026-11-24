@@ -70,6 +70,7 @@ If two or more teams achieve the same final score or finish on the same level wh
 ### 🟢 LEVEL 1: THE SIGNAL INTERCEPT (5 POINTS)
 * **Target Flag:** `AEGIS{S1GN4L_V1G3N3R3_C1PH3R_88}`
 * **Target SHA-256:** `4d64a1e93235165cbe0a37e0cca427e56dc3a926abcebf1ae0042d5941a3b2aa`
+* **Casing Tolerance:** Fully case-insensitive (both uppercase `AEGIS{...}` and lowercase `aegis{...}` from online converters, as well as bare keys, are accepted automatically).
 * **Permitted Tools:** Browser, Online Decoders (CyberChef), Command Line. *(❌ No AI)*
 
 #### The Challenge:

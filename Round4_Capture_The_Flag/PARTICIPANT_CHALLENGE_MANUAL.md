@@ -40,7 +40,7 @@ You are stationed at an infiltration terminal connected to the central Citadel n
    ```text
    AEGIS{flag_text_here}
    ```
-   *(Flags are case-sensitive and must include the outer `AEGIS{` and `}` wrapper).*
+   *(Flags are case-insensitive: both capital and small letters, such as `AEGIS{...}` or `aegis{...}`, as well as the inner key from online decoders, are accepted).*
 4. **Live Checkpoint Split Timers:**
    * Every time your team submits a valid flag, the mission clock records your **Checkpoint Elapsed Time** and **Split Duration**.
    * If two teams tie on score at the end of the round, the team that reached that milestone with the **earliest Checkpoint Split Time wins the tie**!

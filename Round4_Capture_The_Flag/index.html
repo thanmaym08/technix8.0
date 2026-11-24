@@ -861,7 +861,7 @@ ENCODING_SCHEME  : RFC 1924 (Ascii85)
 
         <div class="flag-submission-bar">
           <form class="flag-form" onsubmit="event.preventDefault(); submitFlag(1);">
-            <input type="text" class="flag-input" id="input-flag-1" placeholder="Enter recovered flag: AEGIS{...}" autocomplete="off" spellcheck="false">
+            <input type="text" class="flag-input" id="input-flag-1" placeholder="Enter recovered flag: AEGIS{...} (capital or small letters accepted)" autocomplete="off" spellcheck="false">
             <button type="submit" class="btn-submit-flag">SUBMIT FLAG ➔</button>
           </form>
           <div class="feedback-message" id="feedback-1"></div>
@@ -1639,9 +1639,23 @@ if __name__ == '__main__':
         return;
       }
 
-      const hashed = await sha256(userFlag);
+      // Support case-insensitive flag validation (capital or small letters accepted from online decoders)
+      const rawHash = await sha256(userFlag);
+      const upperHash = await sha256(userFlag.toUpperCase());
 
-      if (hashed === FLAG_HASHES[level]) {
+      // Also construct wrapped variant if participant pasted without AEGIS{...}
+      let wrappedUpper = userFlag.toUpperCase();
+      if (!wrappedUpper.startsWith("AEGIS{")) {
+        const inner = wrappedUpper.replace(/^AEGIS\{?/i, "").replace(/\}$/, "");
+        wrappedUpper = `AEGIS{${inner}}`;
+      }
+      const wrappedUpperHash = await sha256(wrappedUpper);
+
+      const isMatch = (rawHash === FLAG_HASHES[level]) || 
+                      (upperHash === FLAG_HASHES[level]) || 
+                      (wrappedUpperHash === FLAG_HASHES[level]);
+
+      if (isMatch) {
         feedback.className = "feedback-message success";
         feedback.textContent = `[+] 🟢 ACCESS GRANTED! LEVEL ${level} NEUTRALIZED!`;
         playSuccessSound();
