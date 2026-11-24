@@ -76,6 +76,7 @@ You are stationed at an infiltration terminal connected to the central Citadel n
   - The login portal queries an SQL database:
     `SELECT * FROM admin_users WHERE username = '$user' AND password = '$password'`
   - Construct an SQL injection string in the Administrator Username field to evaluate the condition to true and reveal the admin access flag!
+  - *Hint:* Use standard boolean auth-bypass patterns in the Administrator Username field (e.g., `' OR 1=1 --` or `admin' --`). The password check is bypassed when commented out!
 
 ---
 

@@ -1023,16 +1023,24 @@ ENCODING_SCHEME  : RFC 1924 (Ascii85)
 
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px;">
             <div>
-              <label style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:4px;">
-                ADMINISTRATOR USERNAME:
+              <label style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted); display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                <span>ADMINISTRATOR USERNAME:</span>
+                <span style="color:var(--gold-amber); font-size:0.7rem; font-weight:600;">💡 Hint: e.g. ' OR 1=1 --</span>
               </label>
-              <input type="text" class="form-control" id="sqli-user-input" placeholder="Enter administrator username (e.g. admin, operator)" autocomplete="off" spellcheck="false">
+              <input type="text" class="form-control" id="sqli-user-input" placeholder="e.g. ' OR 1=1 -- or admin' --" autocomplete="off" spellcheck="false">
+              <div style="font-size:0.72rem; color:var(--text-dim); margin-top:3px; font-family:var(--font-mono);">
+                Break string literal: <code>WHERE username = '$user' AND password = '$pass'</code>
+              </div>
             </div>
             <div>
-              <label style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:4px;">
-                ACCESS PASSWORD:
+              <label style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted); display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                <span>ACCESS PASSWORD:</span>
+                <span style="color:var(--text-dim); font-size:0.7rem;">(Bypassed via comment)</span>
               </label>
-              <input type="password" class="form-control" id="sqli-pass-input" placeholder="Enter access password" autocomplete="off">
+              <input type="password" class="form-control" id="sqli-pass-input" placeholder="Enter any dummy password" autocomplete="off">
+              <div style="font-size:0.72rem; color:var(--text-dim); margin-top:3px; font-family:var(--font-mono);">
+                Password check is commented out when injected
+              </div>
             </div>
           </div>
 
@@ -1740,8 +1748,8 @@ if __name__ == '__main__':
       const user = document.getElementById("sqli-user-input").value.trim();
       const pass = document.getElementById("sqli-pass-input").value.trim();
 
-      // Check classic SQL injection patterns
-      const sqlInjectionPattern = /('\s*or\s*1\s*=\s*1)|('\s*or\s*'1'\s*=\s*'1')|('\s*or\s*true)|(admin'\s*--)/i;
+      // Check classic SQL injection patterns (tautology and comment sequences)
+      const sqlInjectionPattern = /('\s*or\s*1\s*=\s*1)|('\s*or\s*'1'\s*=\s*'1')|('\s*or\s*true)|('\s*or\s*'a'\s*=\s*'a')|(admin'\s*--)|(admin'\s*#)/i;
 
       if (sqlInjectionPattern.test(user)) {
         // SUCCESSFUL SQLi!
@@ -1758,7 +1766,7 @@ if __name__ == '__main__':
         document.getElementById("sqli-terminal-log").innerHTML = `
           [-] Executed query: <code>SELECT * FROM admin_users WHERE username = '${user || "none"}' AND password = '...'</code><br>
           <span class="err">[-] AUTHENTICATION FAILED: Invalid username or password.</span><br>
-          [!] Hint: Construct a valid boolean SQL injection condition in the username field.
+          [!] Hint: Construct a valid boolean SQL injection condition in the username field (e.g. ' OR 1=1 -- or admin' --).
         `;
         playErrorSound();
       }
